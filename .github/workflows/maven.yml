@@ -87,4 +87,4 @@ jobs:
       - name: Push new docker-compose file
         run: scp docker-compose.yml staging:~
       - name: Restart containers
-        run: ssh staging 'docker-compose up -d --build'
+        run: ssh staging 'docker-compose up -d --pull'
