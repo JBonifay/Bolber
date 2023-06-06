@@ -59,5 +59,7 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
 
-      - name: Stop the server
+      - name: Pull new code
+        run: git fetch origin && git reset --hard origin/main
+      - name: Restart containers
         run: ssh staging 'docker-compose up -d --build'
