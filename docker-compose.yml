@@ -5,4 +5,4 @@ services:
   uberclone:
     image: ghcr.io/jbonifay/uberclone:latest
     ports:
-      - "80:8080"
+      - "443:8443"
