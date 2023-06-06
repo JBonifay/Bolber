@@ -7,6 +7,9 @@ on:
 jobs:
   test-node:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/main/angular
     strategy:
       matrix:
         node-version: [ 18.x ]
@@ -52,9 +55,9 @@ jobs:
             StrictHostKeyChecking no
           END
         env:
-          SSH_USER: ${{ secrets.STAGING_SSH_USER }}
-          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
-          SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: Stop the server
         run: ssh staging 'docker-compose up -d --build'
