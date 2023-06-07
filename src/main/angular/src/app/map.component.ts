@@ -10,6 +10,7 @@ export class MapComponent implements OnInit {
   private gridSize = 500;
   private gridCount = 50;
   private squareSize = this.gridSize / this.gridCount;
+  private points: Map<string, SVGRect> = new Map();
 
   constructor(private renderer: Renderer2) {
   }
@@ -19,23 +20,22 @@ export class MapComponent implements OnInit {
     svg.setAttribute('width', `${this.gridSize}`)
     svg.setAttribute('height', `${this.gridSize}`)
 
-    this.createRoad(svg);
-    this.createBlocks(svg, parks, '#70A288');
-    this.createBlocks(svg, river, '#3185FC');
-    this.createBlocks(svg, buildings, '#d77a61');
+    this.drawRoad(svg);
+    this.drawObstacles(svg, parks, '#70A288');
+    this.drawObstacles(svg, river, '#3185FC');
+    this.drawObstacles(svg, buildings, '#d77a61');
 
   }
 
-  private createRoad(svg: HTMLElement) {
+  private drawRoad(svg: HTMLElement) {
     for (let i = 0; i < this.gridCount; i++) {
       for (let j = 0; j < this.gridCount; j++) {
         this.createSvgBlock(j, i, 'white', svg);
-
       }
     }
   }
 
-  private createBlocks(svg: HTMLElement, blockValues: number[][], color: string) {
+  private drawObstacles(svg: HTMLElement, blockValues: number[][], color: string) {
     blockValues.forEach(value => {
       let x = value[0]
       let xEnd = value[1];
@@ -46,6 +46,7 @@ export class MapComponent implements OnInit {
         let y = yStart
         while (y <= yEnd) {
           this.createSvgBlock(x, y, color, svg)
+          this.points.delete(`${x}:${y}`);
           y++;
         }
         x++;
@@ -61,6 +62,7 @@ export class MapComponent implements OnInit {
     this.renderer.setAttribute(rect, "y", `${y * this.squareSize}`);
     this.renderer.setAttribute(rect, 'fill', color);
     this.renderer.appendChild(parentSvg, rect)
+    this.points.set(`${x}:${y}`, rect);
   }
 }
 
