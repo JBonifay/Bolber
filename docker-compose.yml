@@ -10,6 +10,11 @@ services:
   
   frontend:
     image: ghcr.io/jbonifay/uberclone-frontend:latest
-  
+    ports:
+      - "80:80"
+      - "443:443"
+      
   backend:
     image: ghcr.io/jbonifay/uberclone-backend:latest
+    ports:
+      - "8080:8080"
