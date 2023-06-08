@@ -16,39 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-public class UberCloneApplication implements CommandLineRunner {
-
-    @Value("classpath:init.csv")
-    Resource resourceFile;
-    private final MapRepository mapRepository;
-
-    public UberCloneApplication(MapRepository mapRepository) {
-        this.mapRepository = mapRepository;
-    }
+public class UberCloneApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(UberCloneApplication.class, args);
     }
-
-
-    @Override
-    public void run(String... args) throws Exception {
-        List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(resourceFile.getFile()))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                records.add(Arrays.asList(values));
-            }
-        }
-
-        records.forEach(strings -> {
-            mapRepository.insertBlock(strings.get(0),
-                    Integer.parseInt(strings.get(1)),
-                    Integer.parseInt(strings.get(2)),
-                    Integer.parseInt(strings.get(3)),
-                    Integer.parseInt(strings.get(4)),
-                    strings.get(5));
-        });
-    }
+    
 }
