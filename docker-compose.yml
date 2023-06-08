@@ -2,7 +2,15 @@ version: '3'
 
 services:
   
-  uberclone:
-    image: ghcr.io/jbonifay/uberclone:latest
+  frontend:
+    image: ghcr.io/jbonifay/uberclone-frontend:latest
     ports:
-      - "443:8443"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  
+  backend:
+    image: ghcr.io/jbonifay/uberclone-backend:latest
+    expose:
+      - "9001:8080"
