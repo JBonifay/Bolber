@@ -1,7 +1,7 @@
 ### Angular ###
-src/main/angular/.vscode
-src/main/angular/.angular
-src/main/angular/node_modules
+frontend/.vscode
+frontend/.angular
+frontend/node_modules
 src/main/resources/static
 HELP.md
 .gradle
