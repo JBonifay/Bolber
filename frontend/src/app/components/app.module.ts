@@ -4,9 +4,9 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {IMapManagement} from "../domain/ports/imap-management";
-import {RemoteMapService} from "../adapters/remote-map.service";
 import {MapDisplayComponent} from './map-display.component';
 import {AppRoutingModule} from "./app-routing.module";
+import {RemoteMapService} from "../adapters/remote-map.service";
 
 @NgModule({
   declarations: [

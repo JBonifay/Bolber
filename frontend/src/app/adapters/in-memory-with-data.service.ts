@@ -4,20 +4,16 @@ import {Observable, of} from "rxjs";
 import {Block} from "../domain/models/block";
 
 @Injectable()
-export class InMemoryMapService implements IMapManagement {
+export class InMemoryWithDataService implements IMapManagement {
 
-  private blocks: Block[] = Array();
+  private blocks: Block[] = Array(
+    new Block("river", 0, 1, 0, 1, "#3185FC")
+  );
 
   constructor() {
-  }
-
-  insert(blocks: Block[]) {
-    this.blocks.push(...blocks);
   }
 
   getMap(): Observable<Block[]> {
     return of(this.blocks);
   }
-
-
 }

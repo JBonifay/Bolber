@@ -1,10 +1,10 @@
 export class Block {
-  private blockType: string;
-  private xStart: number;
-  private xEnd: number;
-  private yStart: number;
-  private yEnd: number;
-  private color: string;
+  blockType: string;
+  xStart: number;
+  xEnd: number;
+  yStart: number;
+  yEnd: number;
+  color: string;
 
   constructor(
     blockType: string,
