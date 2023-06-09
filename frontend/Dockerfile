@@ -1,6 +1,6 @@
 FROM node:20.2.0 as node
 WORKDIR /app
-COPY /frontend .
+COPY . .
 
 RUN npm install
 RUN npm run build --prod

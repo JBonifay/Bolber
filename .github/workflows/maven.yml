@@ -55,8 +55,10 @@ jobs:
       matrix:
         include:
           - dockerfile: ./frontend/Dockerfile
+            context: ./frontend
             image: ghcr.io/jbonifay/uberclone-frontend
           - dockerfile: ./backend/Dockerfile
+            context: ./backend
             image: ghcr.io/jbonifay/uberclone-backend
     permissions:
       contents: read
@@ -83,7 +85,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           registry: ghcr.io
-          context: .
+          context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
           push: true
           tags: ${{ matrix.image }}

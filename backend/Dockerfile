@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jdk-alpine AS build
 WORKDIR /app
-COPY /backend .
+COPY . .
 
 RUN ./mvnw -f pom.xml clean package
 
