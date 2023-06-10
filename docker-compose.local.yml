@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30
+  
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ~/.ssh/personal:/certs:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - frontend
+  
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - frontend
+
+networks:
+  frontend:
