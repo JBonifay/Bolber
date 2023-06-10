@@ -1,7 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 
 import {RemoteMapService} from './remote-map.service';
-import {InMemoryMapService} from "./in-memory-map.service";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {HttpClient} from "@angular/common/http";
 import {Block} from "../domain/models/block";
@@ -40,7 +39,7 @@ describe('MapService', () => {
       expect(value).toEqual(expectedBlocks)
     })
 
-    const req = httpTestingController.expectOne("backend:8080/api/map")
+    const req = httpTestingController.expectOne(`/api/map`)
     expect(req.request.method).toEqual('GET');
     req.flush(expectedBlocks);
   });

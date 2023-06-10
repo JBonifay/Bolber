@@ -11,6 +11,6 @@ export class RemoteMapService implements IMapManagement {
   }
 
   getMap(): Observable<Block[]> {
-    return this.httpClient.get<Block[]>("backend:8080/api/map");
+    return this.httpClient.get<Block[]>(`/api/map`);
   }
 }
