@@ -36,8 +36,7 @@ public class MapAcceptanceTest {
                 .contentType(APPLICATION_JSON)
                 .expectBody()
                 .json("""
-                        {
-                          "blocks": [
+                        [
                             {
                               "blockType": "buildings",
                               "xStart": 19,
@@ -63,6 +62,6 @@ public class MapAcceptanceTest {
                               "color": "#70A288"
                             }
                           ]
-                        }""");
+                        """);
     }
 }

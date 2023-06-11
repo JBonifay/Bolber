@@ -1,7 +1,9 @@
 package com.joffrey.uberclone.usecases;
 
-import com.joffrey.uberclone.domain.Map;
+import com.joffrey.uberclone.domain.Block;
 import com.joffrey.uberclone.domain.repositories.MapRepository;
+
+import java.util.List;
 
 public class MapUseCase {
     private final MapRepository mapRepository;
@@ -10,7 +12,7 @@ public class MapUseCase {
         this.mapRepository = mapRepository;
     }
 
-    public Map map() {
-        return new Map(mapRepository.getBlocks());
+    public List<Block> map() {
+        return mapRepository.getBlocks();
     }
 }
