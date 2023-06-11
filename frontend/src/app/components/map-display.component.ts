@@ -23,7 +23,6 @@ export class MapDisplayComponent implements OnInit {
     svg.setAttribute('height', `${this.gridSize}`)
 
     this.mapService.getMap().subscribe(blocks => {
-      console.log(blocks);
       this.drawObstacles(svg, blocks);
     });
   }

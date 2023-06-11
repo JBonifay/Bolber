@@ -3,7 +3,6 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {MapDisplayComponent} from './map-display.component';
 import {IMapManagement} from "../domain/ports/imap-management";
 import {InMemoryMapService} from "../adapters/in-memory-map.service";
-import {Block} from "../domain/models/block";
 
 describe('MapDisplayComponent', () => {
   let component: MapDisplayComponent;
@@ -27,10 +26,10 @@ describe('MapDisplayComponent', () => {
 
   it('should add block', () => {
     let svg = document.getElementById('editorSvg')!;
-    let blocks = Array.of(
-      new Block("river", 0, 1, 0, 1, "#3185FC"),
-      new Block("river", 3, 4, 3, 4, "#3185FC"),
-    );
+    let blocks = [
+      {blockType: "river", xStart: 0, xEnd: 1, yStart: 0, yEnd: 1, color: "#3185FC"},
+      {blockType: "river", xStart: 3, xEnd: 4, yStart: 3, yEnd: 4, color: "#3185FC"}
+    ];
     mapService.insert(blocks);
     component.ngOnInit()
 

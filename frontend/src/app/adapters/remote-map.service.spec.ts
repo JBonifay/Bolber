@@ -26,14 +26,12 @@ describe('MapService', () => {
   });
 
   it('should ask map to backend', () => {
-    const expectedBlocks: Block[] =
-      Array.of(
-        new Block("river", 33, 34, 32, 35, "#3185FC"),
-        new Block("building", 34, 35, 36, 36, "#d77a61"),
-        new Block("building", 36, 38, 36, 37, "#d77a61"),
-        new Block("park", 35, 38, 32, 35, "#70A288")
-      );
-
+    const expectedBlocks: Block[] = [
+      {blockType: "river", xStart: 33, xEnd: 34, yStart: 32, yEnd: 35, color: "#3185FC"},
+      {blockType: "building", xStart: 34, xEnd: 35, yStart: 36, yEnd: 36, color: "#d77a61"},
+      {blockType: "building", xStart: 36, xEnd: 38, yStart: 36, yEnd: 37, color: "#d77a61"},
+      {blockType: "park", xStart: 35, xEnd: 38, yStart: 32, yEnd: 35, color: "#70A288"}
+    ];
 
     service.getMap().subscribe(value => {
       expect(value).toEqual(expectedBlocks)
