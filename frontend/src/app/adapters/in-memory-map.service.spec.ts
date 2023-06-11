@@ -28,8 +28,8 @@ describe('InMemoryMapService', () => {
       {blockType: "park", xStart: 35, xEnd: 38, yStart: 32, yEnd: 35, color: "#70A288"}
     ]);
 
-    service.getMap().subscribe(value => {
-      expect(value.length).toEqual(4);
+    service.getCityMap().subscribe(value => {
+      expect(value.blocks.length).toEqual(4);
     })
   });
 });

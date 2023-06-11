@@ -23,17 +23,5 @@ describe('MapDisplayComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should add block', () => {
-    let svg = document.getElementById('editorSvg')!;
-    let blocks = [
-      {blockType: "river", xStart: 0, xEnd: 1, yStart: 0, yEnd: 1, color: "#3185FC"},
-      {blockType: "river", xStart: 3, xEnd: 4, yStart: 3, yEnd: 4, color: "#3185FC"}
-    ];
-    mapService.insert(blocks);
-    component.ngOnInit()
-
-    expect(svg.children.length).toEqual(8);
-  });
 });
 

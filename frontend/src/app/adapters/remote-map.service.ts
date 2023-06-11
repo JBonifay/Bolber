@@ -3,6 +3,7 @@ import {IMapManagement} from "../domain/ports/imap-management";
 import {Observable} from "rxjs";
 import {Block} from "../domain/models/block";
 import {HttpClient} from "@angular/common/http";
+import {CityMap} from "../domain/models/city-map";
 
 @Injectable()
 export class RemoteMapService implements IMapManagement {
@@ -10,7 +11,7 @@ export class RemoteMapService implements IMapManagement {
   constructor(private httpClient: HttpClient) {
   }
 
-  getMap(): Observable<Block[]> {
-    return this.httpClient.get<Block[]>(`/api/map`);
+  getCityMap(): Observable<CityMap> {
+    return this.httpClient.get<CityMap>(`/api/map`);
   }
 }
