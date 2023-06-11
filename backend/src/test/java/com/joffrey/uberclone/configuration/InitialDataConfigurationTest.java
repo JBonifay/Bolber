@@ -1,6 +1,6 @@
 package com.joffrey.uberclone.configuration;
 
-import com.joffrey.uberclone.domain.repositories.MapRepository;
+import com.joffrey.uberclone.domain.ports.MapRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

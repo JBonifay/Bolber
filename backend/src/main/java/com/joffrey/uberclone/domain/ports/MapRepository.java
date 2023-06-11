@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.domain.repositories;
+package com.joffrey.uberclone.domain.ports;
 
 import com.joffrey.uberclone.domain.Block;
 

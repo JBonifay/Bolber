@@ -1,6 +1,7 @@
 package com.joffrey.uberclone.acceptance;
 
-import com.joffrey.uberclone.domain.repositories.MapRepository;
+import com.joffrey.uberclone.domain.ports.MapProperties;
+import com.joffrey.uberclone.domain.ports.MapRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,10 +18,14 @@ public class MapAcceptanceTest {
     private WebTestClient webTestClient;
 
     @Autowired
+    private MapProperties mapProperties;
+
+    @Autowired
     private MapRepository mapRepository;
 
     @Test
     void shouldReturnRoadCoordinates() {
+        mapProperties.setSideSize(50);
         mapRepository.insertBlock("buildings", 19, 23, 4, 10, "#70A288");
         mapRepository.insertBlock("river", 0, 7, 21, 21, "#3185FC");
         mapRepository.insertBlock("park", 33, 34, 24, 30, "#70A288");
@@ -36,7 +41,9 @@ public class MapAcceptanceTest {
                 .contentType(APPLICATION_JSON)
                 .expectBody()
                 .json("""
-                        [
+                        {
+                          "blocksPerSide": 50,
+                          "blocks": [
                             {
                               "blockType": "buildings",
                               "xStart": 19,
@@ -62,6 +69,7 @@ public class MapAcceptanceTest {
                               "color": "#70A288"
                             }
                           ]
+                        }
                         """);
     }
 }
