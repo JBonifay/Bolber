@@ -9,7 +9,7 @@ import {Block} from "../domain/models/block";
 })
 export class MapDisplayComponent implements OnInit {
 
-  private viewGridSize = 700;
+  private svgViewSize = 700;
   private points: Map<string, SVGRect> = new Map();
 
   constructor(private renderer: Renderer2, private mapService: IMapManagement) {
@@ -17,12 +17,12 @@ export class MapDisplayComponent implements OnInit {
 
   ngOnInit() {
     let svg = document.getElementById('editorSvg')!;
-    svg.setAttribute('width', `${this.viewGridSize}`)
-    svg.setAttribute('height', `${this.viewGridSize}`)
+    svg.setAttribute('width', `${this.svgViewSize}`)
+    svg.setAttribute('height', `${this.svgViewSize}`)
 
     this.mapService.getCityMap().subscribe(cityMap => {
       let gridCount = cityMap.blocksPerSide;
-      let squareSize = this.viewGridSize / gridCount;
+      let squareSize = this.svgViewSize / gridCount;
       this.drawRoad(svg, gridCount, squareSize);
       this.drawObstacles(svg, cityMap.blocks, squareSize);
     });
