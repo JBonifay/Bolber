@@ -1,15 +1,14 @@
 package com.joffrey.uberclone.businesslogic.usecases.map;
 
-import com.joffrey.uberclone.businesslogic.csv.CsvFileReader;
+import com.joffrey.uberclone.businesslogic.gateways.repositories.TiledMapData;
 import com.joffrey.uberclone.businesslogic.models.TiledMap;
 
 public class MapManagementUseCase {
 
-    private TiledMap tiledMap;
+    private final TiledMap tiledMap;
 
-    public void initMapFromFile() {
-        CsvFileReader csvFileReader = new CsvFileReader();
-        tiledMap = new TiledMap(50, csvFileReader.content("init.csv"));
+    public MapManagementUseCase(final TiledMapData tiledMapData) {
+        tiledMap = new TiledMap(50, tiledMapData.getBlocks());
     }
 
     public TiledMap getMap() {

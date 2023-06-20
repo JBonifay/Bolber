@@ -10,9 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MapController {
 
+    private final MapManagementUseCase mapManagementUseCase;
+
+    public MapController(final MapManagementUseCase mapManagementUseCase) {
+        this.mapManagementUseCase = mapManagementUseCase;
+    }
+
     @GetMapping(value = "/api/map", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TiledMap> getMap() {
-        MapManagementUseCase mapManagementUseCase = new MapManagementUseCase();
         return ResponseEntity.ok(mapManagementUseCase.getMap());
     }
 }

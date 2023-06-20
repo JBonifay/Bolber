@@ -1,5 +1,8 @@
 package com.joffrey.uberclone.e2e;
 
+import com.joffrey.uberclone.adapters.secondary.gateways.InMemoryTiledMapData;
+import com.joffrey.uberclone.businesslogic.models.Block;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,13 +13,23 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MapGenerationIT {
+public class MapManagementIT extends AbstractE2E {
 
     @Autowired
     private WebTestClient webTestClient;
 
+    @Autowired
+    private InMemoryTiledMapData inMemoryTiledMapData;
+
+    @BeforeEach
+    void setUp() {
+        inMemoryTiledMapData.insertBlock(new Block("buildings", 19, 23, 4, 10, "#70A288"));
+        inMemoryTiledMapData.insertBlock(new Block("river", 0, 7, 21, 21, "#3185FC"));
+        inMemoryTiledMapData.insertBlock(new Block("park", 33, 34, 24, 30, "#70A288"));
+    }
+
     @Test
-    void shouldReturnRoadCoordinates() {
+    void shouldReturnTiledMapData() {
         webTestClient
                 .get()
                 .uri("/api/map")
@@ -29,7 +42,7 @@ public class MapGenerationIT {
                 .expectBody()
                 .json("""
                         {
-                          "blocksPerSide": 50,
+                          "gridCount": 50,
                           "blocks": [
                             {
                               "blockType": "buildings",
