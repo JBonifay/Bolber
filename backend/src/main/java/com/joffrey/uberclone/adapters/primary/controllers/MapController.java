@@ -1,6 +1,6 @@
 package com.joffrey.uberclone.adapters.primary.controllers;
 
-import com.joffrey.uberclone.businesslogic.models.CityMap;
+import com.joffrey.uberclone.businesslogic.models.TiledMap;
 import com.joffrey.uberclone.businesslogic.gateways.mapproperties.MapProperties;
 import com.joffrey.uberclone.businesslogic.gateways.repositories.MapRepository;
 import com.joffrey.uberclone.businesslogic.usecases.mapgenerating.MapUseCase;
@@ -21,7 +21,7 @@ public class MapController {
     }
 
     @GetMapping(value = "/api/map", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CityMap> getMap() {
+    public ResponseEntity<TiledMap> getMap() {
         MapUseCase mapUseCase = new MapUseCase(mapProperties, mapRepository);
         return ResponseEntity.ok(mapUseCase.map());
     }

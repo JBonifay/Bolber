@@ -2,7 +2,7 @@ package com.joffrey.uberclone.businesslogic.models;
 
 import java.util.List;
 
-public record CityMap(
-        int blocksPerSide,
+public record TiledMap(
+        int gridCount,
         List<Block> blocks) {
 }

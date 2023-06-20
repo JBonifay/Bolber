@@ -1,6 +1,6 @@
 package com.joffrey.uberclone.businesslogic.usecases.mapgenerating;
 
-import com.joffrey.uberclone.businesslogic.models.CityMap;
+import com.joffrey.uberclone.businesslogic.models.TiledMap;
 import com.joffrey.uberclone.businesslogic.gateways.mapproperties.MapProperties;
 import com.joffrey.uberclone.businesslogic.gateways.repositories.MapRepository;
 
@@ -13,7 +13,7 @@ public class MapUseCase {
         this.mapRepository = mapRepository;
     }
 
-    public CityMap map() {
-        return new CityMap(mapProperties.getSideSize(), mapRepository.getBlocks());
+    public TiledMap map() {
+        return new TiledMap(mapProperties.getSideSize(), mapRepository.getBlocks());
     }
 }
