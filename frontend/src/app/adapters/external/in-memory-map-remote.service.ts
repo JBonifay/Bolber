@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
+import {MapRemoteService} from "../../businesslogic/ports/map-remote-service";
 import {Observable, of} from "rxjs";
-import {IMapManagement} from "../../businesslogic/ports/imap-management";
 import {Block} from "../../businesslogic/models/block";
-import {CityMap} from "../../businesslogic/models/city-map";
 
 @Injectable()
-export class InMemoryWithDataService implements IMapManagement {
-
+export class InMemoryMapRemoteService implements MapRemoteService {
   private blocks: Block[] = [
     {blockType: "park", xStart: 19, xEnd: 23, yStart: 4, yEnd: 10, color: "#70A288"},
     {blockType: "park", xStart: 33, xEnd: 34, yStart: 24, yEnd: 30, color: "#70A288"},
@@ -254,7 +252,7 @@ export class InMemoryWithDataService implements IMapManagement {
   constructor() {
   }
 
-  getCityMap(): Observable<CityMap> {
-    return of({blocksPerSide: 50, blocks: this.blocks});
+  fetchMap(): Observable<Block[]> {
+    return of(this.blocks);
   }
 }

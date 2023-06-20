@@ -5,8 +5,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {MapDisplayComponent} from "./adapters/presentation/map-display.component";
 import {AppRoutingModule} from "./app-routing.module";
-import {IMapManagement} from "./businesslogic/ports/imap-management";
-import {RemoteMapService} from "./adapters/external/remote-map.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +17,7 @@ import {RemoteMapService} from "./adapters/external/remote-map.service";
     HttpClientModule
   ],
   providers: [
-    {provide: IMapManagement, useClass: RemoteMapService}
+    // {provide: IMapManagement, useClass: RemoteMapService}
   ],
   bootstrap: [AppComponent],
 })

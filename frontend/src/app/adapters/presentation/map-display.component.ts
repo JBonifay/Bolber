@@ -1,6 +1,7 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
-import {IMapManagement} from "../../businesslogic/ports/imap-management";
 import {Block} from "../../businesslogic/models/block";
+import {MapManagementUseCase} from "../../businesslogic/usecases/map-management-use-case";
+import {InMemoryMapRemoteService} from "../external/in-memory-map-remote.service";
 
 @Component({
   selector: 'app-map-display',
@@ -9,10 +10,13 @@ import {Block} from "../../businesslogic/models/block";
 })
 export class MapDisplayComponent implements OnInit {
 
-  private svgViewSize = 700;
-  private points: Map<string, SVGRect> = new Map();
+  private svgViewSize = 500;
+  private gridCount = 50;
+  private squareSize = this.svgViewSize / this.gridCount;
+  private managementUseCase: MapManagementUseCase;
 
-  constructor(private renderer: Renderer2, private mapService: IMapManagement) {
+  constructor(private renderer: Renderer2) {
+    this.managementUseCase = new MapManagementUseCase(new InMemoryMapRemoteService())
   }
 
   ngOnInit() {
@@ -20,24 +24,22 @@ export class MapDisplayComponent implements OnInit {
     svg.setAttribute('width', `${this.svgViewSize}`)
     svg.setAttribute('height', `${this.svgViewSize}`)
 
-    this.mapService.getCityMap().subscribe(cityMap => {
-      let gridCount = cityMap.blocksPerSide;
-      let squareSize = this.svgViewSize / gridCount;
-      this.drawRoad(svg, gridCount, squareSize);
-      this.drawObstacles(svg, cityMap.blocks, squareSize);
+    this.managementUseCase.fetchMap().subscribe(value => {
+      this.drawRoad(svg);
+      this.drawObstacles(svg, value);
     });
   }
 
-  drawRoad(svg: HTMLElement, gridCount: number, squareSize: number) {
-    for (let i = 0; i < gridCount; i++) {
-      for (let j = 0; j < gridCount; j++) {
-        this.createSvgBlock(j, i, '#eeeeee', svg, squareSize);
+  drawRoad(svg: HTMLElement) {
+    for (let i = 0; i < this.gridCount; i++) {
+      for (let j = 0; j < this.gridCount; j++) {
+        this.createSvgBlock(j, i, '#eeeeee', svg);
       }
     }
   }
 
-  private drawObstacles(svg: HTMLElement, blockValues: Block[], squareSize: number) {
-    blockValues.forEach(block => {
+  private drawObstacles(svg: HTMLElement, map: Block[]) {
+    map.forEach(block => {
       let x = block.xStart;
       let xEnd = block.xEnd;
       let yStart = block.yStart;
@@ -46,8 +48,7 @@ export class MapDisplayComponent implements OnInit {
       while (x <= xEnd) {
         let y = yStart
         while (y <= yEnd) {
-          this.createSvgBlock(x, y, block.color, svg, squareSize)
-          this.points.delete(`${x}:${y}`);
+          this.createSvgBlock(x, y, block.color, svg)
           y++;
         }
         x++;
@@ -55,14 +56,13 @@ export class MapDisplayComponent implements OnInit {
     })
   }
 
-  private createSvgBlock(x: number, y: number, color: string, parentSvg: HTMLElement, squareSize: number) {
+  private createSvgBlock(x: number, y: number, color: string, parentSvg: HTMLElement) {
     const rect = this.renderer.createElement("rect", 'svg');
-    this.renderer.setAttribute(rect, "width", `${squareSize}`);
-    this.renderer.setAttribute(rect, "height", `${squareSize}`);
-    this.renderer.setAttribute(rect, "x", `${x * squareSize}`);
-    this.renderer.setAttribute(rect, "y", `${y * squareSize}`);
+    this.renderer.setAttribute(rect, "width", `${this.squareSize}`);
+    this.renderer.setAttribute(rect, "height", `${this.squareSize}`);
+    this.renderer.setAttribute(rect, "x", `${x * this.squareSize}`);
+    this.renderer.setAttribute(rect, "y", `${y * this.squareSize}`);
     this.renderer.setAttribute(rect, 'fill', color);
     this.renderer.appendChild(parentSvg, rect)
-    this.points.set(`${x}:${y}`, rect);
   }
 }
