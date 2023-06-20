@@ -1,13 +1,13 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { InMemoryMapRemoteService } from './in-memory-map-remote.service';
+import {InMemoryMapRemoteService} from './in-memory-map-remote.service';
 
-describe('InMemoryMapRemoteServiceService', () => {
+describe('InMemoryMapRemoteService', () => {
   let service: InMemoryMapRemoteService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(InMemoryMapRemoteService);
+    service = new InMemoryMapRemoteService();
   });
 
   it('should be created', () => {

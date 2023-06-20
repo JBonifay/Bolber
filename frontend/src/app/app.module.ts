@@ -7,7 +7,7 @@ import {MapDisplayComponent} from "./adapters/presentation/map-display.component
 import {AppRoutingModule} from "./app-routing.module";
 import {MapRemoteService} from "./businesslogic/ports/map-remote-service";
 import {MapManagementUseCase} from "./businesslogic/usecases/map-management-use-case";
-import {InMemoryMapRemoteService} from "./adapters/external/in-memory-map-remote.service";
+import {InMemoryWithDataService} from "./adapters/external/in-memory-with-data.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import {InMemoryMapRemoteService} from "./adapters/external/in-memory-map-remote
     {
       deps: [HttpClient],
       provide: MapRemoteService,
-      useFactory: (http: HttpClient) => new InMemoryMapRemoteService()
+      useFactory: (http: HttpClient) => new InMemoryWithDataService()
     },
     {
       deps: [MapRemoteService],

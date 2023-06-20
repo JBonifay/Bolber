@@ -9,6 +9,6 @@ export class BackendMapRemoteService implements MapRemoteService {
   }
 
   fetchMap(): Observable<Block[]> {
-    return this.httpClient.get<Block[]>("https://joffreybonifay.fr/api/map");
+    return this.httpClient.get<Block[]>("/api/map");
   }
 }
