@@ -1,10 +1,13 @@
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {MapDisplayComponent} from "./adapters/presentation/map-display.component";
 import {AppRoutingModule} from "./app-routing.module";
+import {MapRemoteService} from "./businesslogic/ports/map-remote-service";
+import {MapManagementUseCase} from "./businesslogic/usecases/map-management-use-case";
+import {InMemoryMapRemoteService} from "./adapters/external/in-memory-map-remote.service";
 
 @NgModule({
   declarations: [
@@ -17,7 +20,16 @@ import {AppRoutingModule} from "./app-routing.module";
     HttpClientModule
   ],
   providers: [
-    // {provide: IMapManagement, useClass: RemoteMapService}
+    {
+      deps: [HttpClient],
+      provide: MapRemoteService,
+      useFactory: (http: HttpClient) => new InMemoryMapRemoteService()
+    },
+    {
+      deps: [MapRemoteService],
+      provide: MapManagementUseCase,
+      useFactory: (remoteService: MapRemoteService) => new MapManagementUseCase(remoteService),
+    },
   ],
   bootstrap: [AppComponent],
 })

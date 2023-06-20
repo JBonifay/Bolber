@@ -1,7 +1,6 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {Block} from "../../businesslogic/models/block";
 import {MapManagementUseCase} from "../../businesslogic/usecases/map-management-use-case";
-import {InMemoryMapRemoteService} from "../external/in-memory-map-remote.service";
 
 @Component({
   selector: 'app-map-display',
@@ -13,10 +12,8 @@ export class MapDisplayComponent implements OnInit {
   private svgViewSize = 500;
   private gridCount = 50;
   private squareSize = this.svgViewSize / this.gridCount;
-  private managementUseCase: MapManagementUseCase;
 
-  constructor(private renderer: Renderer2) {
-    this.managementUseCase = new MapManagementUseCase(new InMemoryMapRemoteService())
+  constructor(private renderer: Renderer2, private mapManagement: MapManagementUseCase) {
   }
 
   ngOnInit() {
@@ -24,7 +21,7 @@ export class MapDisplayComponent implements OnInit {
     svg.setAttribute('width', `${this.svgViewSize}`)
     svg.setAttribute('height', `${this.svgViewSize}`)
 
-    this.managementUseCase.fetchMap().subscribe(value => {
+    this.mapManagement.fetchMap().subscribe(value => {
       this.drawRoad(svg);
       this.drawObstacles(svg, value);
     });

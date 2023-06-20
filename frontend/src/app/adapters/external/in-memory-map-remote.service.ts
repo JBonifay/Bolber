@@ -1,9 +1,7 @@
-import {Injectable} from '@angular/core';
 import {MapRemoteService} from "../../businesslogic/ports/map-remote-service";
 import {Observable, of} from "rxjs";
 import {Block} from "../../businesslogic/models/block";
 
-@Injectable()
 export class InMemoryMapRemoteService implements MapRemoteService {
   private blocks: Block[] = [
     {blockType: "park", xStart: 19, xEnd: 23, yStart: 4, yEnd: 10, color: "#70A288"},
