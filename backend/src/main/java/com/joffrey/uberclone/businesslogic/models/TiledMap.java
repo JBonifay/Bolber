@@ -4,5 +4,5 @@ import java.util.List;
 
 public record TiledMap(
         int gridCount,
-        List<Block> blocks) {
+        List<List<String>> blocks) {
 }

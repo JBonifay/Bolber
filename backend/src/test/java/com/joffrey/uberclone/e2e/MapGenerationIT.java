@@ -1,7 +1,5 @@
 package com.joffrey.uberclone.e2e;
 
-import com.joffrey.uberclone.businesslogic.gateways.mapproperties.MapProperties;
-import com.joffrey.uberclone.businesslogic.gateways.repositories.MapRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,19 +15,8 @@ public class MapGenerationIT {
     @Autowired
     private WebTestClient webTestClient;
 
-    @Autowired
-    private MapProperties mapProperties;
-
-    @Autowired
-    private MapRepository mapRepository;
-
     @Test
     void shouldReturnRoadCoordinates() {
-        mapProperties.setSideSize(50);
-        mapRepository.insertBlock("buildings", 19, 23, 4, 10, "#70A288");
-        mapRepository.insertBlock("river", 0, 7, 21, 21, "#3185FC");
-        mapRepository.insertBlock("park", 33, 34, 24, 30, "#70A288");
-
         webTestClient
                 .get()
                 .uri("/api/map")
