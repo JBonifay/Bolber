@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {MapRemoteService} from "../../businesslogic/ports/map-remote-service";
 import {Observable, of} from "rxjs";
 import {Block} from "../../businesslogic/models/block";
+import {TiledMap} from "../../businesslogic/models/tiled-map";
 
 @Injectable({
   providedIn: 'root'
@@ -254,7 +255,7 @@ export class InMemoryWithDataService implements MapRemoteService {
   constructor() {
   }
 
-  fetchMap(): Observable<Block[]> {
-    return of(this.blocks);
+  fetchMap(): Observable<TiledMap> {
+    return of({gridCount: 50, blocks: this.blocks});
   }
 }

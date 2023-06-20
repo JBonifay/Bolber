@@ -1,6 +1,6 @@
 import {Observable} from "rxjs";
-import {Block} from "../models/block";
+import {TiledMap} from "../models/tiled-map";
 
 export abstract class MapRemoteService {
-  abstract fetchMap(): Observable<Block[]>;
+  abstract fetchMap(): Observable<TiledMap>;
 }

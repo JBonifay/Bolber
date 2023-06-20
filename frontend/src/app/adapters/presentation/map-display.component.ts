@@ -10,8 +10,8 @@ import {MapManagementUseCase} from "../../businesslogic/usecases/map-management-
 export class MapDisplayComponent implements OnInit {
 
   private svgViewSize = 500;
-  private gridCount = 50;
-  private squareSize = this.svgViewSize / this.gridCount;
+  private gridCount = 0;
+  private squareSize = 0;
 
   constructor(private renderer: Renderer2, private mapManagement: MapManagementUseCase) {
   }
@@ -22,8 +22,10 @@ export class MapDisplayComponent implements OnInit {
     svg.setAttribute('height', `${this.svgViewSize}`)
 
     this.mapManagement.fetchMap().subscribe(value => {
+      this.gridCount = value.gridCount;
+      this.squareSize = this.svgViewSize / this.gridCount;
       this.drawRoad(svg);
-      this.drawObstacles(svg, value);
+      this.drawObstacles(svg, value.blocks);
     });
   }
 

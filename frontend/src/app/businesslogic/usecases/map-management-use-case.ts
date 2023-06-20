@@ -1,6 +1,6 @@
 import {Observable} from "rxjs";
 import {MapRemoteService} from "../ports/map-remote-service";
-import {Block} from "../models/block";
+import {TiledMap} from "../models/tiled-map";
 
 
 export class MapManagementUseCase {
@@ -8,7 +8,7 @@ export class MapManagementUseCase {
 
   }
 
-  fetchMap(): Observable<Block[]> {
+  fetchMap(): Observable<TiledMap> {
     return this.mapRemoteService.fetchMap();
   }
 
