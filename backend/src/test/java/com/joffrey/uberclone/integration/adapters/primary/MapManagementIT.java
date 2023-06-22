@@ -1,7 +1,9 @@
-package com.joffrey.uberclone.e2e;
+package com.joffrey.uberclone.integration.adapters.primary;
 
 import com.joffrey.uberclone.adapters.secondary.gateways.InMemoryTiledMapData;
 import com.joffrey.uberclone.businesslogic.models.Block;
+import com.joffrey.uberclone.businesslogic.usecases.map.BlockType;
+import com.joffrey.uberclone.integration.adapters.AbstractIntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MapManagementIT extends AbstractE2E {
+public class MapManagementIT extends AbstractIntegrationTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -23,9 +25,9 @@ public class MapManagementIT extends AbstractE2E {
 
     @BeforeEach
     void setUp() {
-        inMemoryTiledMapData.insertBlock(new Block("buildings", 19, 23, 4, 10, "#70A288"));
-        inMemoryTiledMapData.insertBlock(new Block("river", 0, 7, 21, 21, "#3185FC"));
-        inMemoryTiledMapData.insertBlock(new Block("park", 33, 34, 24, 30, "#70A288"));
+        inMemoryTiledMapData.insertBlock(new Block(BlockType.valueOf("buildings"), 19, 23, 4, 10, "#70A288"));
+        inMemoryTiledMapData.insertBlock(new Block(BlockType.valueOf("river"), 0, 7, 21, 21, "#3185FC"));
+        inMemoryTiledMapData.insertBlock(new Block(BlockType.valueOf("park"), 33, 34, 24, 30, "#70A288"));
     }
 
     @Test

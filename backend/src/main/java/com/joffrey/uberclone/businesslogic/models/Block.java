@@ -1,5 +1,7 @@
 package com.joffrey.uberclone.businesslogic.models;
 
-public record Block(String blockType, int xStart, int xEnd, int yStart, int yEnd, String color) {
+import com.joffrey.uberclone.businesslogic.usecases.map.BlockType;
+
+public record Block(BlockType blockType, int xStart, int xEnd, int yStart, int yEnd, String color) {
     
 }

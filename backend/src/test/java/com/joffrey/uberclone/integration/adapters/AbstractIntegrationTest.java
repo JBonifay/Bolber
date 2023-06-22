@@ -1,9 +1,9 @@
-package com.joffrey.uberclone.e2e;
+package com.joffrey.uberclone.integration.adapters;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("dev")
-public abstract class AbstractE2E {
+public abstract class AbstractIntegrationTest {
 }

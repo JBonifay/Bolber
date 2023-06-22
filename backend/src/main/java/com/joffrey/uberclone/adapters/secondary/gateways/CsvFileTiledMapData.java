@@ -2,6 +2,7 @@ package com.joffrey.uberclone.adapters.secondary.gateways;
 
 import com.joffrey.uberclone.businesslogic.gateways.repositories.TiledMapData;
 import com.joffrey.uberclone.businesslogic.models.Block;
+import com.joffrey.uberclone.businesslogic.usecases.map.BlockType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,6 +30,6 @@ public class CsvFileTiledMapData implements TiledMapData {
             throw new RuntimeException(e);
         }
 
-        return records.stream().map(csvRow -> new Block(csvRow.get(0), Integer.parseInt(csvRow.get(1)), Integer.parseInt(csvRow.get(2)), Integer.parseInt(csvRow.get(3)), Integer.parseInt(csvRow.get(4)), csvRow.get(5))).collect(Collectors.toList());
+        return records.stream().map(csvRow -> new Block(BlockType.valueOf(csvRow.get(0)), Integer.parseInt(csvRow.get(1)), Integer.parseInt(csvRow.get(2)), Integer.parseInt(csvRow.get(3)), Integer.parseInt(csvRow.get(4)), csvRow.get(5))).collect(Collectors.toList());
     }
 }
