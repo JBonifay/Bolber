@@ -1,6 +1,6 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
+import {GeoMapManagementUseCase} from "../../businesslogic/usecases/geo-map-management-use-case";
 import {Block} from "../../businesslogic/models/block";
-import {MapManagementUseCase} from "../../businesslogic/usecases/map-management-use-case";
 
 @Component({
   selector: 'app-map-display',
@@ -13,7 +13,7 @@ export class MapDisplayComponent implements OnInit {
   private gridCount = 0;
   private squareSize = 0;
 
-  constructor(private renderer: Renderer2, private mapManagement: MapManagementUseCase) {
+  constructor(private renderer: Renderer2, private geoMapManagement: GeoMapManagementUseCase) {
   }
 
   ngOnInit() {
@@ -21,38 +21,19 @@ export class MapDisplayComponent implements OnInit {
     svg.setAttribute('width', `${this.svgViewSize}`)
     svg.setAttribute('height', `${this.svgViewSize}`)
 
-    this.mapManagement.fetchMap().subscribe(value => {
-      this.gridCount = value.gridCount;
+    this.geoMapManagement.askForMap().subscribe(value => {
+      this.gridCount = value.blocks.length;
       this.squareSize = this.svgViewSize / this.gridCount;
-      this.drawRoad(svg);
-      this.drawObstacles(svg, value.blocks);
+      this.drawBlocks(svg, value.blocks);
     });
   }
 
-  drawRoad(svg: HTMLElement) {
+  private drawBlocks(svg: HTMLElement, blocks: Block[][]) {
     for (let i = 0; i < this.gridCount; i++) {
       for (let j = 0; j < this.gridCount; j++) {
-        this.createSvgBlock(j, i, '#eeeeee', svg);
+        this.createSvgBlock(j, i, blocks[i][j].color, svg);
       }
     }
-  }
-
-  private drawObstacles(svg: HTMLElement, map: Block[]) {
-    map.forEach(block => {
-      let x = block.xStart;
-      let xEnd = block.xEnd;
-      let yStart = block.yStart;
-      let yEnd = block.yEnd;
-
-      while (x <= xEnd) {
-        let y = yStart
-        while (y <= yEnd) {
-          this.createSvgBlock(x, y, block.color, svg)
-          y++;
-        }
-        x++;
-      }
-    })
   }
 
   private createSvgBlock(x: number, y: number, color: string, parentSvg: HTMLElement) {

@@ -1,4 +1,4 @@
 package com.joffrey.uberclone.businesslogic.models;
 
-public record SimulationMap(Block[][] blocks) {
+public record GeoMap(Block[][] blocks) {
 }

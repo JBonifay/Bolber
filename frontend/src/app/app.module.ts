@@ -1,14 +1,12 @@
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {MapDisplayComponent} from "./adapters/presentation/map-display.component";
 import {AppRoutingModule} from "./app-routing.module";
-import {MapRemoteService} from "./businesslogic/ports/map-remote-service";
-import {MapManagementUseCase} from "./businesslogic/usecases/map-management-use-case";
-import {InMemoryWithDataService} from "./adapters/external/in-memory-with-data.service";
-import {BackendMapRemoteService} from "./adapters/external/backend-map-remote.service";
+import {GeoMapApi} from "./businesslogic/ports/geo-map-api";
+import {GeoMapApiService} from "./adapters/external/geo-map-api.service";
 
 @NgModule({
   declarations: [
@@ -21,16 +19,12 @@ import {BackendMapRemoteService} from "./adapters/external/backend-map-remote.se
     HttpClientModule
   ],
   providers: [
-    {
-      deps: [HttpClient],
-      provide: MapRemoteService,
-      useFactory: (http: HttpClient) => new BackendMapRemoteService(http)
-    },
-    {
-      deps: [MapRemoteService],
-      provide: MapManagementUseCase,
-      useFactory: (remoteService: MapRemoteService) => new MapManagementUseCase(remoteService),
-    },
+    {provide: GeoMapApi, useClass: GeoMapApiService}
+    // {
+    //   deps: [MapRemoteService],
+    //   provide: MapManagementUseCase,
+    //   useFactory: (remoteService: MapRemoteService) => new MapManagementUseCase(remoteService),
+    // },
   ],
   bootstrap: [AppComponent],
 })

@@ -3,7 +3,7 @@ package com.joffrey.uberclone.businesslogic.usecases.bookride;
 import com.joffrey.uberclone.businesslogic.models.Block;
 import com.joffrey.uberclone.businesslogic.models.BlockType;
 import com.joffrey.uberclone.businesslogic.models.CreationBlock;
-import com.joffrey.uberclone.businesslogic.models.SimulationMap;
+import com.joffrey.uberclone.businesslogic.models.GeoMap;
 
 public class BookRideUseCase {
 
@@ -35,8 +35,8 @@ public class BookRideUseCase {
         }
     }
 
-    public SimulationMap map() {
-        return new SimulationMap(blocks);
+    public GeoMap map() {
+        return new GeoMap(blocks);
     }
 
     public void generateBlocksFromCsvInput(final String[][] csvContent) {

@@ -153,7 +153,7 @@ class BookRideUseCaseTest {
 
         for (final Block[] blocks : map) {
             for (final Block block : blocks) {
-                sb.append(block.name()).append(" ");
+                sb.append(block.type()).append(" ");
             }
             sb.append("\n");
         }

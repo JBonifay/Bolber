@@ -1,6 +1,6 @@
 package com.joffrey.uberclone.adapters.primary.springboot.controllers;
 
-import com.joffrey.uberclone.businesslogic.models.SimulationMap;
+import com.joffrey.uberclone.businesslogic.models.GeoMap;
 import com.joffrey.uberclone.businesslogic.usecases.bookride.BookRideUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class BookRideController {
     }
 
     @GetMapping("/api/map")
-    public ResponseEntity<SimulationMap> getMap() {
+    public ResponseEntity<GeoMap> getMap() {
         return ResponseEntity.ok(bookRideUseCase.map());
     }
     
