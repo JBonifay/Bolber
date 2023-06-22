@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.businesslogic.usecases.map;
+package com.joffrey.uberclone.businesslogic.models;
 
 public enum BlockType {
     ROAD("+", "#000000"),

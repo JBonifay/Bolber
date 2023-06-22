@@ -1,11 +1,11 @@
 package com.joffrey.uberclone.businesslogic.usecases.bookride;
 
 import com.joffrey.uberclone.businesslogic.models.Block;
-import com.joffrey.uberclone.businesslogic.usecases.map.BlockType;
+import com.joffrey.uberclone.businesslogic.models.BlockType;
 
 import java.util.Arrays;
 
-import static com.joffrey.uberclone.businesslogic.usecases.map.BlockType.ROAD;
+import static com.joffrey.uberclone.businesslogic.models.BlockType.ROAD;
 
 public class BookRideUseCase {
 
