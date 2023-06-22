@@ -1,7 +1,7 @@
 package com.joffrey.uberclone.businesslogic.models;
 
 public enum BlockType {
-    ROAD("+", "#000000"),
+    ROAD("+", "#f5f5f5"),
     BUILDING("B","#d77a61"),
     RIVER("*", "#3185FC"),
     PARK("P","#70A288");
