@@ -2,53 +2,46 @@ package com.joffrey.uberclone.businesslogic.usecases.bookride;
 
 import com.joffrey.uberclone.businesslogic.models.Block;
 import com.joffrey.uberclone.businesslogic.models.BlockType;
-
-import java.util.Arrays;
-
-import static com.joffrey.uberclone.businesslogic.models.BlockType.ROAD;
+import com.joffrey.uberclone.businesslogic.models.CreationBlock;
+import com.joffrey.uberclone.businesslogic.models.SimulationMap;
 
 public class BookRideUseCase {
 
-    private BlockType[][] map;
+    private Block[][] blocks;
 
     public void generateMap(final int verticalLength, final int horizontalLength) {
-        map = new BlockType[verticalLength][horizontalLength];
-        for (final BlockType[] blockTypes : map) {
-            Arrays.fill(blockTypes, ROAD);
+        blocks = new Block[verticalLength][horizontalLength];
+        for (int i = 0; i < blocks.length; i++) {
+            for (int j = 0; j < blocks[i].length; j++) {
+                blocks[i][j] = new Block(BlockType.ROAD.name(), BlockType.ROAD.getColor());
+            }
         }
     }
 
-    public void generateBlocks(final Block... blocks) {
-        for (Block block : blocks) {
-            int startVertical = block.yStart();
-            int startHorizontal = block.xStart();
+    public void generateBlocks(final CreationBlock... creationBlocks) {
+        for (CreationBlock creationBlock : creationBlocks) {
+            int startVertical = creationBlock.yStart();
+            int startHorizontal = creationBlock.xStart();
 
-            while (startVertical <= block.yEnd()) {
+            while (startVertical <= creationBlock.yEnd()) {
 
-                while (startHorizontal != block.xEnd() + 1) {
-                    map[startVertical][startHorizontal++] = block.blockType();
+                while (startHorizontal != creationBlock.xEnd() + 1) {
+                    blocks[startVertical][startHorizontal++] = new Block(creationBlock.blockType().name(), creationBlock.blockType().getColor());
                 }
 
-                startHorizontal = block.xStart();
+                startHorizontal = creationBlock.xStart();
                 startVertical++;
             }
         }
     }
 
-    public BlockType[][] map() {
-        return map;
+    public SimulationMap map() {
+        return new SimulationMap(blocks);
     }
 
     public void generateBlocksFromCsvInput(final String[][] csvContent) {
         for (final String[] row : csvContent) {
-            generateBlocks(
-                    new Block(
-                            BlockType.valueOf(row[0].toUpperCase()),
-                            Integer.parseInt(row[1]),
-                            Integer.parseInt(row[2]),
-                            Integer.parseInt(row[3]),
-                            Integer.parseInt(row[4]),
-                            row[5]));
+            generateBlocks(CreationBlock.fromCsv(row));
         }
     }
 }

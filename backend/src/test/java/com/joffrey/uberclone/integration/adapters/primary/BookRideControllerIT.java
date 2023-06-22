@@ -15,7 +15,7 @@ public class BookRideControllerIT extends AbstractIntegrationTest {
     private WebTestClient webTestClient;
 
     @Test
-    void shouldReturnTiledMapData() {
+    void shouldReturnSimulationMap() {
         webTestClient
                 .get()
                 .uri("/api/map")
@@ -27,128 +27,51 @@ public class BookRideControllerIT extends AbstractIntegrationTest {
                 .contentType(APPLICATION_JSON)
                 .expectBody()
                 .json("""
-                        [
-                          [
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD",
-                            "ROAD",
-                            "BUILDING",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "BUILDING",
-                            "ROAD",
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD",
-                            "BUILDING",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "BUILDING",
-                            "ROAD",
-                            "BUILDING",
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "BUILDING",
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD",
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "BUILDING",
-                            "ROAD",
-                            "BUILDING",
-                            "BUILDING",
-                            "BUILDING",
-                            "ROAD",
-                            "BUILDING",
-                            "ROAD",
-                            "ROAD"
-                          ],
-                          [
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD",
-                            "ROAD"
+                        {
+                          "blocks": [
+                            [
+                              {
+                                "name": "ROAD",
+                                "color": "#000000"
+                              },
+                              {
+                                "name": "ROAD",
+                                "color": "#000000"
+                              },
+                              {
+                                "name": "ROAD",
+                                "color": "#000000"
+                              }
+                            ],
+                            [
+                              {
+                                "name": "ROAD",
+                                "color": "#000000"
+                              },
+                              {
+                                "name": "BUILDING",
+                                "color": "#d77a61"
+                              },
+                              {
+                                "name": "ROAD",
+                                "color": "#000000"
+                              }
+                            ],
+                            [
+                              {
+                                "name": "ROAD",
+                                "color": "#000000"
+                              },
+                              {
+                                "name": "ROAD",
+                                "color": "#000000"
+                              },
+                              {
+                                "name": "ROAD",
+                                "color": "#000000"
+                              }
+                            ]
                           ]
-                        ]
-                        """);
+                        }""");
     }
 }

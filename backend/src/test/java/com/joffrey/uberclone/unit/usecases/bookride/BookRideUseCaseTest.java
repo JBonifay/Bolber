@@ -1,7 +1,7 @@
 package com.joffrey.uberclone.unit.usecases.bookride;
 
 import com.joffrey.uberclone.businesslogic.models.Block;
-import com.joffrey.uberclone.businesslogic.models.BlockType;
+import com.joffrey.uberclone.businesslogic.models.CreationBlock;
 import com.joffrey.uberclone.businesslogic.usecases.bookride.BookRideUseCase;
 import com.joffrey.uberclone.businesslogic.usecases.bookride.csv.CsvReader;
 import com.joffrey.uberclone.businesslogic.usecases.bookride.csv.FakeCsvReader;
@@ -15,14 +15,14 @@ class BookRideUseCaseTest {
     public static final String FAKE_FILE = null;
     public static final String INIT_CSV_FILE = "test-init.csv";
     private final BookRideUseCase bookRideUseCase = new BookRideUseCase();
-    private final BlockType R = ROAD;
-    private final BlockType B = BUILDING;
-    private final BlockType I = RIVER;
-    private final BlockType P = PARK;
+    private final Block R = new Block(ROAD.name(), ROAD.getColor());
+    private final Block B = new Block(BUILDING.name(), BUILDING.getColor());
+    private final Block I = new Block(RIVER.name(), RIVER.getColor());
+    private final Block P = new Block(PARK.name(), PARK.getColor());
 
     @Test
     void shouldGenerateBuildingsFromInput() {
-        assertMapWasGenerated(new BlockType[][]{
+        assertMapWasGenerated(new Block[][]{
                 {R, R, R, R, R},
                 {R, R, R, R, R},
                 {R, R, R, R, R},
@@ -30,32 +30,32 @@ class BookRideUseCaseTest {
                 {R, R, R, R, R}
         });
 
-        assertMapWasGenerated(new BlockType[][]{
+        assertMapWasGenerated(new Block[][]{
                 {R, R, R, R, R},
                 {R, B, B, B, R},
                 {R, R, R, R, R},
                 {R, R, R, R, R},
                 {R, R, R, R, R}
-        }, new Block(BUILDING, 1, 3, 1, 1, BUILDING.getColor()));
+        }, new CreationBlock(BUILDING, 1, 3, 1, 1, BUILDING.getColor()));
 
-        assertMapWasGenerated(new BlockType[][]{
+        assertMapWasGenerated(new Block[][]{
                 {R, R, R, R, R},
                 {R, B, B, B, R},
                 {R, B, B, B, R},
                 {R, R, R, R, R},
                 {R, R, R, R, R}
-        }, new Block(BUILDING, 1, 3, 1, 2, BUILDING.getColor()));
+        }, new CreationBlock(BUILDING, 1, 3, 1, 2, BUILDING.getColor()));
 
-        assertMapWasGenerated(new BlockType[][]{
+        assertMapWasGenerated(new Block[][]{
                         {R, R, R, R, R},
                         {R, B, B, B, R},
                         {R, B, B, B, R},
                         {R, R, R, B, R},
                         {B, R, R, R, R}
                 },
-                new Block(BUILDING, 1, 3, 1, 2, BUILDING.getColor()),
-                new Block(BUILDING, 3, 3, 3, 3, BUILDING.getColor()),
-                new Block(BUILDING, 0, 0, 4, 4, BUILDING.getColor())
+                new CreationBlock(BUILDING, 1, 3, 1, 2, BUILDING.getColor()),
+                new CreationBlock(BUILDING, 3, 3, 3, 3, BUILDING.getColor()),
+                new CreationBlock(BUILDING, 0, 0, 4, 4, BUILDING.getColor())
         );
     }
 
@@ -78,7 +78,7 @@ class BookRideUseCaseTest {
                 {"building", "3", "4", "7", "8", BUILDING.getColor()},
                 {"building", "5", "5", "8", "8", BUILDING.getColor()}
         });
-        assertMapWasGenerated(new BlockType[][]{
+        assertMapWasGenerated(new Block[][]{
                         {R, R, R, R, R, R, R, R, R, R},
                         {R, B, B, R, B, B, R, R, B, R},
                         {R, B, B, R, B, B, B, R, R, R},
@@ -92,7 +92,7 @@ class BookRideUseCaseTest {
                 fakeCsvReader,
                 FAKE_FILE);
 
-        assertMapWasGenerated(new BlockType[][]{
+        assertMapWasGenerated(new Block[][]{
                         {R, R, R, R, R, R, R, R, R, R},
                         {R, B, B, R, B, B, R, R, B, R},
                         {R, B, B, R, B, B, B, R, R, R},
@@ -122,38 +122,38 @@ class BookRideUseCaseTest {
         bookRideUseCase.generateMap(5, 5);
         bookRideUseCase.generateBlocksFromCsvInput(csvContent);
 
-        assertArrayEquals(new BlockType[][]{
+        assertArrayEquals(new Block[][]{
                         {I, I, R, P, P},
                         {R, I, R, P, P},
                         {R, I, R, I, I},
                         {R, I, R, I, R},
                         {R, R, R, R, R}
-                }, bookRideUseCase.map(),
-                displayMap(bookRideUseCase.map()));
+                }, bookRideUseCase.map().blocks(),
+                displayMap(bookRideUseCase.map().blocks()));
     }
 
-    void assertMapWasGenerated(final BlockType[][] expected, final Block... blocks) {
+    void assertMapWasGenerated(final Block[][] expected, final CreationBlock... creationBlocks) {
         bookRideUseCase.generateMap(5, 5);
-        bookRideUseCase.generateBlocks(blocks);
-        assertArrayEquals(expected, bookRideUseCase.map(), displayMap(bookRideUseCase.map()));
+        bookRideUseCase.generateBlocks(creationBlocks);
+        assertArrayEquals(expected, bookRideUseCase.map().blocks(), displayMap(bookRideUseCase.map().blocks()));
     }
 
-    void assertMapWasGenerated(final BlockType[][] expected, final CsvReader csvReader, final String fileName) {
+    void assertMapWasGenerated(final Block[][] expected, final CsvReader csvReader, final String fileName) {
         var csvContent = csvReader.readFile(fileName);
 
         bookRideUseCase.generateMap(10, 10);
         bookRideUseCase.generateBlocksFromCsvInput(csvContent);
 
-        assertArrayEquals(expected, bookRideUseCase.map(), displayMap(bookRideUseCase.map()));
+        assertArrayEquals(expected, bookRideUseCase.map().blocks(), displayMap(bookRideUseCase.map().blocks()));
     }
 
-    String displayMap(final BlockType[][] map) {
+    String displayMap(final Block[][] map) {
         StringBuilder sb = new StringBuilder();
         sb.append("\n");
 
-        for (final BlockType[] blockTypes : map) {
-            for (final BlockType blockType : blockTypes) {
-                sb.append(blockType.shortRepresentation()).append(" ");
+        for (final Block[] blocks : map) {
+            for (final Block block : blocks) {
+                sb.append(block.name()).append(" ");
             }
             sb.append("\n");
         }
