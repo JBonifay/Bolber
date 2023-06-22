@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 public class BookARideIT {
 
 
-    @Test
-    void client_book_a_ride() {
+//    @Test
+//    void client_book_a_ride() {
         // Given
         // a map of 10x10 with buildings, rivers and parks, 
         // Drivers are present on the map and waiting for clients
@@ -15,5 +15,5 @@ public class BookARideIT {
         // Then
         // driver should go to the client
         // driver should transport him to the destination using the shortest path available
-    }
+//    }
 }

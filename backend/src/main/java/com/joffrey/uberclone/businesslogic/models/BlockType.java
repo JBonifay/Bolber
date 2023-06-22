@@ -2,7 +2,9 @@ package com.joffrey.uberclone.businesslogic.models;
 
 public enum BlockType {
     ROAD("+", "#000000"),
-    BUILDING("B","#d77a61");
+    BUILDING("B","#d77a61"),
+    RIVER("*", "#3185FC"),
+    PARK("P","#70A288");
 
     private final String shortRepresentation;
     private final String color;
