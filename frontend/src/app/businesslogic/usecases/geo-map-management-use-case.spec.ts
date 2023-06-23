@@ -7,7 +7,24 @@ describe('GeoMapManagement', () => {
   let geoMapManagement = new GeoMapManagementUseCase(inMemoryGeoMap);
 
   beforeEach(() => {
-    inMemoryGeoMap.insert({blocks: Array([{type: "building", color: "#123456"}])});
+    inMemoryGeoMap.insert({
+      blocks: Array(
+        [
+          {type: "building", color: "#123456"},
+          {type: "building", color: "#123456"},
+          {type: "building", color: "#123456"}
+        ],
+        [
+          {type: "building", color: "#123456"},
+          {type: "building", color: "#123456"},
+          {type: "building", color: "#123456"}
+        ],
+        [
+          {type: "building", color: "#123456"},
+          {type: "building", color: "#123456"},
+          {type: "building", color: "#123456"}
+        ])
+    });
   });
 
   it('should ask map data to api service', (done: DoneFn) => {
@@ -16,11 +33,23 @@ describe('GeoMapManagement', () => {
         {
           blocks: Array(
             [
+              {type: "building", color: "#123456"},
+              {type: "building", color: "#123456"},
               {type: "building", color: "#123456"}
-            ]),
+            ],
+            [
+              {type: "building", color: "#123456"},
+              {type: "building", color: "#123456"},
+              {type: "building", color: "#123456"}
+            ],
+            [
+              {type: "building", color: "#123456"},
+              {type: "building", color: "#123456"},
+              {type: "building", color: "#123456"}
+            ])
         });
       done();
-    })
+    });
   });
 
 });
