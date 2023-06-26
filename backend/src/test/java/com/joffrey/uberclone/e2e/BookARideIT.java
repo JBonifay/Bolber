@@ -23,7 +23,7 @@ public class BookARideIT {
         // When
         // a user books a ride from A to destination B
         ItineraryUseCase itineraryUseCase = new ItineraryUseCase();
-        List<Coordinates> itinerary = itineraryUseCase.findShortestPath(map.blocks(), new Coordinates(0, 0), new Coordinates(9, 9));
+        List<Coordinates> itinerary = itineraryUseCase.getItinerary(map.blocks(), new Coordinates(0, 0), new Coordinates(9, 9));
 
         // Then
         // driver should go to the client

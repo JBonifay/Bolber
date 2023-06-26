@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 
 @Profile("prod")
 @Configuration
-public class BeanConfiguration {
+public class BeanProdConfiguration {
 
     @Bean
     public MapGenerationUseCase bookRideUseCase() {

@@ -9,7 +9,7 @@ import static com.joffrey.uberclone.businesslogic.models.BlockType.ROAD;
 
 public class ItineraryUseCase {
 
-    public List<Coordinates> findShortestPath(Block[][] matrix, Coordinates start, Coordinates end) {
+    public List<Coordinates> getItinerary(Block[][] matrix, Coordinates start, Coordinates end) {
         int rowsNumber = matrix.length;
         int columnNumber = matrix[0].length;
 
@@ -19,12 +19,12 @@ public class ItineraryUseCase {
 
         Queue<Coordinates> bfsQueue = new LinkedList<>();
         bfsQueue.offer(start);
-        visitedNodes[start.row()][start.col()] = true;
+        visitedNodes[start.vertical()][start.horizontal()] = true;
 
         while (!bfsQueue.isEmpty()) {
             Coordinates current = bfsQueue.poll();
 
-            if (current.row() == end.row() && current.col() == end.col()) {
+            if (current.vertical() == end.vertical() && current.horizontal() == end.horizontal()) {
                 return reconstructPath(parent, current);
             }
 
@@ -38,7 +38,7 @@ public class ItineraryUseCase {
         List<Coordinates> path = new ArrayList<>();
         while (current != null) {
             path.add(current);
-            current = parent[current.row()][current.col()];
+            current = parent[current.vertical()][current.horizontal()];
         }
         Collections.reverse(path);
         return path;
@@ -48,8 +48,8 @@ public class ItineraryUseCase {
                                   boolean[][] visitedNodes, Coordinates[][] parent, Queue<Coordinates> bfsQueue,
                                   Coordinates current) {
         for (int[] dir : directions) {
-            int newRow = current.row() + dir[0];
-            int newCol = current.col() + dir[1];
+            int newRow = current.vertical() + dir[0];
+            int newCol = current.horizontal() + dir[1];
 
             if (isValidNeighbor(newRow, newCol, rowsNumber, columnNumber) &&
                 isRoadBlock(matrix[newRow][newCol]) && !visitedNodes[newRow][newCol]) {

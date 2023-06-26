@@ -18,7 +18,7 @@ class ItineraryUseCaseTest {
 
     @Test
     void should_answer_empty_itinerary_if_not_found() {
-        assertFindShortestPath(new Block[][]{
+        assertItineraryIsTheShortest(new Block[][]{
                         {I, I, I, I},
                         {I, I, I, I},
                         {I, I, I, I},
@@ -32,7 +32,7 @@ class ItineraryUseCaseTest {
     @Test
     void should_find_shortest_itinerary() {
 
-        assertFindShortestPath(new Block[][]{
+        assertItineraryIsTheShortest(new Block[][]{
                         {R, R}},
                 new Coordinates(0, 0),
                 new Coordinates(0, 1),
@@ -41,7 +41,7 @@ class ItineraryUseCaseTest {
                         new Coordinates(0, 1)
                 ));
 
-        assertFindShortestPath(new Block[][]{
+        assertItineraryIsTheShortest(new Block[][]{
                         {R, R, R, R}},
                 new Coordinates(0, 0),
                 new Coordinates(0, 3),
@@ -52,7 +52,7 @@ class ItineraryUseCaseTest {
                         new Coordinates(0, 3)
                 ));
 
-        assertFindShortestPath(new Block[][]{
+        assertItineraryIsTheShortest(new Block[][]{
                         {R},
                         {R}},
                 new Coordinates(0, 0),
@@ -62,7 +62,7 @@ class ItineraryUseCaseTest {
                         new Coordinates(1, 0)
                 ));
 
-        assertFindShortestPath(new Block[][]{
+        assertItineraryIsTheShortest(new Block[][]{
                         {R},
                         {R},
                         {R},
@@ -76,7 +76,7 @@ class ItineraryUseCaseTest {
                         new Coordinates(3, 0)
                 ));
 
-        assertFindShortestPath(new Block[][]{
+        assertItineraryIsTheShortest(new Block[][]{
                         {R, R, R},
                         {R, R, R}
                 },
@@ -89,7 +89,7 @@ class ItineraryUseCaseTest {
                         new Coordinates(1, 2)
                 ));
 
-        assertFindShortestPath(new Block[][]{
+        assertItineraryIsTheShortest(new Block[][]{
                         {R, I, R, R, R},
                         {R, R, R, I, R},
                         {R, R, R, I, R},
@@ -112,7 +112,7 @@ class ItineraryUseCaseTest {
                 ));
     }
 
-    private void assertFindShortestPath(Block[][] map, Coordinates startCoordinates, Coordinates endCoordinates, List<Coordinates> expected) {
-        assertEquals(expected, pathFindingUseCase.findShortestPath(map, startCoordinates, endCoordinates));
+    private void assertItineraryIsTheShortest(Block[][] map, Coordinates startCoordinates, Coordinates endCoordinates, List<Coordinates> expected) {
+        assertEquals(expected, pathFindingUseCase.getItinerary(map, startCoordinates, endCoordinates));
     }
 }
