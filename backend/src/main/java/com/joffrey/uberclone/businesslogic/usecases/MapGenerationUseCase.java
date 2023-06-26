@@ -13,7 +13,7 @@ public class MapGenerationUseCase {
         blocks = new Block[verticalLength][horizontalLength];
         for (int i = 0; i < blocks.length; i++) {
             for (int j = 0; j < blocks[i].length; j++) {
-                blocks[i][j] = new Block(BlockType.ROAD.name(), BlockType.ROAD.getColor());
+                blocks[i][j] = new Block(BlockType.ROAD, BlockType.ROAD.getColor());
             }
         }
     }
@@ -26,7 +26,7 @@ public class MapGenerationUseCase {
             while (startVertical <= creationBlock.yEnd()) {
 
                 while (startHorizontal != creationBlock.xEnd() + 1) {
-                    blocks[startVertical][startHorizontal++] = new Block(creationBlock.blockType().name(), creationBlock.blockType().getColor());
+                    blocks[startVertical][startHorizontal++] = new Block(creationBlock.blockType(), creationBlock.blockType().getColor());
                 }
 
                 startHorizontal = creationBlock.xStart();

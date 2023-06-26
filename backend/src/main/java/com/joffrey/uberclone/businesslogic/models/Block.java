@@ -1,4 +1,4 @@
 package com.joffrey.uberclone.businesslogic.models;
 
-public record Block(String type, String color) {
+public record Block(BlockType type, String color) {
 }

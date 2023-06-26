@@ -5,8 +5,10 @@ import com.joffrey.uberclone.businesslogic.models.Coordinates;
 
 import java.util.*;
 
+import static com.joffrey.uberclone.businesslogic.models.BlockType.ROAD;
+
 public class ItineraryUseCase {
-    
+
     public List<Coordinates> findShortestPath(Block[][] matrix, Coordinates start, Coordinates end) {
         int rowsNumber = matrix.length;
         int columnNumber = matrix[0].length;
@@ -50,7 +52,7 @@ public class ItineraryUseCase {
             int newCol = current.col() + dir[1];
 
             if (isValidNeighbor(newRow, newCol, rowsNumber, columnNumber) &&
-                    isRoadBlock(matrix[newRow][newCol]) && !visitedNodes[newRow][newCol]) {
+                isRoadBlock(matrix[newRow][newCol]) && !visitedNodes[newRow][newCol]) {
                 bfsQueue.offer(new Coordinates(newRow, newCol));
                 visitedNodes[newRow][newCol] = true;
                 parent[newRow][newCol] = current;
@@ -63,6 +65,6 @@ public class ItineraryUseCase {
     }
 
     private boolean isRoadBlock(Block block) {
-        return Objects.equals(block.type(), "ROAD");
+        return Objects.equals(block.type(), ROAD);
     }
 }
