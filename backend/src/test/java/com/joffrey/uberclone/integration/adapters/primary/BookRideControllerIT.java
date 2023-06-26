@@ -31,44 +31,44 @@ public class BookRideControllerIT extends AbstractIntegrationTest {
                           "blocks": [
                             [
                               {
-                                "name": "ROAD",
-                                "color": "#000000"
+                                "type": "ROAD",
+                                "color": "#f5f5f5"
                               },
                               {
-                                "name": "ROAD",
-                                "color": "#000000"
+                                "type": "ROAD",
+                                "color": "#f5f5f5"
                               },
                               {
-                                "name": "ROAD",
-                                "color": "#000000"
+                                "type": "ROAD",
+                                "color": "#f5f5f5"
                               }
                             ],
                             [
                               {
-                                "name": "ROAD",
-                                "color": "#000000"
+                                "type": "ROAD",
+                                "color": "#f5f5f5"
                               },
                               {
-                                "name": "BUILDING",
+                                "type": "BUILDING",
                                 "color": "#d77a61"
                               },
                               {
-                                "name": "ROAD",
-                                "color": "#000000"
+                                "type": "ROAD",
+                                "color": "#f5f5f5"
                               }
                             ],
                             [
                               {
-                                "name": "ROAD",
-                                "color": "#000000"
+                                "type": "ROAD",
+                                "color": "#f5f5f5"
                               },
                               {
-                                "name": "ROAD",
-                                "color": "#000000"
+                                "type": "ROAD",
+                                "color": "#f5f5f5"
                               },
                               {
-                                "name": "ROAD",
-                                "color": "#000000"
+                                "type": "ROAD",
+                                "color": "#f5f5f5"
                               }
                             ]
                           ]

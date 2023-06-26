@@ -1,7 +1,7 @@
 package com.joffrey.uberclone.adapters.primary.springboot;
 
 import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
-import com.joffrey.uberclone.businesslogic.usecases.csv.FakeCsvReader;
+import com.joffrey.uberclone.businesslogic.models.csv.FakeCsvReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;

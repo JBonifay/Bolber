@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.businesslogic.usecases.csv;
+package com.joffrey.uberclone.businesslogic.models.csv;
 
 public interface CsvReader {
 

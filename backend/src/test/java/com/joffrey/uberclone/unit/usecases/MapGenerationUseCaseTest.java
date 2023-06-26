@@ -3,22 +3,19 @@ package com.joffrey.uberclone.unit.usecases;
 import com.joffrey.uberclone.businesslogic.models.Block;
 import com.joffrey.uberclone.businesslogic.models.CreationBlock;
 import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
-import com.joffrey.uberclone.businesslogic.usecases.csv.CsvReader;
-import com.joffrey.uberclone.businesslogic.usecases.csv.FakeCsvReader;
-import com.joffrey.uberclone.businesslogic.usecases.csv.FileCsvReader;
+import com.joffrey.uberclone.businesslogic.models.csv.CsvReader;
+import com.joffrey.uberclone.businesslogic.models.csv.FakeCsvReader;
+import com.joffrey.uberclone.businesslogic.models.csv.FileCsvReader;
 import org.junit.jupiter.api.Test;
 
 import static com.joffrey.uberclone.businesslogic.models.BlockType.*;
+import static com.joffrey.uberclone.fixtures.Map.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class MapGenerationUseCaseTest {
     public static final String FAKE_FILE = null;
     public static final String INIT_CSV_FILE = "test-init.csv";
     private final MapGenerationUseCase mapGenerationUseCase = new MapGenerationUseCase();
-    private final Block R = new Block(ROAD.name(), ROAD.getColor());
-    private final Block B = new Block(BUILDING.name(), BUILDING.getColor());
-    private final Block I = new Block(RIVER.name(), RIVER.getColor());
-    private final Block P = new Block(PARK.name(), PARK.getColor());
 
     @Test
     void shouldGenerateMapFromInput() {
