@@ -1,27 +1,27 @@
-package com.joffrey.uberclone.unit.usecases.bookride;
+package com.joffrey.uberclone.unit.usecases;
 
 import com.joffrey.uberclone.businesslogic.models.Block;
 import com.joffrey.uberclone.businesslogic.models.CreationBlock;
-import com.joffrey.uberclone.businesslogic.usecases.bookride.BookRideUseCase;
-import com.joffrey.uberclone.businesslogic.usecases.bookride.csv.CsvReader;
-import com.joffrey.uberclone.businesslogic.usecases.bookride.csv.FakeCsvReader;
-import com.joffrey.uberclone.businesslogic.usecases.bookride.csv.FileCsvReader;
+import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
+import com.joffrey.uberclone.businesslogic.usecases.csv.CsvReader;
+import com.joffrey.uberclone.businesslogic.usecases.csv.FakeCsvReader;
+import com.joffrey.uberclone.businesslogic.usecases.csv.FileCsvReader;
 import org.junit.jupiter.api.Test;
 
 import static com.joffrey.uberclone.businesslogic.models.BlockType.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class BookRideUseCaseTest {
+class MapGenerationUseCaseTest {
     public static final String FAKE_FILE = null;
     public static final String INIT_CSV_FILE = "test-init.csv";
-    private final BookRideUseCase bookRideUseCase = new BookRideUseCase();
+    private final MapGenerationUseCase mapGenerationUseCase = new MapGenerationUseCase();
     private final Block R = new Block(ROAD.name(), ROAD.getColor());
     private final Block B = new Block(BUILDING.name(), BUILDING.getColor());
     private final Block I = new Block(RIVER.name(), RIVER.getColor());
     private final Block P = new Block(PARK.name(), PARK.getColor());
 
     @Test
-    void shouldGenerateBuildingsFromInput() {
+    void shouldGenerateMapFromInput() {
         assertMapWasGenerated(new Block[][]{
                 {R, R, R, R, R},
                 {R, R, R, R, R},
@@ -119,8 +119,8 @@ class BookRideUseCaseTest {
         });
         var csvContent = fakeCsvReader.readFile(FAKE_FILE);
 
-        bookRideUseCase.generateMap(5, 5);
-        bookRideUseCase.generateBlocksFromCsvInput(csvContent);
+        mapGenerationUseCase.generateMap(5, 5);
+        mapGenerationUseCase.generateBlocksFromCsvInput(csvContent);
 
         assertArrayEquals(new Block[][]{
                         {I, I, R, P, P},
@@ -128,23 +128,23 @@ class BookRideUseCaseTest {
                         {R, I, R, I, I},
                         {R, I, R, I, R},
                         {R, R, R, R, R}
-                }, bookRideUseCase.map().blocks(),
-                displayMap(bookRideUseCase.map().blocks()));
+                }, mapGenerationUseCase.map().blocks(),
+                displayMap(mapGenerationUseCase.map().blocks()));
     }
 
     void assertMapWasGenerated(final Block[][] expected, final CreationBlock... creationBlocks) {
-        bookRideUseCase.generateMap(5, 5);
-        bookRideUseCase.generateBlocks(creationBlocks);
-        assertArrayEquals(expected, bookRideUseCase.map().blocks(), displayMap(bookRideUseCase.map().blocks()));
+        mapGenerationUseCase.generateMap(5, 5);
+        mapGenerationUseCase.generateBlocks(creationBlocks);
+        assertArrayEquals(expected, mapGenerationUseCase.map().blocks(), displayMap(mapGenerationUseCase.map().blocks()));
     }
 
     void assertMapWasGenerated(final Block[][] expected, final CsvReader csvReader, final String fileName) {
         var csvContent = csvReader.readFile(fileName);
 
-        bookRideUseCase.generateMap(10, 10);
-        bookRideUseCase.generateBlocksFromCsvInput(csvContent);
+        mapGenerationUseCase.generateMap(10, 10);
+        mapGenerationUseCase.generateBlocksFromCsvInput(csvContent);
 
-        assertArrayEquals(expected, bookRideUseCase.map().blocks(), displayMap(bookRideUseCase.map().blocks()));
+        assertArrayEquals(expected, mapGenerationUseCase.map().blocks(), displayMap(mapGenerationUseCase.map().blocks()));
     }
 
     String displayMap(final Block[][] map) {

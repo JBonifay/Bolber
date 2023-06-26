@@ -1,11 +1,11 @@
-package com.joffrey.uberclone.businesslogic.usecases.bookride;
+package com.joffrey.uberclone.businesslogic.usecases;
 
 import com.joffrey.uberclone.businesslogic.models.Block;
 import com.joffrey.uberclone.businesslogic.models.BlockType;
 import com.joffrey.uberclone.businesslogic.models.CreationBlock;
 import com.joffrey.uberclone.businesslogic.models.GeoMap;
 
-public class BookRideUseCase {
+public class MapGenerationUseCase {
 
     private Block[][] blocks;
 

@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.businesslogic.usecases.bookride.csv;
+package com.joffrey.uberclone.businesslogic.usecases.csv;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package com.joffrey.uberclone.adapters.primary.springboot;
 
-import com.joffrey.uberclone.businesslogic.usecases.bookride.BookRideUseCase;
-import com.joffrey.uberclone.businesslogic.usecases.bookride.csv.FakeCsvReader;
+import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
+import com.joffrey.uberclone.businesslogic.usecases.csv.FakeCsvReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -11,14 +11,14 @@ import org.springframework.context.annotation.Profile;
 public class BeanDevConfiguration {
 
     @Bean
-    public BookRideUseCase bookRideUseCase() {
+    public MapGenerationUseCase bookRideUseCase() {
         FakeCsvReader fakeCsvReader = new FakeCsvReader(new String[][]{
                 {"building", "1", "1", "1", "1", "#d77a61"}
         });
-        BookRideUseCase bookRideUseCase = new BookRideUseCase();
-        bookRideUseCase.generateMap(3, 3);
-        bookRideUseCase.generateBlocksFromCsvInput(fakeCsvReader.readFile(null));
-        return bookRideUseCase;
+        MapGenerationUseCase mapGenerationUseCase = new MapGenerationUseCase();
+        mapGenerationUseCase.generateMap(3, 3);
+        mapGenerationUseCase.generateBlocksFromCsvInput(fakeCsvReader.readFile(null));
+        return mapGenerationUseCase;
     }
 
 }
