@@ -12,6 +12,13 @@ export class MapDisplayComponent implements OnInit {
   private svgViewSize = 500;
   private gridCount = 0;
   private squareSize = 0;
+  blocks: Block[][] = [];
+  cars = [
+    {x: 0, y: 0},
+    {x: 10, y: 50},
+    {x: 0, y: 20},
+    {x: 24, y: 8},
+  ];
 
   constructor(private renderer: Renderer2, private geoMapManagement: GeoMapManagementUseCase) {
   }
@@ -20,6 +27,16 @@ export class MapDisplayComponent implements OnInit {
     let svg = document.getElementById('editorSvg')!;
     svg.setAttribute('width', `${this.svgViewSize}`)
     svg.setAttribute('height', `${this.svgViewSize}`)
+
+    this.geoMapManagement.askForMap().subscribe(value => {
+      this.blocks = value.blocks
+    });
+
+    this.blocks.forEach((row, verticalIndex) => {
+      row.forEach((value, horizontalIndex) => {
+
+      })
+    })
 
     this.geoMapManagement.askForMap().subscribe(value => {
       this.gridCount = value.blocks.length;
@@ -45,4 +62,6 @@ export class MapDisplayComponent implements OnInit {
     this.renderer.setAttribute(rect, 'fill', color);
     this.renderer.appendChild(parentSvg, rect)
   }
+
+  protected readonly Map = Map;
 }

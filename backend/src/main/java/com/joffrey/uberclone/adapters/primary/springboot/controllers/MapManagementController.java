@@ -30,10 +30,11 @@ public class MapManagementController {
 
     @PostMapping("/api/itinerary")
     public ResponseEntity<List<Coordinates>> getItinerary(@RequestBody ItineraryRequest request) {
-        Coordinates origin = request.origin;
-        Coordinates destination = request.destination;
-        List<Coordinates> itinerary = itineraryUseCase.getItinerary(null, origin, destination);
-        return ResponseEntity.ok(itinerary);
+//        Coordinates origin = request.origin;
+//        Coordinates destination = request.destination;
+//        List<Coordinates> itinerary = itineraryUseCase.getItinerary(null, origin, destination);
+//        return ResponseEntity.ok(itinerary);
+        throw new RuntimeException();
     }
 
     public record ItineraryRequest(Coordinates origin, Coordinates destination) {

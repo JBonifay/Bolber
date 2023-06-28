@@ -6,12 +6,14 @@ import {AppComponent} from './app.component';
 import {MapDisplayComponent} from "./adapters/presentation/map-display.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {GeoMapApi} from "./businesslogic/ports/geo-map-api";
-import {GeoMapApiService} from "./adapters/external/geo-map-api.service";
+import {InMemoryWithDataGeoMapApiService} from "./adapters/external/in-memory-with-data-geo-map-api.service";
+import {CarComponent} from './components/car.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapDisplayComponent
+    MapDisplayComponent,
+    CarComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +21,7 @@ import {GeoMapApiService} from "./adapters/external/geo-map-api.service";
     HttpClientModule
   ],
   providers: [
-    {provide: GeoMapApi, useClass: GeoMapApiService}
+    {provide: GeoMapApi, useClass: InMemoryWithDataGeoMapApiService}
     // {
     //   deps: [MapRemoteService],
     //   provide: MapManagementUseCase,

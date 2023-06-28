@@ -1,5 +1,5 @@
 package com.joffrey.uberclone.businesslogic.models;
 
-public record Coordinates(int vertical, int horizontal) {
+public record Coordinates(int horizontal, int vertical) {
 
 }

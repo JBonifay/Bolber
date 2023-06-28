@@ -1,70 +1,76 @@
 package com.joffrey.uberclone.businesslogic.usecases;
 
 import com.joffrey.uberclone.businesslogic.models.Block;
+import com.joffrey.uberclone.businesslogic.models.BlockType;
 import com.joffrey.uberclone.businesslogic.models.Coordinates;
 
 import java.util.*;
 
-import static com.joffrey.uberclone.businesslogic.models.BlockType.ROAD;
-
 public class ItineraryUseCase {
 
-    public List<Coordinates> getItinerary(Block[][] matrix, Coordinates start, Coordinates end) {
-        int rowsNumber = matrix.length;
-        int columnNumber = matrix[0].length;
+    public List<Coordinates> getItinerary(Block[] map, Coordinates startCoordinates, Coordinates endCoordinates) {
+        Queue<Coordinates> queue = new LinkedList<>();
+        Set<Coordinates> visited = new HashSet<>();
+        Map<Coordinates, Coordinates> previousMap = new HashMap<>();
 
-        boolean[][] visitedNodes = new boolean[rowsNumber][columnNumber];
-        Coordinates[][] parent = new Coordinates[rowsNumber][columnNumber];
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        queue.offer(startCoordinates);
+        visited.add(startCoordinates);
 
-        Queue<Coordinates> bfsQueue = new LinkedList<>();
-        bfsQueue.offer(start);
-        visitedNodes[start.vertical()][start.horizontal()] = true;
+        boolean foundEnd = false;
 
-        while (!bfsQueue.isEmpty()) {
-            Coordinates current = bfsQueue.poll();
+        while (!queue.isEmpty()) {
+            Coordinates currentCoordinates = queue.poll();
 
-            if (current.vertical() == end.vertical() && current.horizontal() == end.horizontal()) {
-                return reconstructPath(parent, current);
+            if (currentCoordinates.equals(endCoordinates)) {
+                foundEnd = true;
+                break;
             }
 
-            exploreNeighbors(matrix, rowsNumber, columnNumber, directions, visitedNodes, parent, bfsQueue, current);
+            List<Block> neighbors = getNeighbors(map, currentCoordinates);
+
+            for (Block neighbor : neighbors) {
+                Coordinates neighborCoordinates = new Coordinates(neighbor.x(), neighbor.y());
+
+                if (!visited.contains(neighborCoordinates) && neighbor.blockType() == BlockType.ROAD) {
+                    queue.offer(neighborCoordinates);
+                    visited.add(neighborCoordinates);
+                    previousMap.put(neighborCoordinates, currentCoordinates);
+                }
+            }
         }
 
-        return Collections.emptyList();
-    }
-
-    private List<Coordinates> reconstructPath(Coordinates[][] parent, Coordinates current) {
-        List<Coordinates> path = new ArrayList<>();
-        while (current != null) {
-            path.add(current);
-            current = parent[current.vertical()][current.horizontal()];
+        if (!foundEnd) {
+            return Collections.singletonList(startCoordinates);
         }
+
+        List<Coordinates> path = reconstructPath(endCoordinates, previousMap);
         Collections.reverse(path);
+
         return path;
     }
 
-    private void exploreNeighbors(Block[][] matrix, int rowsNumber, int columnNumber, int[][] directions,
-                                  boolean[][] visitedNodes, Coordinates[][] parent, Queue<Coordinates> bfsQueue,
-                                  Coordinates current) {
-        for (int[] dir : directions) {
-            int newRow = current.vertical() + dir[0];
-            int newCol = current.horizontal() + dir[1];
+    private List<Block> getNeighbors(Block[] map, Coordinates coordinates) {
+        List<Block> neighbors = new ArrayList<>();
 
-            if (isValidNeighbor(newRow, newCol, rowsNumber, columnNumber) &&
-                isRoadBlock(matrix[newRow][newCol]) && !visitedNodes[newRow][newCol]) {
-                bfsQueue.offer(new Coordinates(newRow, newCol));
-                visitedNodes[newRow][newCol] = true;
-                parent[newRow][newCol] = current;
+        for (Block block : map) {
+            if ((Math.abs(block.x() - coordinates.horizontal()) == 1 && block.y() == coordinates.vertical())
+                || (Math.abs(block.y() - coordinates.vertical()) == 1 && block.x() == coordinates.horizontal())) {
+                neighbors.add(block);
             }
         }
+
+        return neighbors;
     }
 
-    private boolean isValidNeighbor(int newRow, int newCol, int rowsNumber, int columnNumber) {
-        return newRow >= 0 && newRow < rowsNumber && newCol >= 0 && newCol < columnNumber;
-    }
+    private List<Coordinates> reconstructPath(Coordinates endCoordinates, Map<Coordinates, Coordinates> previousMap) {
+        List<Coordinates> path = new ArrayList<>();
+        Coordinates current = endCoordinates;
 
-    private boolean isRoadBlock(Block block) {
-        return Objects.equals(block.blockType(), ROAD);
+        while (current != null) {
+            path.add(current);
+            current = previousMap.get(current);
+        }
+
+        return path;
     }
 }

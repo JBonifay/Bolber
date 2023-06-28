@@ -9,28 +9,13 @@ import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
 import org.junit.jupiter.api.Test;
 
 import static com.joffrey.uberclone.businesslogic.models.BlockType.*;
+import static com.joffrey.uberclone.fixtures.BlockFixtures.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class MapGenerationUseCaseTest {
     public static final String FAKE_FILE = null;
     public static final String INIT_CSV_FILE = "test-init.csv";
     private final MapGenerationUseCase mapGenerationUseCase = new MapGenerationUseCase();
-
-    private Block R(int x, int y) {
-        return new Block(ROAD, ROAD.getColor(), x, y);
-    }
-
-    private Block B(int x, int y) {
-        return new Block(BUILDING, BUILDING.getColor(), x, y);
-    }
-
-    private Block I(int x, int y) {
-        return new Block(RIVER, RIVER.getColor(), x, y);
-    }
-
-    private Block P(int x, int y) {
-        return new Block(PARK, PARK.getColor(), x, y);
-    }
 
     @Test
     void shouldGenerateMap() {
