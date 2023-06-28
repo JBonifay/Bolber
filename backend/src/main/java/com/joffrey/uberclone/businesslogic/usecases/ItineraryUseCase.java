@@ -65,6 +65,6 @@ public class ItineraryUseCase {
     }
 
     private boolean isRoadBlock(Block block) {
-        return Objects.equals(block.type(), ROAD);
+        return Objects.equals(block.blockType(), ROAD);
     }
 }

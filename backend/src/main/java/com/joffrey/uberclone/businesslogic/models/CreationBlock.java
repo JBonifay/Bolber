@@ -2,6 +2,9 @@ package com.joffrey.uberclone.businesslogic.models;
 
 public record CreationBlock(BlockType blockType, int xStart, int xEnd, int yStart, int yEnd, String color) {
 
+    public CreationBlock(BlockType blockType, int xStart, int xEnd, int yStart, int yEnd) {
+        this(blockType, xStart, xEnd, yStart, yEnd, blockType.getColor());
+    }
     public static CreationBlock fromCsv(final String[] row) {
         return new CreationBlock(
                 BlockType.valueOf(row[0].toUpperCase()),

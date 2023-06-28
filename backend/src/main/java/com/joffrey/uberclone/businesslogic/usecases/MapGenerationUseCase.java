@@ -1,42 +1,46 @@
 package com.joffrey.uberclone.businesslogic.usecases;
 
 import com.joffrey.uberclone.businesslogic.models.Block;
-import com.joffrey.uberclone.businesslogic.models.BlockType;
 import com.joffrey.uberclone.businesslogic.models.CreationBlock;
-import com.joffrey.uberclone.businesslogic.models.GeoMap;
+
+import static com.joffrey.uberclone.businesslogic.models.BlockType.BUILDING;
+import static com.joffrey.uberclone.businesslogic.models.BlockType.ROAD;
 
 public class MapGenerationUseCase {
-
-    private Block[][] blocks;
+    private Block[] map;
+    private int horizontalLength;
 
     public void generateMap(final int verticalLength, final int horizontalLength) {
-        blocks = new Block[verticalLength][horizontalLength];
-        for (int i = 0; i < blocks.length; i++) {
-            for (int j = 0; j < blocks[i].length; j++) {
-                blocks[i][j] = new Block(BlockType.ROAD, BlockType.ROAD.getColor());
+        this.horizontalLength = horizontalLength;
+        map = new Block[verticalLength * horizontalLength];
+
+        int index = 0;
+        for (int v = 0; v < verticalLength; v++) {
+            for (int h = 0; h < horizontalLength; h++) {
+                map[index++] = new Block(ROAD, h, v);
             }
         }
     }
 
     public void generateBlocks(final CreationBlock... creationBlocks) {
-        for (CreationBlock creationBlock : creationBlocks) {
-            int startVertical = creationBlock.yStart();
-            int startHorizontal = creationBlock.xStart();
 
-            while (startVertical <= creationBlock.yEnd()) {
+        for (CreationBlock cb : creationBlocks) {
+            int startX = cb.xStart();
+            int endX = cb.xEnd();
+            int startY = cb.yStart();
 
-                while (startHorizontal != creationBlock.xEnd() + 1) {
-                    blocks[startVertical][startHorizontal++] = new Block(creationBlock.blockType(), creationBlock.blockType().getColor());
+            for (; startY <= cb.yEnd(); startY++) {
+                int offset = startY * horizontalLength;
+                for (; startX <= endX; startX++) {
+                    map[startX + offset] = new Block(cb.blockType(), startX, startY);
                 }
-
-                startHorizontal = creationBlock.xStart();
-                startVertical++;
+                startX = cb.xStart();
             }
         }
     }
 
-    public GeoMap map() {
-        return new GeoMap(blocks);
+    public Block[] map() {
+        return map;
     }
 
     public void generateBlocksFromCsvInput(final String[][] csvContent) {

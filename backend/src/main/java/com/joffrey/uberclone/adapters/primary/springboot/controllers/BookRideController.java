@@ -1,7 +1,7 @@
 package com.joffrey.uberclone.adapters.primary.springboot.controllers;
 
+import com.joffrey.uberclone.businesslogic.models.Block;
 import com.joffrey.uberclone.businesslogic.models.Coordinates;
-import com.joffrey.uberclone.businesslogic.models.GeoMap;
 import com.joffrey.uberclone.businesslogic.usecases.ItineraryUseCase;
 import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class BookRideController {
     }
 
     @GetMapping("/api/map")
-    public ResponseEntity<GeoMap> getMap() {
+    public ResponseEntity<Block[]> getMap() {
         return ResponseEntity.ok(mapGenerationUseCase.map());
     }
 
@@ -32,7 +32,7 @@ public class BookRideController {
     public ResponseEntity<List<Coordinates>> getItinerary(@RequestBody ItineraryRequest request) {
         Coordinates origin = request.origin;
         Coordinates destination = request.destination;
-        List<Coordinates> itinerary = itineraryUseCase.getItinerary(mapGenerationUseCase.map().blocks(), origin, destination);
+        List<Coordinates> itinerary = itineraryUseCase.getItinerary(null, origin, destination);
         return ResponseEntity.ok(itinerary);
     }
 
