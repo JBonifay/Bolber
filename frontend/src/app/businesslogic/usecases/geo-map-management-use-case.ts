@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {GeoMap} from "../models/geo-map";
+import {Map} from "../models/map";
 import {GeoMapApi} from "../ports/geo-map-api";
 
 @Injectable(
@@ -11,7 +11,7 @@ export class GeoMapManagementUseCase {
 
   }
 
-  askForMap(): Observable<GeoMap> {
+  askForMap(): Observable<Map> {
     return this.geoMapApi.askForMap();
   }
 

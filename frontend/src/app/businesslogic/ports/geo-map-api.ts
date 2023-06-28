@@ -1,6 +1,6 @@
 import {Observable} from "rxjs";
-import {GeoMap} from "../models/geo-map";
+import {Map} from "../models/map";
 
 export abstract class GeoMapApi {
-  abstract askForMap(): Observable<GeoMap>;
+  abstract askForMap(): Observable<Map>;
 }

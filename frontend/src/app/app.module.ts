@@ -13,7 +13,7 @@ import {CarComponent} from './components/car.component';
   declarations: [
     AppComponent,
     MapDisplayComponent,
-    CarComponent
+    CarComponent,
   ],
   imports: [
     BrowserModule,

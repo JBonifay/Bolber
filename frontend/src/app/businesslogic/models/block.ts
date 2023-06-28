@@ -1,4 +1,6 @@
 export interface Block {
-  type: string
+  blockType: string
   color: string
+  x: number
+  y: number
 }

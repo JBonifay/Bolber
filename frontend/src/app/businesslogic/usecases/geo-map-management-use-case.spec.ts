@@ -8,22 +8,7 @@ describe('GeoMapManagement', () => {
 
   beforeEach(() => {
     inMemoryGeoMap.insert({
-      blocks: Array(
-        [
-          {type: "building", color: "#123456"},
-          {type: "building", color: "#123456"},
-          {type: "building", color: "#123456"}
-        ],
-        [
-          {type: "building", color: "#123456"},
-          {type: "building", color: "#123456"},
-          {type: "building", color: "#123456"}
-        ],
-        [
-          {type: "building", color: "#123456"},
-          {type: "building", color: "#123456"},
-          {type: "building", color: "#123456"}
-        ])
+      blocks: []
     });
   });
 
@@ -31,22 +16,8 @@ describe('GeoMapManagement', () => {
     geoMapManagement.askForMap().subscribe(apiResult => {
       expect(apiResult).toEqual(
         {
-          blocks: Array(
-            [
-              {type: "building", color: "#123456"},
-              {type: "building", color: "#123456"},
-              {type: "building", color: "#123456"}
-            ],
-            [
-              {type: "building", color: "#123456"},
-              {type: "building", color: "#123456"},
-              {type: "building", color: "#123456"}
-            ],
-            [
-              {type: "building", color: "#123456"},
-              {type: "building", color: "#123456"},
-              {type: "building", color: "#123456"}
-            ])
+          blocks:
+            []
         });
       done();
     });

@@ -4,7 +4,7 @@ import {GeoMapApiService} from './geo-map-api.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {HttpClient} from "@angular/common/http";
 import {GeoMapApi} from "../../businesslogic/ports/geo-map-api";
-import {GeoMap} from "../../businesslogic/models/geo-map";
+import {Map} from "../../businesslogic/models/map";
 
 describe('GeoMapApiServiceService', () => {
   let service: GeoMapApi;
@@ -27,14 +27,28 @@ describe('GeoMapApiServiceService', () => {
 
 
   it('should ask map to backend', () => {
-    const geoMap: GeoMap =
+    const geoMap: Map =
       {
-        blocks: Array([
-          {type: "river", color: "#3185FC"},
-          {type: "building", color: "#d77a61"},
-          {type: "building", color: "#d77a61"},
-          {type: "park", color: "#70A288"}
-        ]),
+        blocks: [
+          {
+            "blockType": "ROAD",
+            "color": "#f5f5f5",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "blockType": "ROAD",
+            "color": "#f5f5f5",
+            "x": 1,
+            "y": 0
+          },
+          {
+            "blockType": "ROAD",
+            "color": "#f5f5f5",
+            "x": 2,
+            "y": 0
+          }
+        ]
       };
 
     service.askForMap().subscribe(value => {

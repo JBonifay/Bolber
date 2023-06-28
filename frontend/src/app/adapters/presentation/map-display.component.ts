@@ -10,14 +10,16 @@ import {Block} from "../../businesslogic/models/block";
 export class MapDisplayComponent implements OnInit {
 
   private svgViewSize = 500;
-  private gridCount = 0;
-  private squareSize = 0;
-  blocks: Block[][] = [];
+  private gridCount = 50;
+  squareSize = this.svgViewSize / this.gridCount;
+
+  blocks: Block[] = [];
   cars = [
-    {x: 0, y: 0},
-    {x: 10, y: 50},
-    {x: 0, y: 20},
-    {x: 24, y: 8},
+    {x: 2, y: 3},
+    {x: 10, y: 14},
+    {x: 39, y: 14},
+    {x: 20, y: 34},
+    {x: 42, y: 44},
   ];
 
   constructor(private renderer: Renderer2, private geoMapManagement: GeoMapManagementUseCase) {
@@ -31,37 +33,17 @@ export class MapDisplayComponent implements OnInit {
     this.geoMapManagement.askForMap().subscribe(value => {
       this.blocks = value.blocks
     });
-
-    this.blocks.forEach((row, verticalIndex) => {
-      row.forEach((value, horizontalIndex) => {
-
-      })
-    })
-
-    this.geoMapManagement.askForMap().subscribe(value => {
-      this.gridCount = value.blocks.length;
-      this.squareSize = this.svgViewSize / this.gridCount;
-      this.drawBlocks(svg, value.blocks);
-    });
   }
 
-  private drawBlocks(svg: HTMLElement, blocks: Block[][]) {
-    for (let i = 0; i < this.gridCount; i++) {
-      for (let j = 0; j < this.gridCount; j++) {
-        this.createSvgBlock(j, i, blocks[i][j].color, svg);
-      }
-    }
-  }
 
-  private createSvgBlock(x: number, y: number, color: string, parentSvg: HTMLElement) {
-    const rect = this.renderer.createElement("rect", 'svg');
-    this.renderer.setAttribute(rect, "width", `${this.squareSize}`);
-    this.renderer.setAttribute(rect, "height", `${this.squareSize}`);
-    this.renderer.setAttribute(rect, "x", `${x * this.squareSize}`);
-    this.renderer.setAttribute(rect, "y", `${y * this.squareSize}`);
-    this.renderer.setAttribute(rect, 'fill', color);
-    this.renderer.appendChild(parentSvg, rect)
-  }
+  // private createSvgBlock(x: number, y: number, color: string, parentSvg: HTMLElement) {
+  //   const rect = this.renderer.createElement("rect", 'svg');
+  //   this.renderer.setAttribute(rect, "width", `${this.squareSize}`);
+  //   this.renderer.setAttribute(rect, "height", `${this.squareSize}`);
+  //   this.renderer.setAttribute(rect, "x", `${x * this.squareSize}`);
+  //   this.renderer.setAttribute(rect, "y", `${y * this.squareSize}`);
+  //   this.renderer.setAttribute(rect, 'fill', color);
+  //   this.renderer.appendChild(parentSvg, rect)
+  // }
 
-  protected readonly Map = Map;
 }
