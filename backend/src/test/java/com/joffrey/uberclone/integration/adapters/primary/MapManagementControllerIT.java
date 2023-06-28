@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import static com.joffrey.uberclone.adapters.primary.springboot.controllers.BookRideController.ItineraryRequest;
+import static com.joffrey.uberclone.adapters.primary.springboot.controllers.MapManagementController.ItineraryRequest;
 import static org.springframework.http.HttpHeaders.ACCEPT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-public class BookRideControllerIT extends AbstractIntegrationTest {
+public class MapManagementControllerIT extends AbstractIntegrationTest {
 
     @Autowired
     private WebTestClient webTestClient;
@@ -30,52 +30,63 @@ public class BookRideControllerIT extends AbstractIntegrationTest {
                 .contentType(APPLICATION_JSON)
                 .expectBody()
                 .json("""
-                        {
-                          "blocks": [
-                            [
-                              {
-                                "type": "ROAD",
-                                "color": "#f5f5f5"
-                              },
-                              {
-                                "type": "ROAD",
-                                "color": "#f5f5f5"
-                              },
-                              {
-                                "type": "ROAD",
-                                "color": "#f5f5f5"
-                              }
-                            ],
-                            [
-                              {
-                                "type": "ROAD",
-                                "color": "#f5f5f5"
-                              },
-                              {
-                                "type": "BUILDING",
-                                "color": "#d77a61"
-                              },
-                              {
-                                "type": "ROAD",
-                                "color": "#f5f5f5"
-                              }
-                            ],
-                            [
-                              {
-                                "type": "ROAD",
-                                "color": "#f5f5f5"
-                              },
-                              {
-                                "type": "ROAD",
-                                "color": "#f5f5f5"
-                              },
-                              {
-                                "type": "ROAD",
-                                "color": "#f5f5f5"
-                              }
-                            ]
-                          ]
-                        }""");
+                        [
+                          {
+                            "blockType": "ROAD",
+                            "color": "#f5f5f5",
+                            "x": 0,
+                            "y": 0
+                          },
+                          {
+                            "blockType": "ROAD",
+                            "color": "#f5f5f5",
+                            "x": 1,
+                            "y": 0
+                          },
+                          {
+                            "blockType": "ROAD",
+                            "color": "#f5f5f5",
+                            "x": 2,
+                            "y": 0
+                          },
+                          {
+                            "blockType": "ROAD",
+                            "color": "#f5f5f5",
+                            "x": 0,
+                            "y": 1
+                          },
+                          {
+                            "blockType": "BUILDING",
+                            "color": "#d77a61",
+                            "x": 1,
+                            "y": 1
+                          },
+                          {
+                            "blockType": "ROAD",
+                            "color": "#f5f5f5",
+                            "x": 2,
+                            "y": 1
+                          },
+                          {
+                            "blockType": "ROAD",
+                            "color": "#f5f5f5",
+                            "x": 0,
+                            "y": 2
+                          },
+                          {
+                            "blockType": "ROAD",
+                            "color": "#f5f5f5",
+                            "x": 1,
+                            "y": 2
+                          },
+                          {
+                            "blockType": "ROAD",
+                            "color": "#f5f5f5",
+                            "x": 2,
+                            "y": 2
+                          }
+                        ]
+                        """);
     }
 
     @Test

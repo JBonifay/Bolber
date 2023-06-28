@@ -17,19 +17,19 @@ class MapGenerationUseCaseTest {
     private final MapGenerationUseCase mapGenerationUseCase = new MapGenerationUseCase();
 
     private Block R(int x, int y) {
-        return new Block(ROAD, x, y);
+        return new Block(ROAD, ROAD.getColor(), x, y);
     }
 
     private Block B(int x, int y) {
-        return new Block(BUILDING, x, y);
+        return new Block(BUILDING, BUILDING.getColor(), x, y);
     }
 
     private Block I(int x, int y) {
-        return new Block(RIVER, x, y);
+        return new Block(RIVER, RIVER.getColor(), x, y);
     }
 
     private Block P(int x, int y) {
-        return new Block(PARK, x, y);
+        return new Block(PARK, PARK.getColor(), x, y);
     }
 
     @Test

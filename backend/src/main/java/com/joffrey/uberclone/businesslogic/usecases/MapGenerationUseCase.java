@@ -3,7 +3,6 @@ package com.joffrey.uberclone.businesslogic.usecases;
 import com.joffrey.uberclone.businesslogic.models.Block;
 import com.joffrey.uberclone.businesslogic.models.CreationBlock;
 
-import static com.joffrey.uberclone.businesslogic.models.BlockType.BUILDING;
 import static com.joffrey.uberclone.businesslogic.models.BlockType.ROAD;
 
 public class MapGenerationUseCase {
@@ -17,7 +16,7 @@ public class MapGenerationUseCase {
         int index = 0;
         for (int v = 0; v < verticalLength; v++) {
             for (int h = 0; h < horizontalLength; h++) {
-                map[index++] = new Block(ROAD, h, v);
+                map[index++] = new Block(ROAD, ROAD.getColor(), h, v);
             }
         }
     }
@@ -32,7 +31,7 @@ public class MapGenerationUseCase {
             for (; startY <= cb.yEnd(); startY++) {
                 int offset = startY * horizontalLength;
                 for (; startX <= endX; startX++) {
-                    map[startX + offset] = new Block(cb.blockType(), startX, startY);
+                    map[startX + offset] = new Block(cb.blockType(), cb.blockType().getColor(), startX, startY);
                 }
                 startX = cb.xStart();
             }

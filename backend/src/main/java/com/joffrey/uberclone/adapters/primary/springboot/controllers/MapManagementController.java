@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class BookRideController {
+public class MapManagementController {
 
     private final MapGenerationUseCase mapGenerationUseCase;
     private final ItineraryUseCase itineraryUseCase;
 
-    public BookRideController(final MapGenerationUseCase mapGenerationUseCase, ItineraryUseCase itineraryUseCase) {
+    public MapManagementController(final MapGenerationUseCase mapGenerationUseCase, ItineraryUseCase itineraryUseCase) {
         this.mapGenerationUseCase = mapGenerationUseCase;
         this.itineraryUseCase = itineraryUseCase;
     }
