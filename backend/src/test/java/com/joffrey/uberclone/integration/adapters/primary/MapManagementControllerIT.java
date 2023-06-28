@@ -102,24 +102,24 @@ public class MapManagementControllerIT extends AbstractIntegrationTest {
                 .json("""
                         [
                           {
-                            "vertical": 0,
-                            "horizontal": 0
+                            "horizontal": 0,
+                            "vertical": 0
                           },
                           {
-                            "vertical": 1,
-                            "horizontal": 0
+                            "horizontal": 1,
+                            "vertical": 0
                           },
                           {
-                            "vertical": 2,
-                            "horizontal": 0
+                            "horizontal": 2,
+                            "vertical": 0
                           },
                           {
-                            "vertical": 2,
-                            "horizontal": 1
+                            "horizontal": 2,
+                            "vertical": 1
                           },
                           {
-                            "vertical": 2,
-                            "horizontal": 2
+                            "horizontal": 2,
+                            "vertical": 2
                           }
                         ]
                         """);

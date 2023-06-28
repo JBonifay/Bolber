@@ -2,6 +2,9 @@ package com.joffrey.uberclone.unit.usecases;
 
 import com.joffrey.uberclone.businesslogic.models.Block;
 import com.joffrey.uberclone.businesslogic.models.Coordinates;
+import com.joffrey.uberclone.businesslogic.models.pathfinding.DFS;
+import com.joffrey.uberclone.businesslogic.models.pathfinding.NeighborFinder;
+import com.joffrey.uberclone.businesslogic.models.pathfinding.PathReconstruct;
 import com.joffrey.uberclone.businesslogic.usecases.ItineraryUseCase;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ItineraryUseCaseTest {
 
-    private final ItineraryUseCase pathFindingUseCase = new ItineraryUseCase();
+    private final ItineraryUseCase pathFindingUseCase =
+            new ItineraryUseCase(
+                    new DFS(
+                            new NeighborFinder()
+                            , new PathReconstruct()));
 
     @Test
     void should_find_shortest_itinerary() {
