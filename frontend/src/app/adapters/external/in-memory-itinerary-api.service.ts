@@ -12,9 +12,9 @@ export class InMemoryItineraryApiService implements ItineraryApi {
   shortestPathBetween(from: Coordinates, to: Coordinates): Observable<Coordinates[]> {
     return of([
       new Coordinates(0, 0),
-      new Coordinates(0, 1),
-      new Coordinates(0, 2),
-      new Coordinates(1, 2),
+      new Coordinates(1, 0),
+      new Coordinates(2, 0),
+      new Coordinates(2, 1),
       new Coordinates(2, 2)
     ]);
   }

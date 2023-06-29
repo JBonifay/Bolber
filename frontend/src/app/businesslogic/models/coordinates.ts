@@ -1,11 +1,18 @@
 export class Coordinates {
 
-  private horizontal: number;
-  private vertical: number;
+  private readonly _horizontal: number;
+  private readonly _vertical: number;
 
-  constructor(vertical: number, horizontal: number) {
-    this.vertical = vertical;
-    this.horizontal = horizontal;
+  constructor(horizontal: number, vertical: number) {
+    this._vertical = vertical;
+    this._horizontal = horizontal;
   }
 
+  get horizontal(): number {
+    return this._horizontal;
+  }
+
+  get vertical(): number {
+    return this._vertical;
+  }
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {GeoMapManagementUseCase} from "../../businesslogic/usecases/geo-map-management-use-case";
 import {Block} from "../../businesslogic/models/block";
+import {CarComponent} from "../../components/car.component";
 
 @Component({
   selector: 'app-map-display',
@@ -13,16 +14,14 @@ export class MapDisplayComponent implements OnInit {
   private gridCount = 50;
   squareSize = this.svgViewSize / this.gridCount;
   blocks: Block[] = [];
-  cars = [
-    {x: 2, y: 3},
-    {x: 10, y: 14},
-    {x: 39, y: 14},
-    {x: 20, y: 34},
-    {x: 42, y: 44},
-  ];
+  cars: CarComponent[] = [];
 
   constructor(private renderer: Renderer2, private geoMapManagement: GeoMapManagementUseCase) {
+    let car = new CarComponent();
+    car.setPosition(20, 20);
+    this.cars.push(car);
   }
+
 
   ngOnInit() {
     let svg = document.getElementById('editorSvg')!;
@@ -32,6 +31,10 @@ export class MapDisplayComponent implements OnInit {
     this.geoMapManagement.askForMap().subscribe(value => {
       this.blocks = value
     });
+
+    this.cars.forEach(value => {
+      value.move()
+    })
   }
 
 }
