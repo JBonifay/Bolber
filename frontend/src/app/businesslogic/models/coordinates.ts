@@ -1,11 +1,11 @@
 export class Coordinates {
 
-  private verticalPosition: number;
-  private horizontalPosition: number;
+  private horizontal: number;
+  private vertical: number;
 
-  constructor(verticalPosition: number, horizontalPosition: number) {
-    this.verticalPosition = verticalPosition;
-    this.horizontalPosition = horizontalPosition;
+  constructor(vertical: number, horizontal: number) {
+    this.vertical = vertical;
+    this.horizontal = horizontal;
   }
 
 }

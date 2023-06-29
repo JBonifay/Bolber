@@ -1,21 +1,21 @@
 import {Injectable} from '@angular/core';
-import {Map} from "../../businesslogic/models/map";
-import {GeoMapApi} from "../../businesslogic/ports/geo-map-api";
+import {MapApi} from "../../businesslogic/ports/map-api";
 import {Observable, of} from "rxjs";
+import {Block} from "../../businesslogic/models/block";
 
 @Injectable()
-export class InMemoryGeoMapApiService implements GeoMapApi {
+export class InMemoryGeoMapApiService implements MapApi {
 
-  private geoMap: Map = {blocks: Array()};
+  private geoMap: Block[] = Array();
 
   constructor() {
   }
 
-  insert(geoMap: Map) {
-    this.geoMap = geoMap;
+  insert(blocks: Block[]) {
+    this.geoMap = blocks;
   }
 
-  askForMap(): Observable<Map> {
+  askForMap(): Observable<Block[]> {
     return of(this.geoMap);
   }
 }

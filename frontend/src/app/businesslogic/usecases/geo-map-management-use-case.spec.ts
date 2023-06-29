@@ -7,18 +7,13 @@ describe('GeoMapManagement', () => {
   let geoMapManagement = new GeoMapManagementUseCase(inMemoryGeoMap);
 
   beforeEach(() => {
-    inMemoryGeoMap.insert({
-      blocks: []
-    });
+    inMemoryGeoMap.insert(Array());
   });
 
   it('should ask map data to api service', (done: DoneFn) => {
     geoMapManagement.askForMap().subscribe(apiResult => {
       expect(apiResult).toEqual(
-        {
-          blocks:
-            []
-        });
+        []);
       done();
     });
   });

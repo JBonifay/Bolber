@@ -12,7 +12,6 @@ export class MapDisplayComponent implements OnInit {
   private svgViewSize = 500;
   private gridCount = 50;
   squareSize = this.svgViewSize / this.gridCount;
-
   blocks: Block[] = [];
   cars = [
     {x: 2, y: 3},
@@ -31,19 +30,8 @@ export class MapDisplayComponent implements OnInit {
     svg.setAttribute('height', `${this.svgViewSize}`)
 
     this.geoMapManagement.askForMap().subscribe(value => {
-      this.blocks = value.blocks
+      this.blocks = value
     });
   }
-
-
-  // private createSvgBlock(x: number, y: number, color: string, parentSvg: HTMLElement) {
-  //   const rect = this.renderer.createElement("rect", 'svg');
-  //   this.renderer.setAttribute(rect, "width", `${this.squareSize}`);
-  //   this.renderer.setAttribute(rect, "height", `${this.squareSize}`);
-  //   this.renderer.setAttribute(rect, "x", `${x * this.squareSize}`);
-  //   this.renderer.setAttribute(rect, "y", `${y * this.squareSize}`);
-  //   this.renderer.setAttribute(rect, 'fill', color);
-  //   this.renderer.appendChild(parentSvg, rect)
-  // }
 
 }

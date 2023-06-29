@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {Map} from "../../businesslogic/models/map";
-import {GeoMapApi} from "../../businesslogic/ports/geo-map-api";
+import {MapApi} from "../../businesslogic/ports/map-api";
 import {HttpClient} from "@angular/common/http";
+import {Block} from "../../businesslogic/models/block";
 
 @Injectable()
-export class GeoMapApiService implements GeoMapApi {
+export class GeoMapApiService implements MapApi {
 
   constructor(private httpClient: HttpClient) {
   }
 
-  askForMap(): Observable<Map> {
-    return this.httpClient.get<Map>("/api/map")
+  askForMap(): Observable<Block[]> {
+    return this.httpClient.get<Block[]>("/api/map")
   }
 }

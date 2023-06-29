@@ -1,17 +1,17 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Map} from "../models/map";
-import {GeoMapApi} from "../ports/geo-map-api";
+import {MapApi} from "../ports/map-api";
+import {Block} from "../models/block";
 
 @Injectable(
   {providedIn: "root"}
 )
 export class GeoMapManagementUseCase {
-  constructor(private geoMapApi: GeoMapApi) {
+  constructor(private geoMapApi: MapApi) {
 
   }
 
-  askForMap(): Observable<Map> {
+  askForMap(): Observable<Block[]> {
     return this.geoMapApi.askForMap();
   }
 
