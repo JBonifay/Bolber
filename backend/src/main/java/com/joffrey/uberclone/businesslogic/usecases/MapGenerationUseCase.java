@@ -1,22 +1,22 @@
 package com.joffrey.uberclone.businesslogic.usecases;
 
-import com.joffrey.uberclone.businesslogic.models.Block;
-import com.joffrey.uberclone.businesslogic.models.CreationBlock;
+import com.joffrey.uberclone.businesslogic.domain.map.Block;
+import com.joffrey.uberclone.businesslogic.domain.map.CreationBlock;
 
-import static com.joffrey.uberclone.businesslogic.models.BlockType.ROAD;
+import static com.joffrey.uberclone.businesslogic.domain.map.BlockType.ROAD;
 
 public class MapGenerationUseCase {
-    private Block[] map;
+    private Block[] mapData;
     private int horizontalLength;
 
     public void generateMap(final int verticalLength, final int horizontalLength) {
         this.horizontalLength = horizontalLength;
-        map = new Block[verticalLength * horizontalLength];
+        mapData = new Block[verticalLength * horizontalLength];
 
         int index = 0;
         for (int v = 0; v < verticalLength; v++) {
             for (int h = 0; h < horizontalLength; h++) {
-                map[index++] = new Block(ROAD, ROAD.getColor(), h, v);
+                mapData[index++] = new Block(ROAD, ROAD.getColor(), h, v);
             }
         }
     }
@@ -31,7 +31,7 @@ public class MapGenerationUseCase {
             for (; startY <= cb.yEnd(); startY++) {
                 int offset = startY * horizontalLength;
                 for (; startX <= endX; startX++) {
-                    map[startX + offset] = new Block(cb.blockType(), cb.blockType().getColor(), startX, startY);
+                    mapData[startX + offset] = new Block(cb.blockType(), cb.blockType().getColor(), startX, startY);
                 }
                 startX = cb.xStart();
             }
@@ -39,7 +39,7 @@ public class MapGenerationUseCase {
     }
 
     public Block[] map() {
-        return map;
+        return mapData;
     }
 
     public void generateBlocksFromCsvInput(final String[][] csvContent) {

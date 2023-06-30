@@ -1,8 +1,8 @@
 package com.joffrey.uberclone.fixtures;
 
-import com.joffrey.uberclone.businesslogic.models.Block;
+import com.joffrey.uberclone.businesslogic.domain.map.Block;
 
-import static com.joffrey.uberclone.businesslogic.models.BlockType.*;
+import static com.joffrey.uberclone.businesslogic.domain.map.BlockType.*;
 
 public class BlockFixtures {
 

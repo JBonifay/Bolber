@@ -1,14 +1,14 @@
 package com.joffrey.uberclone.unit.usecases;
 
-import com.joffrey.uberclone.businesslogic.models.Block;
-import com.joffrey.uberclone.businesslogic.models.CreationBlock;
-import com.joffrey.uberclone.businesslogic.models.csv.CsvReader;
-import com.joffrey.uberclone.businesslogic.models.csv.FakeCsvReader;
-import com.joffrey.uberclone.businesslogic.models.csv.FileCsvReader;
+import com.joffrey.uberclone.businesslogic.domain.map.Block;
+import com.joffrey.uberclone.businesslogic.domain.map.CreationBlock;
+import com.joffrey.uberclone.businesslogic.domain.csv.CsvReader;
+import com.joffrey.uberclone.businesslogic.domain.csv.FakeCsvReader;
+import com.joffrey.uberclone.businesslogic.domain.csv.FileCsvReader;
 import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
 import org.junit.jupiter.api.Test;
 
-import static com.joffrey.uberclone.businesslogic.models.BlockType.*;
+import static com.joffrey.uberclone.businesslogic.domain.map.BlockType.*;
 import static com.joffrey.uberclone.fixtures.BlockFixtures.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
