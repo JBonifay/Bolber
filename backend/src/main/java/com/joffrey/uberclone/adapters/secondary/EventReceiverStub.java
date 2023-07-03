@@ -2,15 +2,15 @@ package com.joffrey.uberclone.adapters.secondary;
 
 import com.joffrey.uberclone.businesslogic.domain.notification.EventType;
 import com.joffrey.uberclone.businesslogic.ports.EventReceiver;
-import com.joffrey.uberclone.businesslogic.usecases.BookRideUseCase;
+import com.joffrey.uberclone.businesslogic.usecases.BookingManagement;
 
 import java.util.UUID;
 
 public class EventReceiverStub implements EventReceiver {
-    private final BookRideUseCase bookRideUseCase;
+    private final BookingManagement bookingManagement;
 
-    public EventReceiverStub(BookRideUseCase bookRideUseCase) {
-        this.bookRideUseCase = bookRideUseCase;
+    public EventReceiverStub(BookingManagement bookingManagement) {
+        this.bookingManagement = bookingManagement;
     }
 
     @Override
@@ -22,10 +22,10 @@ public class EventReceiverStub implements EventReceiver {
     }
 
     private void handleDriverArrivedToCustomer(UUID driverId) {
-        bookRideUseCase.driverArrivedToCustomer(driverId);
+        bookingManagement.driverArrivedToCustomer(driverId);
     }
 
     private void handleDriverArrivedAtDestination() {
-        bookRideUseCase.driverArrivedAtDestination();
+        bookingManagement.driverArrivedAtDestination();
     }
 }

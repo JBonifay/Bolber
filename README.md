@@ -20,8 +20,8 @@
 
 [//]: # (  location.)
 
-* If no drivers are available, the system should handle this scenario appropriately, such as putting the booking in a
-  queue or notifying the customer.
+[//]: # (* If no drivers are available, the system should handle this scenario appropriately, such as putting the booking in a)
+[//]: # (  queue or notifying the customer.)
 
 # Updating Booking and Driver Status:
 
@@ -41,4 +41,4 @@
 # Completion and Availability:
 
 [//]: # (* When the driver arrives at the destination, the frontend should notify the backend to update the booking's status to "COMPLETED".)
-* Simultaneously, the driver's status should be set to "AVAILABLE" to indicate their availability for future bookings.
+[//]: # (* Simultaneously, the driver's status should be set to "AVAILABLE" to indicate their availability for future bookings.)

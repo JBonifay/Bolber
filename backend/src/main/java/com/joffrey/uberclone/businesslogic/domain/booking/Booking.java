@@ -16,12 +16,11 @@ public final class Booking {
     public Booking(
             Customer customer,
             Coordinates departure,
-            Coordinates destination,
-            BookingStatus status) {
+            Coordinates destination) {
         this.customer = customer;
         this.departure = departure;
         this.destination = destination;
-        this.status = status;
+        this.status = BookingStatus.PENDING;
         this.driver = new NullDriver();
     }
 

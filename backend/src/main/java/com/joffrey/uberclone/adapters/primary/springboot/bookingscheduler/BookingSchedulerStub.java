@@ -1,19 +1,19 @@
-package com.joffrey.uberclone.adapters.secondary;
+package com.joffrey.uberclone.adapters.primary.springboot.bookingscheduler;
 
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;
 import com.joffrey.uberclone.businesslogic.ports.BookingScheduler;
-import com.joffrey.uberclone.businesslogic.usecases.BookRideUseCase;
+import com.joffrey.uberclone.businesslogic.usecases.IBookingManagement;
 
 public class BookingSchedulerStub implements BookingScheduler {
 
-    private final BookRideUseCase bookRideUseCase;
+    private final IBookingManagement IBookingManagement;
     private Coordinates departure;
     private Coordinates destination;
     private Customer customer;
 
-    public BookingSchedulerStub(BookRideUseCase bookRideUseCase) {
-        this.bookRideUseCase = bookRideUseCase;
+    public BookingSchedulerStub(IBookingManagement IBookingManagement) {
+        this.IBookingManagement = IBookingManagement;
     }
 
     public void setData(Customer customer, Coordinates departure, Coordinates destination) {
@@ -24,6 +24,6 @@ public class BookingSchedulerStub implements BookingScheduler {
     
     @Override
     public void start() {
-        bookRideUseCase.handle(customer, departure, destination);
+        IBookingManagement.handle(customer, departure, destination);
     }
 }

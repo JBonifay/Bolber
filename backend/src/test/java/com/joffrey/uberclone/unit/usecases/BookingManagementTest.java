@@ -1,6 +1,6 @@
 package com.joffrey.uberclone.unit.usecases;
 
-import com.joffrey.uberclone.adapters.secondary.BookingSchedulerStub;
+import com.joffrey.uberclone.adapters.primary.springboot.bookingscheduler.BookingSchedulerStub;
 import com.joffrey.uberclone.adapters.secondary.EventNotifierStub;
 import com.joffrey.uberclone.adapters.secondary.EventReceiverStub;
 import com.joffrey.uberclone.adapters.secondary.repository.InMemoryBookingRepository;
@@ -16,7 +16,7 @@ import com.joffrey.uberclone.businesslogic.domain.map.SimulationMap;
 import com.joffrey.uberclone.businesslogic.domain.notification.DriverUpdateMessage;
 import com.joffrey.uberclone.businesslogic.domain.notification.EventType;
 import com.joffrey.uberclone.businesslogic.ports.EventReceiver;
-import com.joffrey.uberclone.businesslogic.usecases.BookRideUseCase;
+import com.joffrey.uberclone.businesslogic.usecases.BookingManagement;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -31,15 +31,15 @@ import static com.joffrey.uberclone.fixtures.BlockFixtures.I;
 import static com.joffrey.uberclone.fixtures.BlockFixtures.R;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BookRideUseCaseTest {
+class BookingManagementTest {
     private final InMemoryBookingRepository bookingRepository = new InMemoryBookingRepository();
     private final ItineraryFinderStub itineraryFinder = new ItineraryFinderStub();
     private final EventNotifierStub eventNotifier = new EventNotifierStub();
     private final DriverAssignment driverAssignment = new DriverAssignment(eventNotifier, itineraryFinder, new NearestDriverLocator());
     private final DriverManager driverManagement = new DriverManager(driverAssignment);
-    private final BookRideUseCase bookRideUseCase = new BookRideUseCase(bookingRepository, driverManagement);
-    private final BookingSchedulerStub bookingScheduler = new BookingSchedulerStub(bookRideUseCase);
-    private final EventReceiver eventReceiver = new EventReceiverStub(bookRideUseCase);
+    private final BookingManagement bookingManagement = new BookingManagement(bookingRepository, driverManagement);
+    private final BookingSchedulerStub bookingScheduler = new BookingSchedulerStub(bookingManagement);
+    private final EventReceiver eventReceiver = new EventReceiverStub(bookingManagement);
 
     @Nested
     class BookingStatusValidation {
