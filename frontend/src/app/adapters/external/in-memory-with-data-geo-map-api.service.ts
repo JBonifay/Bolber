@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {MapApi} from "../../businesslogic/ports/map-api";
 import {Observable, of} from "rxjs";
 import {Block} from "../../businesslogic/models/block";
+import {SimulationMap} from "../../businesslogic/models/simulation-map";
 
 @Injectable({
   providedIn: 'root'
@@ -15011,12 +15012,13 @@ export class InMemoryWithDataGeoMapApiService implements MapApi {
       "y": 49
     }
   ];
+
   constructor() {
 
   }
 
-  askForMap(): Observable<Block[]> {
-    return of(this.data);
+  askForMap(): Observable<SimulationMap> {
+    return of({blocks:  this.data});
   }
 
 }

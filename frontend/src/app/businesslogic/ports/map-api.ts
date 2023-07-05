@@ -1,6 +1,6 @@
 import {Observable} from "rxjs";
-import {Block} from "../models/block";
+import {SimulationMap} from "../models/simulation-map";
 
 export abstract class MapApi {
-  abstract askForMap(): Observable<Block[]>;
+  abstract askForMap(): Observable<SimulationMap>;
 }

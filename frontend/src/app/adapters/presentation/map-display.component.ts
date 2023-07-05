@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {GeoMapManagementUseCase} from "../../businesslogic/usecases/geo-map-management-use-case";
-import {Block} from "../../businesslogic/models/block";
 import {CarComponent} from "../../components/car.component";
 import {WebSocketService} from "../external/web-socket.service";
+import {SimulationMap} from "../../businesslogic/models/simulation-map";
 
 @Component({
   selector: 'app-map-display',
@@ -16,7 +16,7 @@ export class MapDisplayComponent implements OnInit {
   private svgViewSize = 500;
   private gridCount = 50;
   squareSize = this.svgViewSize / this.gridCount;
-  blocks: Block[] = [];
+  blocks: SimulationMap = {blocks: []};
   cars: CarComponent[] = [];
 
   constructor(private stomp: WebSocketService, private geoMapManagement: GeoMapManagementUseCase) {

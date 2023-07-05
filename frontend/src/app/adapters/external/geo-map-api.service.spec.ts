@@ -4,7 +4,7 @@ import {GeoMapApiService} from './geo-map-api.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {HttpClient} from "@angular/common/http";
 import {MapApi} from "../../businesslogic/ports/map-api";
-import {Block} from "../../businesslogic/models/block";
+import {SimulationMap} from "../../businesslogic/models/simulation-map";
 
 describe('GeoMapApiServiceService', () => {
   let service: MapApi;
@@ -27,14 +27,16 @@ describe('GeoMapApiServiceService', () => {
 
 
   it('should ask map to backend', () => {
-    const map: Block[] =
-      [
-        {"blockType": "ROAD", "color": "#f5f5f5", "x": 0, "y": 0},
-        {"blockType": "ROAD", "color": "#f5f5f5", "x": 1, "y": 0},
-        {"blockType": "ROAD", "color": "#f5f5f5", "x": 2, "y": 0},
-        {"blockType": "ROAD", "color": "#f5f5f5", "x": 3, "y": 0},
-        {"blockType": "ROAD", "color": "#f5f5f5", "x": 4, "y": 0}
-      ];
+    const map: SimulationMap = {
+      blocks:
+        [
+          {"blockType": "ROAD", "color": "#f5f5f5", "x": 0, "y": 0},
+          {"blockType": "ROAD", "color": "#f5f5f5", "x": 1, "y": 0},
+          {"blockType": "ROAD", "color": "#f5f5f5", "x": 2, "y": 0},
+          {"blockType": "ROAD", "color": "#f5f5f5", "x": 3, "y": 0},
+          {"blockType": "ROAD", "color": "#f5f5f5", "x": 4, "y": 0}
+        ]
+    }
 
     service.askForMap().subscribe(value => {
       expect(value).toEqual(map)
