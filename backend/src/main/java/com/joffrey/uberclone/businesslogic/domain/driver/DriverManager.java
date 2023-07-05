@@ -18,6 +18,10 @@ public class DriverManager {
         drivers.add(driver);
     }
 
+    public List<Driver> drivers() {
+        return drivers;
+    }
+
     public void assignToClosestDriver(Booking booking) {
         driverAssignment.assignBookingToClosestDriver(booking, drivers);
     }

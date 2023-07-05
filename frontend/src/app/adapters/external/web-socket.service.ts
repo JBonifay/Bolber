@@ -5,7 +5,7 @@ export function rxStompServiceFactory() {
   const rxStomp = new WebSocketService();
   rxStomp.configure({
       // Which server?
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: 'ws://localhost:8080/socket',
 
       // Headers
       // Typical keys: login, passcode, host

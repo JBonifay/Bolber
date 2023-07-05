@@ -5,17 +5,17 @@ import com.joffrey.uberclone.businesslogic.domain.map.CreationBlock;
 import com.joffrey.uberclone.businesslogic.domain.csv.CsvReader;
 import com.joffrey.uberclone.businesslogic.domain.csv.FakeCsvReader;
 import com.joffrey.uberclone.businesslogic.domain.csv.FileCsvReader;
-import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
+import com.joffrey.uberclone.businesslogic.usecases.MapGeneration;
 import org.junit.jupiter.api.Test;
 
 import static com.joffrey.uberclone.businesslogic.domain.map.BlockType.*;
 import static com.joffrey.uberclone.fixtures.BlockFixtures.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-class MapGenerationUseCaseTest {
+class MapGenerationTest {
     public static final String FAKE_FILE = null;
     public static final String INIT_CSV_FILE = "test-init.csv";
-    private final MapGenerationUseCase mapGenerationUseCase = new MapGenerationUseCase();
+    private final MapGeneration mapGeneration = new MapGeneration();
 
     @Test
     void shouldGenerateMap() {
@@ -153,16 +153,16 @@ class MapGenerationUseCaseTest {
     }
 
     void assertMapWasGenerated(int verticalLength, int horizontalLength, Block[] expected, CreationBlock... creationBlocks) {
-        mapGenerationUseCase.generateMap(verticalLength, horizontalLength);
-        mapGenerationUseCase.generateBlocks(creationBlocks);
-        assertArrayEquals(expected, mapGenerationUseCase.map(), displayMap(mapGenerationUseCase.map(), horizontalLength));
+        mapGeneration.generateMap(verticalLength, horizontalLength);
+        mapGeneration.generateBlocks(creationBlocks);
+        assertArrayEquals(expected, mapGeneration.map(), displayMap(mapGeneration.map(), horizontalLength));
     }
 
     void assertMapWasGenerated(int verticalLength, int horizontalLength, final CsvReader csvReader, final String fileName, Block[] expected) {
         var csvContent = csvReader.readFile(fileName);
-        mapGenerationUseCase.generateMap(verticalLength, horizontalLength);
-        mapGenerationUseCase.generateBlocksFromCsvInput(csvContent);
-        assertArrayEquals(expected, mapGenerationUseCase.map(), displayMap(mapGenerationUseCase.map(), horizontalLength));
+        mapGeneration.generateMap(verticalLength, horizontalLength);
+        mapGeneration.generateBlocksFromCsvInput(csvContent);
+        assertArrayEquals(expected, mapGeneration.map(), displayMap(mapGeneration.map(), horizontalLength));
     }
 
 

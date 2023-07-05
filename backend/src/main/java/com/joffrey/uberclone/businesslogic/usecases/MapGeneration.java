@@ -5,7 +5,7 @@ import com.joffrey.uberclone.businesslogic.domain.map.CreationBlock;
 
 import static com.joffrey.uberclone.businesslogic.domain.map.BlockType.ROAD;
 
-public class MapGenerationUseCase {
+public class MapGeneration {
     private Block[] mapData;
     private int horizontalLength;
 

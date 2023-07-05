@@ -10,14 +10,14 @@ import static com.joffrey.uberclone.businesslogic.domain.driver.DriverStatus.WAI
 
 public sealed class Driver permits NullDriver {
     private final UUID id;
-    private final String firstName;
+    private final String fullName;
     private final Coordinates startingCoordinates;
     private DriverStatus status;
     private Itinerary actualItinerary;
 
-    public Driver(UUID id, String firstName, Coordinates startingCoordinates) {
+    public Driver(UUID id, String fullName, Coordinates startingCoordinates) {
         this.id = id;
-        this.firstName = firstName;
+        this.fullName = fullName;
         this.startingCoordinates = startingCoordinates;
         status = DriverStatus.WAITING_FOR_RIDE;
     }
@@ -52,13 +52,17 @@ public sealed class Driver permits NullDriver {
         return actualItinerary;
     }
 
+    public String fullName() {
+        return fullName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Driver driver)) return false;
 
         if (!Objects.equals(id, driver.id)) return false;
-        if (!Objects.equals(firstName, driver.firstName)) return false;
+        if (!Objects.equals(fullName, driver.fullName)) return false;
         if (!Objects.equals(startingCoordinates, driver.startingCoordinates))
             return false;
         if (status != driver.status) return false;
@@ -68,7 +72,7 @@ public sealed class Driver permits NullDriver {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (startingCoordinates != null ? startingCoordinates.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (actualItinerary != null ? actualItinerary.hashCode() : 0);

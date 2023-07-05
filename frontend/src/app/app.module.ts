@@ -6,7 +6,6 @@ import {AppComponent} from './app.component';
 import {MapDisplayComponent} from "./adapters/presentation/map-display.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {MapApi} from "./businesslogic/ports/map-api";
-import {InMemoryWithDataGeoMapApiService} from "./adapters/external/in-memory-with-data-geo-map-api.service";
 import {CarComponent} from './components/car.component';
 import {rxStompServiceFactory, WebSocketService} from "./adapters/external/web-socket.service";
 import {GeoMapApiService} from "./adapters/external/geo-map-api.service";
