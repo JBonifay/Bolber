@@ -17,7 +17,6 @@ export class CarComponent {
     this.y = y;
   }
 
-
   async move() {
     let coordinates: Coordinates[] = Array(
       new Coordinates(19, 20),

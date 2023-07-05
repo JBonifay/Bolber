@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.adapters.primary.springboot.bookingscheduler;
+package com.joffrey.uberclone.adapters.bookingscheduler;
 
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;
 import com.joffrey.uberclone.businesslogic.ports.BookingScheduler;
@@ -13,7 +13,6 @@ public class ClockBookingScheduler implements BookingScheduler {
 
     private final IBookingManagement IBookingManagement;
     private final RandomBookingProperties randomBookingProperties;
-
 
     public ClockBookingScheduler(IBookingManagement IBookingManagement, RandomBookingProperties randomBookingProperties) {
         this.IBookingManagement = IBookingManagement;

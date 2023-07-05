@@ -8,6 +8,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {MapApi} from "./businesslogic/ports/map-api";
 import {InMemoryWithDataGeoMapApiService} from "./adapters/external/in-memory-with-data-geo-map-api.service";
 import {CarComponent} from './components/car.component';
+import {rxStompServiceFactory, WebSocketService} from "./adapters/external/web-socket.service";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,11 @@ import {CarComponent} from './components/car.component';
     HttpClientModule
   ],
   providers: [
-    {provide: MapApi, useClass: InMemoryWithDataGeoMapApiService}
+    {provide: MapApi, useClass: InMemoryWithDataGeoMapApiService},
+    {
+      provide: WebSocketService,
+      useFactory: rxStompServiceFactory,
+    },
     // {
     //   deps: [MapRemoteService],
     //   provide: MapManagementUseCase,

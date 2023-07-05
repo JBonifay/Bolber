@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.adapters.primary.springboot.bookingscheduler;
+package com.joffrey.uberclone.adapters.bookingscheduler;
 
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;

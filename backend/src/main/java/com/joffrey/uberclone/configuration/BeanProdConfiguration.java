@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.adapters.primary.springboot;
+package com.joffrey.uberclone.configuration;
 
 import com.joffrey.uberclone.businesslogic.usecases.MapGenerationUseCase;
 import com.joffrey.uberclone.businesslogic.domain.csv.FileCsvReader;

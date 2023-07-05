@@ -1,6 +1,6 @@
 package com.joffrey.uberclone.unit.usecases;
 
-import com.joffrey.uberclone.adapters.primary.springboot.bookingscheduler.BookingSchedulerStub;
+import com.joffrey.uberclone.adapters.bookingscheduler.BookingSchedulerStub;
 import com.joffrey.uberclone.adapters.secondary.EventNotifierStub;
 import com.joffrey.uberclone.adapters.secondary.EventReceiverStub;
 import com.joffrey.uberclone.adapters.secondary.repository.InMemoryBookingRepository;

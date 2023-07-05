@@ -1,6 +1,6 @@
-package com.joffrey.uberclone.adapters.primary.springboot;
+package com.joffrey.uberclone.configuration;
 
-import com.joffrey.uberclone.adapters.primary.springboot.bookingscheduler.RandomBookingProperties;
+import com.joffrey.uberclone.adapters.bookingscheduler.RandomBookingProperties;
 import com.joffrey.uberclone.adapters.secondary.EventNotifierStub;
 import com.joffrey.uberclone.adapters.secondary.repository.InMemoryBookingRepository;
 import com.joffrey.uberclone.businesslogic.domain.driver.DriverAssignment;
