@@ -1,8 +1,8 @@
 package com.joffrey.uberclone.integration.adapters.primary;
 
-import com.joffrey.uberclone.adapters.bookingscheduler.BookingManagementSpy;
-import com.joffrey.uberclone.adapters.bookingscheduler.ClockBookingScheduler;
-import com.joffrey.uberclone.adapters.bookingscheduler.RandomBookingPropertiesSpy;
+import com.joffrey.uberclone.testdouble.BookingManagementSpy;
+import com.joffrey.uberclone.businesslogic.ClockBookingScheduler;
+import com.joffrey.uberclone.testdouble.RandomBookingPropertiesSpy;
 import com.joffrey.uberclone.businesslogic.domain.booking.Booking;
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;
 import org.junit.jupiter.api.Test;

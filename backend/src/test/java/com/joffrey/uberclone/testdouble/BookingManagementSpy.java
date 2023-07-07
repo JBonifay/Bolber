@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.adapters.bookingscheduler;
+package com.joffrey.uberclone.testdouble;
 
 import com.joffrey.uberclone.businesslogic.domain.booking.Booking;
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;
@@ -7,6 +7,7 @@ import com.joffrey.uberclone.businesslogic.usecases.IBookingManagement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BookingManagementSpy implements IBookingManagement {
 
@@ -21,5 +22,15 @@ public class BookingManagementSpy implements IBookingManagement {
     @Override
     public void handle(Customer customer, Coordinates departure, Coordinates destination) {
         bookingReceived.add(new Booking(customer, departure, destination));
+    }
+
+    @Override
+    public void driverArrivedToCustomer(UUID driverId) {
+        
+    }
+
+    @Override
+    public void driverArrivedAtDestination() {
+
     }
 }

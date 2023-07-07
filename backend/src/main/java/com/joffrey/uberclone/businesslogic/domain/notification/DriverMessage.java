@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.adapters.primary.springboot;
+package com.joffrey.uberclone.businesslogic.domain.notification;
 
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 

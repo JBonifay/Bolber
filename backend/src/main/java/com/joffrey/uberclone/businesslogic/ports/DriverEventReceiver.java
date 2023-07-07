@@ -4,6 +4,6 @@ import com.joffrey.uberclone.businesslogic.domain.notification.EventType;
 
 import java.util.UUID;
 
-public interface EventReceiver {
-    void receive(UUID driverId, EventType arrivedToCustomer);
+public interface DriverEventReceiver {
+    void handle(UUID driverId, EventType arrivedToCustomer);
 }

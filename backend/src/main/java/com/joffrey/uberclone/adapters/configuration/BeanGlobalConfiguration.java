@@ -1,7 +1,7 @@
-package com.joffrey.uberclone.configuration;
+package com.joffrey.uberclone.adapters.configuration;
 
-import com.joffrey.uberclone.adapters.bookingscheduler.RandomBookingProperties;
-import com.joffrey.uberclone.adapters.secondary.EventNotifierStub;
+import com.joffrey.uberclone.businesslogic.domain.booking.RandomBookingProperties;
+import com.joffrey.uberclone.adapters.primary.springboot.SpringDriverItineraryEventNotifier;
 import com.joffrey.uberclone.adapters.secondary.repository.InMemoryBookingRepository;
 import com.joffrey.uberclone.businesslogic.domain.driver.Driver;
 import com.joffrey.uberclone.businesslogic.domain.driver.DriverAssignment;
@@ -10,12 +10,14 @@ import com.joffrey.uberclone.businesslogic.domain.driver.NearestDriverLocator;
 import com.joffrey.uberclone.businesslogic.domain.itinerary.*;
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 import com.joffrey.uberclone.businesslogic.domain.map.SimulationMap;
+import com.joffrey.uberclone.businesslogic.ports.DriverItineraryEventNotifier;
 import com.joffrey.uberclone.businesslogic.usecases.BookingManagement;
 import com.joffrey.uberclone.businesslogic.usecases.IBookingManagement;
 import com.joffrey.uberclone.businesslogic.usecases.MapGeneration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.util.UUID;
 
@@ -24,9 +26,14 @@ import java.util.UUID;
 public class BeanGlobalConfiguration {
 
     @Bean
-    public DriverManager driverManager(MapGeneration mapGeneration) {
+    public DriverItineraryEventNotifier driverItineraryEventNotifier(SimpMessagingTemplate simpMessagingTemplate) {
+        return new SpringDriverItineraryEventNotifier(simpMessagingTemplate);
+    }
+
+    @Bean
+    public DriverManager driverManager(MapGeneration mapGeneration, DriverItineraryEventNotifier driverItineraryEventNotifier) {
         DriverManager driverManager = new DriverManager(
-                new DriverAssignment(new EventNotifierStub(),
+                new DriverAssignment(driverItineraryEventNotifier,
                         new PathFindingItineraryFinder(
                                 new BFS(
                                         new NeighborFinder(),
@@ -47,9 +54,7 @@ public class BeanGlobalConfiguration {
 
     @Bean
     public IBookingManagement bookingManagement(DriverManager driverManager) {
-        return new BookingManagement(
-                new InMemoryBookingRepository(),
-                driverManager);
+        return new BookingManagement(new InMemoryBookingRepository(), driverManager);
     }
 
     @Bean

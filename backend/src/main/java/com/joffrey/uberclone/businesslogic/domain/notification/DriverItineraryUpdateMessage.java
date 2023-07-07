@@ -4,6 +4,6 @@ import com.joffrey.uberclone.businesslogic.domain.itinerary.Itinerary;
 
 import java.util.UUID;
 
-public record DriverUpdateMessage(UUID driverId, Itinerary newItinerary) {
+public record DriverItineraryUpdateMessage(UUID driverId, Itinerary newItinerary) {
     
 }

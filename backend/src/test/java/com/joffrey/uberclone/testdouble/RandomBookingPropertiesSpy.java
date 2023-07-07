@@ -1,5 +1,6 @@
-package com.joffrey.uberclone.adapters.bookingscheduler;
+package com.joffrey.uberclone.testdouble;
 
+import com.joffrey.uberclone.businesslogic.domain.booking.RandomBookingProperties;
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 
 import java.util.UUID;

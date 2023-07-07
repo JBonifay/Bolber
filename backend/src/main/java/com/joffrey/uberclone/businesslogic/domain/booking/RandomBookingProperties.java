@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.adapters.bookingscheduler;
+package com.joffrey.uberclone.businesslogic.domain.booking;
 
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 

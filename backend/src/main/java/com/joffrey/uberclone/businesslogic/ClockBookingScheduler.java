@@ -1,14 +1,12 @@
-package com.joffrey.uberclone.adapters.bookingscheduler;
+package com.joffrey.uberclone.businesslogic;
 
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;
-import com.joffrey.uberclone.businesslogic.ports.BookingScheduler;
+import com.joffrey.uberclone.businesslogic.domain.booking.RandomBookingProperties;
 import com.joffrey.uberclone.businesslogic.usecases.IBookingManagement;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-@Component
 public class ClockBookingScheduler implements BookingScheduler {
 
     private final IBookingManagement IBookingManagement;

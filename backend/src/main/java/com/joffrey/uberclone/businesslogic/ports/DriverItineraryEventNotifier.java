@@ -4,6 +4,6 @@ import com.joffrey.uberclone.businesslogic.domain.itinerary.Itinerary;
 
 import java.util.UUID;
 
-public interface EventNotifier {
+public interface DriverItineraryEventNotifier {
     void notifyNewItinerary(UUID driverId, Itinerary newItinerary);
 }

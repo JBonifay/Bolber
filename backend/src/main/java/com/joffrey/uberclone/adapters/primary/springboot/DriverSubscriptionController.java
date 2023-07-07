@@ -1,18 +1,16 @@
 package com.joffrey.uberclone.adapters.primary.springboot;
 
 import com.joffrey.uberclone.businesslogic.domain.driver.DriverManager;
-import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
+import com.joffrey.uberclone.businesslogic.domain.notification.DriverMessage;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 
-import java.util.UUID;
-
 @Controller
-public class DriverController {
+public class DriverSubscriptionController {
 
     private final DriverManager driverManager;
 
-    public DriverController(DriverManager driverManager) {
+    public DriverSubscriptionController(DriverManager driverManager) {
         this.driverManager = driverManager;
     }
 

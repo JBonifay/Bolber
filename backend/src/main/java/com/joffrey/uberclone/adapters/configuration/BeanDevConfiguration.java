@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.configuration;
+package com.joffrey.uberclone.adapters.configuration;
 
 import com.joffrey.uberclone.businesslogic.usecases.MapGeneration;
 import com.joffrey.uberclone.businesslogic.domain.csv.FakeCsvReader;

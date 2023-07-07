@@ -1,8 +1,8 @@
-package com.joffrey.uberclone.adapters.bookingscheduler;
+package com.joffrey.uberclone.testdouble;
 
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;
-import com.joffrey.uberclone.businesslogic.ports.BookingScheduler;
+import com.joffrey.uberclone.businesslogic.BookingScheduler;
 import com.joffrey.uberclone.businesslogic.usecases.IBookingManagement;
 
 public class BookingSchedulerStub implements BookingScheduler {

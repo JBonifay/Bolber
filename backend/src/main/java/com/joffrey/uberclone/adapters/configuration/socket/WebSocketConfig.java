@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.configuration.socket;
+package com.joffrey.uberclone.adapters.configuration.socket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;

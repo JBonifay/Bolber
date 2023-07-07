@@ -1,8 +1,8 @@
 package com.joffrey.uberclone.unit.usecases;
 
-import com.joffrey.uberclone.adapters.bookingscheduler.BookingSchedulerStub;
-import com.joffrey.uberclone.adapters.secondary.EventNotifierStub;
-import com.joffrey.uberclone.adapters.secondary.EventReceiverStub;
+import com.joffrey.uberclone.testdouble.BookingSchedulerStub;
+import com.joffrey.uberclone.testdouble.DriverItineraryEventNotifierSpy;
+import com.joffrey.uberclone.adapters.primary.springboot.SpringDriverEventReceiver;
 import com.joffrey.uberclone.adapters.secondary.repository.InMemoryBookingRepository;
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;
 import com.joffrey.uberclone.businesslogic.domain.driver.Driver;
@@ -13,9 +13,9 @@ import com.joffrey.uberclone.businesslogic.domain.itinerary.*;
 import com.joffrey.uberclone.businesslogic.domain.map.Block;
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 import com.joffrey.uberclone.businesslogic.domain.map.SimulationMap;
-import com.joffrey.uberclone.businesslogic.domain.notification.DriverUpdateMessage;
+import com.joffrey.uberclone.businesslogic.domain.notification.DriverItineraryUpdateMessage;
 import com.joffrey.uberclone.businesslogic.domain.notification.EventType;
-import com.joffrey.uberclone.businesslogic.ports.EventReceiver;
+import com.joffrey.uberclone.businesslogic.ports.DriverEventReceiver;
 import com.joffrey.uberclone.businesslogic.usecases.BookingManagement;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,12 +34,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BookingManagementTest {
     private final InMemoryBookingRepository bookingRepository = new InMemoryBookingRepository();
     private final ItineraryFinderStub itineraryFinder = new ItineraryFinderStub();
-    private final EventNotifierStub eventNotifier = new EventNotifierStub();
+    private final DriverItineraryEventNotifierSpy eventNotifier = new DriverItineraryEventNotifierSpy();
     private final DriverAssignment driverAssignment = new DriverAssignment(eventNotifier, itineraryFinder, new NearestDriverLocator());
     private final DriverManager driverManagement = new DriverManager(driverAssignment);
     private final BookingManagement bookingManagement = new BookingManagement(bookingRepository, driverManagement);
     private final BookingSchedulerStub bookingScheduler = new BookingSchedulerStub(bookingManagement);
-    private final EventReceiver eventReceiver = new EventReceiverStub(bookingManagement);
+    private final DriverEventReceiver driverEventReceiver = new SpringDriverEventReceiver(bookingManagement);
 
     @Nested
     class BookingStatusValidation {
@@ -349,7 +349,7 @@ class BookingManagementTest {
 
             aBookingIsReceived();
 
-            assertEquals(new DriverUpdateMessage(
+            assertEquals(new DriverItineraryUpdateMessage(
                             closestDriver.id(),
                             itineraryToCustomer),
                     eventNotifier.previousMessageSent());
@@ -370,7 +370,7 @@ class BookingManagementTest {
             itineraryFinder.setItinerary(itineraryToDestination);
             newDriverEvent(closestDriver.id(), ARRIVED_TO_CUSTOMER);
 
-            assertEquals(new DriverUpdateMessage(
+            assertEquals(new DriverItineraryUpdateMessage(
                             closestDriver.id(),
                             itineraryToDestination),
                     eventNotifier.previousMessageSent());
@@ -386,7 +386,7 @@ class BookingManagementTest {
     }
 
     private void newDriverEvent(UUID driverId, EventType eventType) {
-        eventReceiver.receive(driverId, eventType);
+        driverEventReceiver.handle(driverId, eventType);
     }
 
     private Driver aDriverIsPresent(String driverName, Coordinates position) {

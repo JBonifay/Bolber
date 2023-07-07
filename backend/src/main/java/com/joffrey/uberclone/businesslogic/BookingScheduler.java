@@ -1,4 +1,4 @@
-package com.joffrey.uberclone.businesslogic.ports;
+package com.joffrey.uberclone.businesslogic;
 
 public interface BookingScheduler {
     void start();

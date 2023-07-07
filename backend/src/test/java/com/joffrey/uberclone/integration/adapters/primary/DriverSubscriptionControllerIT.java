@@ -1,14 +1,12 @@
 package com.joffrey.uberclone.integration.adapters.primary;
 
-import com.joffrey.uberclone.adapters.primary.springboot.DriverMessage;
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
+import com.joffrey.uberclone.businesslogic.domain.notification.DriverMessage;
 import com.joffrey.uberclone.integration.adapters.AbstractIntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
@@ -24,12 +22,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class DriverControllerIT extends AbstractIntegrationTest {
+class DriverSubscriptionControllerIT extends AbstractIntegrationTest {
 
     @Value("${local.server.port}")
     private int port;
@@ -45,14 +41,14 @@ class DriverControllerIT extends AbstractIntegrationTest {
 
     @Test
     public void should_receive_drivers_when_subscribing() throws InterruptedException, ExecutionException, TimeoutException {
-        subscribingToDriversTopic(stompClient);
+        subscribingToDriverTopic(stompClient);
 
         DriverMessage[] driverMessage = completableFuture.get(1, SECONDS);
 
         assertInitialDriversWasReceived(driverMessage);
     }
 
-    private void subscribingToDriversTopic(WebSocketStompClient stompClient) throws InterruptedException, ExecutionException, TimeoutException {
+    private void subscribingToDriverTopic(WebSocketStompClient stompClient) throws InterruptedException, ExecutionException, TimeoutException {
         StompSession stompSession = stompClient.connectAsync("ws://localhost:" + port + "/socket", new StompSessionHandlerAdapter() {
         }).get(1, SECONDS);
 
