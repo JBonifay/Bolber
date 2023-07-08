@@ -8,25 +8,22 @@ import {Coordinates} from "../businesslogic/models/coordinates";
   styleUrls: ['./car.component.scss']
 })
 export class CarComponent {
-
   @Input() x: number = 0;
   @Input() y: number = 0;
+  id!: string;
+  private actualItinerary: Coordinates[];
 
-  setPosition(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+  constructor() {
+    this.actualItinerary = [];
+  }
+
+  newItinerary(newItinerary: Coordinates[]) {
+    this.actualItinerary = newItinerary;
+    this.move().then(r => console.log("I'm done " + this.id));
   }
 
   async move() {
-    let coordinates: Coordinates[] = Array(
-      new Coordinates(19, 20),
-      new Coordinates(18, 20),
-      new Coordinates(17, 20),
-      new Coordinates(16, 20),
-      new Coordinates(16, 19),
-      new Coordinates(16, 18),
-      new Coordinates(16, 17),
-    );
+    let coordinates: Coordinates[] = this.actualItinerary;
 
     let idx = 0;
     while (idx != coordinates.length) {
@@ -59,5 +56,4 @@ export class CarComponent {
   }
 
   private wait = (ms: number) => new Promise(res => setTimeout(res, ms));
-
 }

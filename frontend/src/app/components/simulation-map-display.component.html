@@ -1,0 +1,11 @@
+<svg id='editorSvg' class="svg" xmlns="http://www.w3.org/2000/svg">
+  <svg:rect *ngFor="let d of blocks.blocks"
+            [attr.fill]="d.color"
+            [attr.height]="squareSize"
+            [attr.width]="squareSize"
+            [attr.x]="d.x * squareSize"
+            [attr.y]="d.y * squareSize"
+  />
+
+  <svg:g car-svg [x]="d.x * squareSize" [y]="d.y * squareSize" *ngFor="let d of cars"/>
+</svg>

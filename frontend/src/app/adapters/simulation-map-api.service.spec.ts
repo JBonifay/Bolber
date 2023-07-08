@@ -1,23 +1,23 @@
 import {TestBed} from '@angular/core/testing';
 
-import {GeoMapApiService} from './geo-map-api.service';
+import {SimulationMapApiService} from './simulation-map-api.service';
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {HttpClient} from "@angular/common/http";
-import {MapApi} from "../../businesslogic/ports/map-api";
-import {SimulationMap} from "../../businesslogic/models/simulation-map";
+import {SimulationMapApi} from "../businesslogic/ports/simulation-map-api";
+import {SimulationMap} from "../businesslogic/models/simulation-map";
 
-describe('GeoMapApiServiceService', () => {
-  let service: MapApi;
+describe('SimulationMapApiServiceService', () => {
+  let service: SimulationMapApi;
   let httpTestingController: HttpTestingController
   let httpClient: HttpClient;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [{provide: MapApi, useClass: GeoMapApiService}]
+      providers: [{provide: SimulationMapApi, useClass: SimulationMapApiService}]
     });
     httpClient = TestBed.inject(HttpClient);
-    service = TestBed.inject(MapApi)
+    service = TestBed.inject(SimulationMapApi)
     httpTestingController = TestBed.inject(HttpTestingController)
   });
 
@@ -38,7 +38,7 @@ describe('GeoMapApiServiceService', () => {
         ]
     }
 
-    service.askForMap().subscribe(value => {
+    service.getSimulationMap().subscribe(value => {
       expect(value).toEqual(map)
     })
 

@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {MapDisplayComponent} from "./adapters/presentation/map-display.component";
+import {SimulationMapDisplayComponent} from "./components/simulation-map-display.component";
 
 const routes: Routes = [
-  {path: '**', component: MapDisplayComponent},
+  {path: '**', component: SimulationMapDisplayComponent},
 ];
 
 @NgModule({
