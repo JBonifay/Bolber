@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class BookingManagementSpy implements IBookingManagement {
 
     private final List<Booking> bookingReceived = new ArrayList<>();
@@ -32,5 +34,9 @@ public class BookingManagementSpy implements IBookingManagement {
     @Override
     public void driverArrivedAtDestination() {
 
+    }
+
+    public void assertNoBookingReceived() {
+        assertEquals(0, bookingReceived.size());
     }
 }

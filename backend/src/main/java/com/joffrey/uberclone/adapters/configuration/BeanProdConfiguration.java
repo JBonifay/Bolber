@@ -2,6 +2,7 @@ package com.joffrey.uberclone.adapters.configuration;
 
 import com.joffrey.uberclone.businesslogic.ClockBookingScheduler;
 import com.joffrey.uberclone.businesslogic.domain.booking.RandomBookingProperties;
+import com.joffrey.uberclone.businesslogic.domain.driver.DriverManager;
 import com.joffrey.uberclone.businesslogic.usecases.IBookingManagement;
 import com.joffrey.uberclone.businesslogic.usecases.MapGeneration;
 import com.joffrey.uberclone.businesslogic.domain.csv.FileCsvReader;
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Profile;
 public class BeanProdConfiguration {
 
     @Bean
-    public ClockBookingScheduler clockBookingScheduler(IBookingManagement bookingManagement) {
-        return new ClockBookingScheduler(bookingManagement, new RandomBookingProperties());
+    public ClockBookingScheduler clockBookingScheduler(IBookingManagement bookingManagement, DriverManager driverManager) {
+        return new ClockBookingScheduler(bookingManagement, driverManager, new RandomBookingProperties());
     }
 
     @Bean

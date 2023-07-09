@@ -36,4 +36,8 @@ public class DriverManager {
     public void driverArrivedToDestination() {
         drivers.get(0).arrivedToDestination();
     }
+
+    public int availableDriversCount() {
+        return (int) drivers.stream().filter(driver -> driver.status().equals(DriverStatus.WAITING_FOR_RIDE)).count();
+    }
 }
