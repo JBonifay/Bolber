@@ -78,4 +78,15 @@ public sealed class Driver permits NullDriver {
         result = 31 * result + (actualItinerary != null ? actualItinerary.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", startingCoordinates=" + startingCoordinates +
+                ", status=" + status +
+                ", actualItinerary=" + actualItinerary +
+                '}';
+    }
 }

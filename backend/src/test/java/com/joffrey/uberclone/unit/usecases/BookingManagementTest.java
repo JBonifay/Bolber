@@ -1,14 +1,11 @@
 package com.joffrey.uberclone.unit.usecases;
 
+import com.joffrey.uberclone.businesslogic.domain.driver.*;
 import com.joffrey.uberclone.testdouble.BookingSchedulerStub;
 import com.joffrey.uberclone.testdouble.DriverItineraryEventNotifierSpy;
 import com.joffrey.uberclone.adapters.primary.springboot.SpringDriverEventReceiver;
 import com.joffrey.uberclone.adapters.secondary.repository.InMemoryBookingRepository;
 import com.joffrey.uberclone.businesslogic.domain.booking.Customer;
-import com.joffrey.uberclone.businesslogic.domain.driver.Driver;
-import com.joffrey.uberclone.businesslogic.domain.driver.DriverAssignment;
-import com.joffrey.uberclone.businesslogic.domain.driver.DriverManager;
-import com.joffrey.uberclone.businesslogic.domain.driver.NearestDriverLocator;
 import com.joffrey.uberclone.businesslogic.domain.itinerary.*;
 import com.joffrey.uberclone.businesslogic.domain.map.Block;
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
@@ -180,6 +177,16 @@ class BookingManagementTest {
             assertEquals(closestDriver, bookingRepository.bookings().get(0).driver());
         }
 
+        @Test
+        void should_assign_to_first_available_driver() {
+            Driver heber = aDriverIsPresent("Heber", new Coordinates(10, 10));
+            heber.driveToDestination(new Itinerary(List.of()));
+            Driver albert = aDriverIsPresent("Albert", new Coordinates(100, 100));
+
+            aBookingIsReceived();
+
+            assertEquals(albert, bookingRepository.bookings().get(0).driver());
+        }
     }
 
     @Nested

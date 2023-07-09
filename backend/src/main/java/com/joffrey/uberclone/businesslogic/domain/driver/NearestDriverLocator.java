@@ -19,6 +19,7 @@ public class NearestDriverLocator {
 
     private Stream<Driver> sortDrivers(Coordinates customerCoordinates, List<Driver> drivers) {
         return drivers.stream()
+                .filter(driver -> driver.status() == DriverStatus.WAITING_FOR_RIDE)
                 .sorted(Comparator.comparingDouble(driver ->
                         getStraightLineDistance(driver.startingCoordinates(), customerCoordinates)
                 ));
