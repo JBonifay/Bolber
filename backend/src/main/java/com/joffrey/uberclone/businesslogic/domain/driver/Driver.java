@@ -3,6 +3,7 @@ package com.joffrey.uberclone.businesslogic.domain.driver;
 import com.joffrey.uberclone.businesslogic.domain.itinerary.Itinerary;
 import com.joffrey.uberclone.businesslogic.domain.map.Coordinates;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public sealed class Driver permits NullDriver {
     private final String fullName;
     private final Coordinates startingCoordinates;
     private DriverStatus status;
-    private Itinerary actualItinerary;
+    private Itinerary actualItinerary = new Itinerary(List.of());
 
     public Driver(UUID id, String fullName, Coordinates startingCoordinates) {
         this.id = id;
