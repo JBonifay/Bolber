@@ -29,23 +29,22 @@ public class NavigationSystem {
     }
 
     public void driveToCustomer(Coordinates actual, Coordinates customer) {
-        Itinerary shortestItinerary = findShortestItinerary(actual, customer);
-        for (int i = 0; i < shortestItinerary.coordinates().size(); i++) {
-            navigationListener.onMove(shortestItinerary.coordinates().get(i));
-            driverNotification.notify(new DriverMessage(DRIVING_TO_CUSTOMER, shortestItinerary.coordinates().get(i)));
-            simulationProperties.waitTimeBetweenDriverMovement();
-        }
+        drive(actual, customer, DRIVING_TO_CUSTOMER);
         navigationListener.onArrivedToCustomer();
     }
 
     public void driveToDestination(Coordinates actual, Coordinates destination) {
+        drive(actual, destination, DRIVING_TO_DESTINATION);
+        navigationListener.onArrivedToDestination();
+    }
+
+    private void drive(Coordinates actual, Coordinates destination, DriverStatus driverStatus) {
         Itinerary shortestItinerary = findShortestItinerary(actual, destination);
         for (int i = 0; i < shortestItinerary.coordinates().size(); i++) {
             navigationListener.onMove(shortestItinerary.coordinates().get(i));
-            driverNotification.notify(new DriverMessage(DRIVING_TO_DESTINATION, shortestItinerary.coordinates().get(i)));
+            driverNotification.notify(new DriverMessage(driverStatus, shortestItinerary.coordinates().get(i)));
             simulationProperties.waitTimeBetweenDriverMovement();
         }
-        navigationListener.onArrivedToDestination();
     }
 
     protected Itinerary findShortestItinerary(Coordinates startCoordinates, Coordinates endCoordinates) {

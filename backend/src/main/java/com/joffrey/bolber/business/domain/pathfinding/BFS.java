@@ -3,10 +3,14 @@ package com.joffrey.bolber.business.domain.pathfinding;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
 import com.joffrey.bolber.business.domain.map.Block;
 import com.joffrey.bolber.business.domain.map.BlockType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public class BFS extends PathFindingAlgorithm {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass().getName());
 
     @Override
     public List<Coordinates> findShortestPath(Block[] map, Coordinates startCoordinates, Coordinates endCoordinates) {

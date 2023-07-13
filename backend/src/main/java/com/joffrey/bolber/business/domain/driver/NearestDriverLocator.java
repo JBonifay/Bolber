@@ -5,20 +5,18 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public class NearestDriverLocator {
     private final Logger logger = LoggerFactory.getLogger(getClass().getName());
 
     public Driver findNearestDriverForBooking(List<Driver> drivers, Coordinates departureCoordinates) {
-        logger.info("Finding the nearest driver.");
         return findNearestDriverInStraightLine(departureCoordinates, drivers);
     }
 
     private Driver findNearestDriverInStraightLine(Coordinates customerCoordinates, List<Driver> drivers) {
         Driver nearest = nearest(customerCoordinates, onlyAvailableDrivers(drivers.stream()));
-        logger.info("Nearest is: " + nearest);
+        logger.trace("Nearest is: " + nearest);
         return nearest;
     }
 
@@ -35,7 +33,7 @@ public class NearestDriverLocator {
     private double getStraightLineDistance(Coordinates driverCoordinates, Coordinates customerCoordinates) {
         return Math.sqrt(
                 Math.pow(customerCoordinates.horizontal() - driverCoordinates.horizontal(), 2)
-                        + Math.pow(customerCoordinates.vertical() - driverCoordinates.vertical(), 2));
+                + Math.pow(customerCoordinates.vertical() - driverCoordinates.vertical(), 2));
     }
 
 }

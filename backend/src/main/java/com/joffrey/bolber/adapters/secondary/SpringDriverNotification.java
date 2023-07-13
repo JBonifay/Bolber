@@ -19,7 +19,7 @@ public class SpringDriverNotification implements DriverNotification {
 
     @Override
     public void notify(DriverMessage driverMessage) {
-        logger.info("Sending driver message: " + driverMessage);
+        logger.trace("Sending message: " + driverMessage);
         simpMessagingTemplate.convertAndSend("/topic/drivers", driverMessage);
     }
 }
