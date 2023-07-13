@@ -10,13 +10,15 @@
     </parent>
 
     <groupId>com.joffrey</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>Bolber</artifactId>
     <version>0.0.1</version>
-    <name>UberClone</name>
-    <description>Demo project for Spring Boot</description>
+    <name>Bolder</name>
+    <description>A Uber/Bolt clone</description>
 
     <properties>
-        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
