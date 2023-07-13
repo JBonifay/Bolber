@@ -16,7 +16,7 @@ public class BookingManagement {
     }
 
     public void handle(Booking booking) {
-        new Thread(() -> driverManagement.assignDriver(booking)).start();
+        driverManagement.assignDriver(booking);
         bookingRepository.save(booking);
     }
 

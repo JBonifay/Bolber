@@ -11,6 +11,8 @@ import com.joffrey.bolber.doubles.NavigationSystemStub;
 import com.joffrey.bolber.doubles.RandomBookingPropertiesSpy;
 import org.junit.jupiter.api.Test;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -42,13 +44,17 @@ class ClockBookingSchedulerTest {
     }
 
     private void expectBookingWasHandledWithRandomValues() {
-        Booking booking = new Booking(
-                randomBookingProperties.previousDeparture(),
-                randomBookingProperties.previousDestination());
-        assertEquals(
-                booking,
-                bookingManagement.previousBookingReceived()
-        );
+        await()
+                .atMost(3, SECONDS)
+                .untilAsserted(() -> {
+                    Booking booking = new Booking(
+                            randomBookingProperties.previousDeparture(),
+                            randomBookingProperties.previousDestination());
+                    assertEquals(
+                            booking,
+                            bookingManagement.previousBookingReceived()
+                    );
+                });
     }
 
 }

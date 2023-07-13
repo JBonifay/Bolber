@@ -9,16 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DriverManagement {
-    
+
     private final List<Driver> drivers = new ArrayList<>();
     private final NearestDriverLocator nearestDriverLocator = new NearestDriverLocator();
 
     public void addDriver(Driver driver) {
         drivers.add(driver);
-    }
-
-    public List<Driver> drivers() {
-        return drivers;
     }
 
     public void assignDriver(Booking booking) {
