@@ -3,7 +3,7 @@ package com.joffrey.bolber.integration;
 import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.domain.booking.Booking;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
-import com.joffrey.bolber.business.domain.driver.DriverMessage;
+import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import com.joffrey.bolber.business.domain.driver.DriverStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

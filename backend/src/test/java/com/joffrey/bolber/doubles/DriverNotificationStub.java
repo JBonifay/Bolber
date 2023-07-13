@@ -1,6 +1,6 @@
 package com.joffrey.bolber.doubles;
 
-import com.joffrey.bolber.business.domain.driver.DriverMessage;
+import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import com.joffrey.bolber.business.ports.DriverNotification;
 
 import java.util.ArrayList;

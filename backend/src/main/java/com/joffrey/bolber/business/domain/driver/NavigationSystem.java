@@ -1,6 +1,7 @@
 package com.joffrey.bolber.business.domain.driver;
 
 import com.joffrey.bolber.business.domain.map.Block;
+import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import com.joffrey.bolber.business.domain.pathfinding.PathFindingAlgorithm;
 import com.joffrey.bolber.business.domain.simulation.SimulationProperties;
 import com.joffrey.bolber.business.ports.DriverNotification;

@@ -5,7 +5,7 @@ import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.DriverManagement;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
 import com.joffrey.bolber.business.domain.driver.Driver;
-import com.joffrey.bolber.business.domain.driver.DriverMessage;
+import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import com.joffrey.bolber.business.domain.driver.NavigationSystem;
 import com.joffrey.bolber.business.domain.map.Block;
 import com.joffrey.bolber.business.domain.pathfinding.BFS;

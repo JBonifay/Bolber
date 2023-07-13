@@ -1,6 +1,6 @@
 package com.joffrey.bolber.adapters.secondary;
 
-import com.joffrey.bolber.business.domain.driver.DriverMessage;
+import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import com.joffrey.bolber.business.ports.DriverNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
