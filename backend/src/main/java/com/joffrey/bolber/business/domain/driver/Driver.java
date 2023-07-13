@@ -1,8 +1,12 @@
 package com.joffrey.bolber.business.domain.driver;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static com.joffrey.bolber.business.domain.driver.DriverStatus.*;
 
 public class Driver implements NavigationListener {
+    private final Logger logger = LoggerFactory.getLogger(getClass().getName());
     private final String driverName;
     private final NavigationSystem navigationSystem;
     private Coordinates currentCoordinates;
@@ -23,6 +27,7 @@ public class Driver implements NavigationListener {
     }
 
     public void startRide() {
+        logger.info("Driver " + driverName + " is driving to customer.");
         updateStatus(DRIVING_TO_CUSTOMER);
         navigationSystem.driveToCustomer(currentCoordinates, customer);
     }
@@ -41,12 +46,14 @@ public class Driver implements NavigationListener {
 
     @Override
     public void onArrivedToCustomer() {
+        logger.info("Driver " + driverName + " is driving to destination.");
         updateStatus(DRIVING_TO_DESTINATION);
         navigationSystem.driveToDestination(customer, destination);
     }
 
     @Override
     public void onArrivedToDestination() {
+        logger.info("Driver " + driverName + " finished the ride.");
         updateStatus(WAITING_FOR_RIDE);
     }
 

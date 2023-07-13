@@ -4,12 +4,14 @@ import com.joffrey.bolber.business.domain.booking.Booking;
 import com.joffrey.bolber.business.domain.driver.Driver;
 import com.joffrey.bolber.business.domain.driver.DriverStatus;
 import com.joffrey.bolber.business.domain.driver.NearestDriverLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DriverManagement {
-
+    private final Logger logger = LoggerFactory.getLogger(getClass().getName());
     private final List<Driver> drivers = new ArrayList<>();
     private final NearestDriverLocator nearestDriverLocator = new NearestDriverLocator();
 
@@ -20,6 +22,7 @@ public class DriverManagement {
     public void assignDriver(Booking booking) {
         Driver driver = nearestDriverLocator.findNearestDriverForBooking(drivers, booking.departure());
         booking.assignDriver(driver);
+        logger.info("Assigned a driver to booking " + booking);
         driver.setDestinations(booking.departure(), booking.destination());
         driver.startRide();
     }
