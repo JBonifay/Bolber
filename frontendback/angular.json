@@ -1,11 +1,18 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "cli": {
+    "packageManager": "npm"
+  },
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "angular": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,19 +20,20 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": "dist/angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -58,12 +66,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "proxy.config.json"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "frontend:build:production"
+              "browserTarget": "angular:build:production"
             },
             "development": {
-              "browserTarget": "frontend:build:development"
+              "browserTarget": "angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontend:build"
+            "browserTarget": "angular:build"
           }
         },
         "test": {
@@ -82,14 +93,16 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "karmaConfig": "karma.conf.js"
           }
         }
       }
