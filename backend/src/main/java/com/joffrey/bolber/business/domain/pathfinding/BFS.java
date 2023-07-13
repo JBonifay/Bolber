@@ -10,8 +10,6 @@ import java.util.*;
 
 public class BFS extends PathFindingAlgorithm {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass().getName());
-
     @Override
     public List<Coordinates> findShortestPath(Block[] map, Coordinates startCoordinates, Coordinates endCoordinates) {
         Queue<Coordinates> queue = new LinkedList<>();
@@ -25,7 +23,11 @@ public class BFS extends PathFindingAlgorithm {
 
         while (!queue.isEmpty()) {
             Coordinates currentCoordinates = queue.poll();
-
+            
+            if (currentCoordinates == null) {
+                System.out.println("dqzdqzdqzdz");
+            }
+            
             if (currentCoordinates.equals(endCoordinates)) {
                 foundEnd = true;
                 break;
