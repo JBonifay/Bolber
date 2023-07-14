@@ -19,6 +19,10 @@ public class DriverManagement {
         drivers.add(driver);
     }
 
+    public List<Driver> drivers() {
+        return drivers;
+    }
+
     public void assignDriver(Booking booking) {
         Driver driver = nearestDriverLocator.findNearestDriverForBooking(drivers, booking.departure());
         booking.assignDriver(driver);

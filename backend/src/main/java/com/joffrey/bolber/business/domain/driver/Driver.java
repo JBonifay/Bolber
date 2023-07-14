@@ -48,6 +48,10 @@ public class Driver implements NavigationListener {
         return status;
     }
 
+    public UUID driverId() {
+        return driverId;
+    }
+
     @Override
     public void onArrivedToCustomer() {
         logger.info("Driver " + driverName + " is driving to destination.");
