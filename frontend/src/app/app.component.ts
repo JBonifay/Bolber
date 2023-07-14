@@ -18,13 +18,10 @@ export class AppComponent implements OnInit {
   blocks: Block[] = [];
   drivers: Driver[] = []
 
-  // cars: CarComponent[] = [];
-
   constructor(private httpClient: HttpClient, private socket: WebSocketService) {
     socket.watch('/topic/drivers').subscribe((message: Message) => {
-      let driver = JSON.parse(message.body) as Driver;
-      console.log(driver);
-      this.drivers.push(driver)
+      let driverMessage = JSON.parse(message.body) as Driver;
+      this.drivers.find(value => value.driverId === driverMessage.driverId)?.update(driverMessage);
     });
   }
 
