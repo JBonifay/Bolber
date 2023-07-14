@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Coordinates} from "../businesslogic/models/coordinates";
+import {Coordinates} from "./coordinates";
 
 @Component({
   selector: '[car-svg]',

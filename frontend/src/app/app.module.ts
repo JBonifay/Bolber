@@ -3,16 +3,21 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
+import {rxStompServiceFactory, WebSocketService} from "./web-socket.service";
+import {CarComponent} from "./car.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: WebSocketService, useFactory: rxStompServiceFactory}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
