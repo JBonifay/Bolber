@@ -1,4 +1,9 @@
-export interface Coordinates {
+export class Coordinates {
   horizontal: number
-  vertical: number
+  public vertical: number
+
+  constructor(horizontal: number, vertical: number) {
+    this.horizontal = horizontal;
+    this.vertical = vertical;
+  }
 }

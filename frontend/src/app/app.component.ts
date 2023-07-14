@@ -19,10 +19,6 @@ export class AppComponent implements OnInit {
   drivers: Driver[] = []
 
   constructor(private httpClient: HttpClient, private socket: WebSocketService) {
-    socket.watch('/topic/drivers').subscribe((message: Message) => {
-      let driverMessage = JSON.parse(message.body) as Driver;
-      this.drivers.find(value => value.driverId === driverMessage.driverId)?.update(driverMessage);
-    });
   }
 
   ngOnInit() {
@@ -36,5 +32,16 @@ export class AppComponent implements OnInit {
       },
       error => console.log(error));
 
+    this.httpClient.get<Driver[]>("/backend/api/drivers").subscribe(driverResponse => {
+      this.drivers = driverResponse;
+    })
+
+    this.socket.watch('/topic/drivers').subscribe((message: Message) => {
+      let driverMessage = JSON.parse(message.body) as Driver;
+      this.drivers.filter(value => value.driverId === driverMessage.driverId).map(value => {
+        value.coordinates.horizontal = driverMessage.coordinates.horizontal;
+        value.coordinates.vertical = driverMessage.coordinates.vertical;
+      })
+    });
   }
 }
