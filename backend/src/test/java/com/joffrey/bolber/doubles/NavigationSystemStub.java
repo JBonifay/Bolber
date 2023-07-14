@@ -7,6 +7,7 @@ import com.joffrey.bolber.business.domain.simulation.SimulationProperties;
 import com.joffrey.bolber.business.ports.DriverNotification;
 
 import java.util.List;
+import java.util.UUID;
 
 public class NavigationSystemStub extends NavigationSystem {
 
@@ -15,7 +16,7 @@ public class NavigationSystemStub extends NavigationSystem {
     }
 
     @Override
-    public void driveToCustomer(Coordinates actual, Coordinates customer) {
+    public void driveToCustomer(UUID driverId, Coordinates actual, Coordinates customer) {
 
     }
 

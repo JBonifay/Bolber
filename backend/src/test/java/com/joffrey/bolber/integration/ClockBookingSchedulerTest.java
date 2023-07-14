@@ -11,6 +11,8 @@ import com.joffrey.bolber.doubles.NavigationSystemStub;
 import com.joffrey.bolber.doubles.RandomBookingPropertiesSpy;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +28,7 @@ class ClockBookingSchedulerTest {
 
     @Test
     void should_send_random_booking_values() {
-        driverManagement.addDriver(new Driver("Albert", new Coordinates(10, 10), new NavigationSystemStub(new FakeSimulationProperties(), null)));
+        driverManagement.addDriver(new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Albert", new Coordinates(10, 10), new NavigationSystemStub(new FakeSimulationProperties(), null)));
         startScheduler();
 
         expectBookingWasHandledWithRandomValues();

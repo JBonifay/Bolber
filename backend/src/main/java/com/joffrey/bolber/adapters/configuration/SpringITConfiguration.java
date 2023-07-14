@@ -9,12 +9,12 @@ import com.joffrey.bolber.business.domain.driver.Driver;
 import com.joffrey.bolber.business.domain.driver.NavigationSystem;
 import com.joffrey.bolber.business.domain.pathfinding.BFS;
 import com.joffrey.bolber.business.domain.simulation.FakeSimulationProperties;
-import com.joffrey.bolber.business.domain.simulation.ProdSimulationProperties;
-import com.joffrey.bolber.business.domain.simulation.SimulationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+
+import java.util.UUID;
 
 @Profile("integration-test")
 @Configuration
@@ -32,7 +32,7 @@ public class SpringITConfiguration {
     public DriverManagement driverManagement(MapManagement mapManagement, SimpMessagingTemplate simpMessagingTemplate) {
         DriverManagement driverManagement = new DriverManagement();
         NavigationSystem navigationSystem = new NavigationSystem(new FakeSimulationProperties(), new SpringDriverNotification(simpMessagingTemplate), new BFS(), mapManagement.map());
-        driverManagement.addDriver(new Driver("Robert Plant", new Coordinates(0, 0), navigationSystem));
+        driverManagement.addDriver(new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Robert Plant", new Coordinates(0, 0), navigationSystem));
         return driverManagement;
     }
 

@@ -7,15 +7,17 @@ import com.joffrey.bolber.business.domain.driver.NavigationSystem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public final class DriverSpy extends Driver {
 
     private final List<Coordinates> steps = new ArrayList<>();
     private final List<DriverStatus> statuses = new ArrayList<>();
 
-    public DriverSpy(String driverName, Coordinates currentCoordinates, NavigationSystem navigationSystem) {
-        super(driverName, currentCoordinates, navigationSystem);
+    public DriverSpy(UUID driverId, String driverName, Coordinates currentCoordinates, NavigationSystem navigationSystem) {
+        super(driverId, driverName, currentCoordinates, navigationSystem);
     }
+
 
     @Override
     public void onMove(Coordinates coordinates) {

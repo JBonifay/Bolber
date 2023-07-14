@@ -10,6 +10,8 @@ import com.joffrey.bolber.business.domain.simulation.FakeSimulationProperties;
 import com.joffrey.bolber.doubles.NavigationSystemStub;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DriverManagementTest {
@@ -17,7 +19,7 @@ class DriverManagementTest {
     private final InMemoryBookingRepository bookingRepository = new InMemoryBookingRepository();
     private final BookingManagement bookingManagement = new BookingManagement(bookingRepository, driverManagement);
     private final NavigationSystemStub navigationSystemStub = new NavigationSystemStub(new FakeSimulationProperties(), null);
-    
+
     @Test
     void should_assign_closest_driver_to_booking_one_driver() {
         Driver closestDriver = aDriverIsPresent("Albert", new Coordinates(10, 10));
@@ -91,7 +93,7 @@ class DriverManagementTest {
     }
 
     private Driver aDriverIsPresent(String driverName, Coordinates currentCoordinates) {
-        Driver driver = new Driver(driverName, currentCoordinates, navigationSystemStub);
+        Driver driver = new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), driverName, currentCoordinates, navigationSystemStub);
         driverManagement.addDriver(driver);
         return driver;
     }

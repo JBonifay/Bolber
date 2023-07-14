@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.util.UUID;
+
 @Profile("prod")
 @Configuration
 public class SpringProdConfiguration {
@@ -29,11 +31,11 @@ public class SpringProdConfiguration {
     public DriverManagement driverManagement(MapManagement mapManagement, SpringDriverNotification springDriverNotification) {
         DriverManagement driverManagement = new DriverManagement();
         ProdSimulationProperties simulationProperties = new ProdSimulationProperties();
-        driverManagement.addDriver(new Driver("Robert Plant", new Coordinates(0, 0), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
-        driverManagement.addDriver(new Driver("Henry Dufour", new Coordinates(10, 10), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
-        driverManagement.addDriver(new Driver("Marta Blav", new Coordinates(5, 20), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
-        driverManagement.addDriver(new Driver("Yanis Boucji", new Coordinates(40, 40), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
-        driverManagement.addDriver(new Driver("Jérome Arp", new Coordinates(34, 45), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
+        driverManagement.addDriver(new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Robert Plant", new Coordinates(0, 0), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
+        driverManagement.addDriver(new Driver(UUID.fromString("7b19b7e7-4735-470a-812f-f970508ab1e4"), "Henry Dufour", new Coordinates(10, 10), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
+        driverManagement.addDriver(new Driver(UUID.fromString("823d4f51-20e9-45ef-8773-4c623ac6334d"), "Marta Blav", new Coordinates(5, 20), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
+        driverManagement.addDriver(new Driver(UUID.fromString("d17e24ec-a911-467d-9f9e-f1dd3c98bc5e"), "Yanis Boucji", new Coordinates(40, 40), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
+        driverManagement.addDriver(new Driver(UUID.fromString("0d8bcd89-0871-4002-a7de-f87d3fa17f0a"), "Jérome Arp", new Coordinates(34, 45), navigationSystem(mapManagement, springDriverNotification, simulationProperties)));
         return driverManagement;
     }
 

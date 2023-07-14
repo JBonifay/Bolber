@@ -3,8 +3,8 @@ package com.joffrey.bolber.integration;
 import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.domain.booking.Booking;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
-import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import com.joffrey.bolber.business.domain.driver.DriverStatus;
+import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -55,12 +56,23 @@ class DriverControllerIT {
         await()
                 .atMost(3, SECONDS)
                 .untilAsserted(() -> {
-                            assertEquals(new DriverMessage(DriverStatus.DRIVING_TO_CUSTOMER, new Coordinates(0, 0)),
-                                    receivedMessages.get(0));
-                            assertEquals(new DriverMessage(DriverStatus.DRIVING_TO_CUSTOMER, new Coordinates(0, 1)),
-                                    receivedMessages.get(1));
-                            assertEquals(new DriverMessage(DriverStatus.DRIVING_TO_CUSTOMER, new Coordinates(0, 2)),
-                                    receivedMessages.get(2));
+                            assertEquals(new DriverMessage(
+                                    UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"),
+                                    DriverStatus.DRIVING_TO_CUSTOMER,
+                                    new Coordinates(0, 0)
+                            ), receivedMessages.get(0));
+
+                            assertEquals(new DriverMessage(
+                                    UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"),
+                                    DriverStatus.DRIVING_TO_CUSTOMER,
+                                    new Coordinates(0, 1)
+                            ), receivedMessages.get(1));
+
+                            assertEquals(new DriverMessage(
+                                    UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"),
+                                    DriverStatus.DRIVING_TO_CUSTOMER,
+                                    new Coordinates(0, 2)
+                            ), receivedMessages.get(2));
                         }
                 );
     }

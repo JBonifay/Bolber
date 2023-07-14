@@ -3,6 +3,8 @@ package com.joffrey.bolber.business.domain.driver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.UUID;
+
 import static com.joffrey.bolber.business.domain.driver.DriverStatus.*;
 
 public class Driver implements NavigationListener {
@@ -13,8 +15,10 @@ public class Driver implements NavigationListener {
     private DriverStatus status = WAITING_FOR_RIDE;
     private Coordinates customer;
     private Coordinates destination;
+    private final UUID driverId;
 
-    public Driver(String driverName, Coordinates currentCoordinates, NavigationSystem navigationSystem) {
+    public Driver(UUID driverId, String driverName, Coordinates currentCoordinates, NavigationSystem navigationSystem) {
+        this.driverId = driverId;
         this.driverName = driverName;
         this.currentCoordinates = currentCoordinates;
         this.navigationSystem = navigationSystem;
@@ -29,7 +33,7 @@ public class Driver implements NavigationListener {
     public void startRide() {
         logger.info("Driver " + driverName + " is driving to customer.");
         updateStatus(DRIVING_TO_CUSTOMER);
-        navigationSystem.driveToCustomer(currentCoordinates, customer);
+        navigationSystem.driveToCustomer(driverId, currentCoordinates, customer);
     }
 
     public Coordinates currentCoordinates() {
@@ -48,7 +52,7 @@ public class Driver implements NavigationListener {
     public void onArrivedToCustomer() {
         logger.info("Driver " + driverName + " is driving to destination.");
         updateStatus(DRIVING_TO_DESTINATION);
-        navigationSystem.driveToDestination(customer, destination);
+        navigationSystem.driveToDestination(driverId, customer, destination);
     }
 
     @Override

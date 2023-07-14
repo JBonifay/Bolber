@@ -7,6 +7,7 @@ import com.joffrey.bolber.business.domain.simulation.SimulationProperties;
 import com.joffrey.bolber.business.ports.DriverNotification;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.joffrey.bolber.business.domain.driver.DriverStatus.DRIVING_TO_CUSTOMER;
 import static com.joffrey.bolber.business.domain.driver.DriverStatus.DRIVING_TO_DESTINATION;
@@ -29,21 +30,21 @@ public class NavigationSystem {
         this.navigationListener = navigationListener;
     }
 
-    public void driveToCustomer(Coordinates actual, Coordinates customer) {
-        drive(actual, customer, DRIVING_TO_CUSTOMER);
+    public void driveToCustomer(UUID driverId, Coordinates actual, Coordinates customer) {
+        drive(driverId, actual, customer, DRIVING_TO_CUSTOMER);
         navigationListener.onArrivedToCustomer();
     }
 
-    public void driveToDestination(Coordinates actual, Coordinates destination) {
-        drive(actual, destination, DRIVING_TO_DESTINATION);
+    public void driveToDestination(UUID driverId, Coordinates actual, Coordinates destination) {
+        drive(driverId, actual, destination, DRIVING_TO_DESTINATION);
         navigationListener.onArrivedToDestination();
     }
 
-    private void drive(Coordinates actual, Coordinates destination, DriverStatus driverStatus) {
+    private void drive(UUID driverId, Coordinates actual, Coordinates destination, DriverStatus driverStatus) {
         Itinerary shortestItinerary = findShortestItinerary(actual, destination);
         for (int i = 0; i < shortestItinerary.coordinates().size(); i++) {
             navigationListener.onMove(shortestItinerary.coordinates().get(i));
-            driverNotification.notify(new DriverMessage(driverStatus, shortestItinerary.coordinates().get(i)));
+            driverNotification.notify(new DriverMessage(driverId, driverStatus, shortestItinerary.coordinates().get(i)));
             simulationProperties.waitTimeBetweenDriverMovement();
         }
     }
