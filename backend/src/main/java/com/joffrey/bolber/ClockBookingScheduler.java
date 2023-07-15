@@ -23,7 +23,7 @@ public class ClockBookingScheduler {
         this.randomBookingProperties = randomBookingProperties;
     }
 
-    @Scheduled(fixedDelay = 3, timeUnit = TimeUnit.SECONDS)
+    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.SECONDS)
     public void start() {
         if (driverManagement.anyDriverAvailable()) {
             new Thread(() -> {
