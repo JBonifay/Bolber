@@ -15,7 +15,7 @@ public class MapController {
         this.mapManagement = mapManagement;
     }
 
-    @GetMapping("/api/map")
+    @GetMapping("/api/map_data")
     public ResponseEntity<Block[]> getMap() {
         return ResponseEntity.ok(mapManagement.map());
     }

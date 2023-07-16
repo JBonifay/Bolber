@@ -26,11 +26,11 @@ export class AppComponent implements OnInit {
     svg.setAttribute('width', `${this.svgViewSize}`)
     svg.setAttribute('height', `${this.svgViewSize}`)
 
-    this.httpClient.get<any>("/api/map").subscribe(
+    this.httpClient.get<any>("/api/map_data").subscribe(
       (value) => {
         this.blocks = value
-      },
-      error => console.log(error));
+      }
+    );
 
     this.httpClient.get<Driver[]>("/api/drivers").subscribe(driverResponse => {
       this.drivers = driverResponse;
