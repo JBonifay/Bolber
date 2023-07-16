@@ -9,7 +9,7 @@ services:
     command: --interval 30
   
   frontend:
-    image: ghcr.io/jbonifay/uberclone-frontend:latest
+    image: ghcr.io/jbonifay/bolber-frontend:latest
     volumes:
       - /root/certs:/certs:ro
     ports:
@@ -19,7 +19,7 @@ services:
       - frontend
   
   backend:
-    image: ghcr.io/jbonifay/uberclone-backend:latest
+    image: ghcr.io/jbonifay/bolber-backend:latest
     expose:
       - 8080
     networks:

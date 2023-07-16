@@ -28,7 +28,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: uberclone
+  IMAGE_NAME: bolber
 
 jobs:
   
@@ -56,10 +56,10 @@ jobs:
         include:
           - dockerfile: ./frontend/Dockerfile
             context: ./frontend
-            image: ghcr.io/jbonifay/uberclone-frontend
+            image: ghcr.io/jbonifay/bolber-frontend
           - dockerfile: ./backend/Dockerfile
             context: ./backend
-            image: ghcr.io/jbonifay/uberclone-backend
+            image: ghcr.io/jbonifay/bolber-backend
     permissions:
       contents: read
       packages: write
