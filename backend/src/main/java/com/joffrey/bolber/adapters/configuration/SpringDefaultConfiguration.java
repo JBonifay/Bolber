@@ -4,6 +4,7 @@ import com.joffrey.bolber.RandomBookingProperties;
 import com.joffrey.bolber.adapters.InMemoryBookingRepository;
 import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.DriverManagement;
+import com.joffrey.bolber.business.MapManagement;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +17,7 @@ public class SpringDefaultConfiguration {
     }
 
     @Bean
-    public RandomBookingProperties randomBookingProperties() {
-        return new RandomBookingProperties();
+    public RandomBookingProperties randomBookingProperties(MapManagement mapManagement) {
+        return new RandomBookingProperties(mapManagement.map());
     }
 }

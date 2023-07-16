@@ -2,6 +2,7 @@ package com.joffrey.bolber.doubles;
 
 import com.joffrey.bolber.RandomBookingProperties;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
+import com.joffrey.bolber.business.domain.map.Block;
 
 import java.util.UUID;
 
@@ -10,6 +11,10 @@ public class RandomBookingPropertiesSpy extends RandomBookingProperties {
     private String previousName;
     private Coordinates previousDeparture;
     private Coordinates previousDestination;
+
+    public RandomBookingPropertiesSpy(Block[] map) {
+        super(map);
+    }
 
     public UUID previousUuid() {
         return previousUuid;

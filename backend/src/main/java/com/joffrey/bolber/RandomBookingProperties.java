@@ -1,9 +1,15 @@
 package com.joffrey.bolber;
 
 import com.joffrey.bolber.business.domain.driver.Coordinates;
+import com.joffrey.bolber.business.domain.map.Block;
+import com.joffrey.bolber.business.domain.map.BlockType;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RandomBookingProperties {
     private final String[] fakeNames = {
@@ -29,6 +35,11 @@ public class RandomBookingProperties {
             "Kathy Copestake"
     };
     private final Random random = new Random();
+    private final Block[] map;
+
+    public RandomBookingProperties(Block[] map) {
+        this.map = map;
+    }
 
     public UUID nextUuid() {
         return UUID.randomUUID();
@@ -39,10 +50,14 @@ public class RandomBookingProperties {
     }
 
     public Coordinates nextDeparture() {
-        return new Coordinates(new Random().nextInt(50), new Random().nextInt(50));
+        List<Block> blockStream = Arrays.stream(map).filter(block -> block.blockType().equals(BlockType.ROAD)).toList();
+        Block departureBlock = blockStream.get(new Random().nextInt(blockStream.size()));
+        return new Coordinates(departureBlock.x(), departureBlock.y());
     }
 
     public Coordinates nextDestination() {
-        return new Coordinates(new Random().nextInt(50), new Random().nextInt(50));
+        List<Block> blockStream = Arrays.stream(map).filter(block -> block.blockType().equals(BlockType.ROAD)).toList();
+        Block departureBlock = blockStream.get(new Random().nextInt(blockStream.size()));
+        return new Coordinates(departureBlock.x(), departureBlock.y());
     }
 }
