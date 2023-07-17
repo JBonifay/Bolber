@@ -4,7 +4,6 @@ import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.domain.booking.Booking;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
 import com.joffrey.bolber.business.domain.messaging.CustomerMessage;
-import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SpringCustomerNotification extends AbstractIntegrationTest {
+class SpringCustomerNotificationIT extends AbstractIntegrationTest {
 
     @Value("${local.server.port}")
     private int port;

@@ -1,4 +1,4 @@
-package com.joffrey.bolber.integration;
+package com.joffrey.bolber.unit.business;
 
 import com.joffrey.bolber.ClockBookingScheduler;
 import com.joffrey.bolber.business.DriverManagement;
