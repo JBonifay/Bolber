@@ -22,7 +22,7 @@ class MapControllerIT {
 
     @Test
     void should_return_map() throws Exception {
-        mvc.perform(get("/api/map")
+        mvc.perform(get("/api/map_data")
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
