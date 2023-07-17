@@ -7,12 +7,11 @@ import com.joffrey.bolber.business.domain.driver.Coordinates;
 import com.joffrey.bolber.business.domain.driver.Driver;
 import com.joffrey.bolber.business.domain.driver.NavigationSystem;
 import com.joffrey.bolber.business.domain.map.Block;
+import com.joffrey.bolber.business.domain.messaging.CustomerEventMessage;
 import com.joffrey.bolber.business.domain.messaging.DriverMessage;
 import com.joffrey.bolber.business.domain.pathfinding.BFS;
 import com.joffrey.bolber.business.domain.simulation.FakeSimulationProperties;
-import com.joffrey.bolber.doubles.DriverNotificationStub;
-import com.joffrey.bolber.doubles.DriverSpy;
-import com.joffrey.bolber.doubles.NavigationSystemStub;
+import com.joffrey.bolber.doubles.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.joffrey.bolber.business.domain.driver.DriverStatus.*;
+import static com.joffrey.bolber.business.domain.messaging.SimulationEventType.PICKUP;
 import static com.joffrey.bolber.fixtures.BlockFixtures.I;
 import static com.joffrey.bolber.fixtures.BlockFixtures.R;
 import static com.joffrey.bolber.fixtures.MapFixtures.map;
@@ -183,8 +183,8 @@ public class NavigationSystemTest {
 
     @Test
     void should_notify_when_current_position_change() {
-        DriverNotificationStub notificationStub = new DriverNotificationStub();
-        NavigationSystem navigationSystem = new NavigationSystem(new FakeSimulationProperties(), notificationStub, new BFS(), map());
+        DriverNotificationSpy driverNotification = new DriverNotificationSpy();
+        NavigationSystem navigationSystem = new NavigationSystem(new FakeSimulationProperties(), driverNotification, new SimulationNotificationStub(), new BFS(), map());
         Driver driver = new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Albert", new Coordinates(0, 0), navigationSystem);
         driver.setDestinations(new Coordinates(2, 0), new Coordinates(4, 0));
         driver.startRide();
@@ -196,13 +196,28 @@ public class NavigationSystemTest {
                 new DriverMessage(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), DRIVING_TO_DESTINATION, new Coordinates(2, 0)),
                 new DriverMessage(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), DRIVING_TO_DESTINATION, new Coordinates(3, 0)),
                 new DriverMessage(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), DRIVING_TO_DESTINATION, new Coordinates(4, 0))
-        ), notificationStub.receivedMessages());
+        ), driverNotification.receivedMessages());
+    }
+
+    @Test
+    void should_send_event_pickup_when_customer_has_been_picked_up() {
+        SimulationNotificationSpy simulationNotification = new SimulationNotificationSpy();
+        NavigationSystem navigationSystem = new NavigationSystem(new FakeSimulationProperties(), new DriverNotificationStub(), simulationNotification, new PathFindingAlgorithmStub(), map());
+        navigationSystem.setNavigationListener(new NavigationListenerStub());
+
+        navigationSystem.driveToCustomer(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"), new Coordinates(0, 0), new Coordinates(10, 10));
+
+        assertEquals(
+                new CustomerEventMessage(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"), PICKUP),
+                simulationNotification.previousNotification()
+        );
     }
 
     private void assertDriverWasFollowingItinerary(Block[] map, Coordinates driver, Coordinates customer, Coordinates destination, List<Coordinates> expected) {
         NavigationSystem navigationSystem = new NavigationSystem(
                 new FakeSimulationProperties(),
-                new DriverNotificationStub(),
+                new DriverNotificationSpy(),
+                new SimulationNotificationStub(),
                 new BFS(),
                 map);
         DriverSpy currentDriver = new DriverSpy(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Eric", driver, navigationSystem);

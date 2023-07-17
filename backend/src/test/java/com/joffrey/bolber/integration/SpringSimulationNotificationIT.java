@@ -3,7 +3,9 @@ package com.joffrey.bolber.integration;
 import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.domain.booking.Booking;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
+import com.joffrey.bolber.business.domain.messaging.CustomerEventMessage;
 import com.joffrey.bolber.business.domain.messaging.CustomerMessage;
+import com.joffrey.bolber.business.domain.messaging.SimulationEventType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +29,14 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SpringCustomerNotificationIT extends AbstractIntegrationTest {
+class SpringSimulationNotificationIT extends AbstractIntegrationTest {
 
     @Value("${local.server.port}")
     private int port;
     @Autowired
     private BookingManagement bookingManagement;
     private WebSocketStompClient stompClient;
-    private List<CustomerMessage> receivedMessages;
+    private List<CustomerEventMessage> receivedMessages;
 
     @BeforeEach
     public void setup() {
@@ -44,36 +46,35 @@ class SpringCustomerNotificationIT extends AbstractIntegrationTest {
     }
 
     @Test
-    void should_receive_customer_info_notification_at_each_new_booking() throws ExecutionException, InterruptedException, TimeoutException {
-        subscribingToCustomersTopic(stompClient);
+    void should_receive_customer_pickup_event_notification_when_driver_pickup_customer() throws ExecutionException, InterruptedException, TimeoutException {
+        subscribingToCustomerEventTopic(stompClient);
         bookingManagement.handle(new Booking(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), new Coordinates(0, 2), null));
 
         await()
                 .atMost(3, SECONDS)
                 .untilAsserted(() -> {
-                            assertEquals(new CustomerMessage(
+                            assertEquals(new CustomerEventMessage(
                                     UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"),
-                                    new Coordinates(0, 2)
+                                    SimulationEventType.PICKUP
                             ), receivedMessages.get(0));
                         }
                 );
     }
 
-    private void subscribingToCustomersTopic(WebSocketStompClient stompClient) throws InterruptedException, ExecutionException, TimeoutException {
+    private void subscribingToCustomerEventTopic(WebSocketStompClient stompClient) throws InterruptedException, ExecutionException, TimeoutException {
         StompSession stompSession = stompClient.connectAsync("ws://localhost:" + port + "/socket", new StompSessionHandlerAdapter() {
         }).get(1, SECONDS);
 
-        stompSession.subscribe("/topic/customers", new StompFrameHandler() {
+        stompSession.subscribe("/topic/customer-event", new StompFrameHandler() {
             @Override
             public Type getPayloadType(StompHeaders stompHeaders) {
-                return CustomerMessage.class;
+                return CustomerEventMessage.class;
             }
 
             @Override
             public void handleFrame(StompHeaders stompHeaders, Object o) {
-                receivedMessages.add((CustomerMessage) o);
+                receivedMessages.add((CustomerEventMessage) o);
             }
         });
     }
-
 }

@@ -7,6 +7,7 @@ import com.joffrey.bolber.business.domain.booking.Booking;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
 import com.joffrey.bolber.business.domain.driver.Driver;
 import com.joffrey.bolber.business.domain.simulation.FakeSimulationProperties;
+import com.joffrey.bolber.doubles.CustomerNotificationStub;
 import com.joffrey.bolber.doubles.NavigationSystemStub;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DriverManagementTest {
     private final DriverManagement driverManagement = new DriverManagement();
     private final InMemoryBookingRepository bookingRepository = new InMemoryBookingRepository();
-    private final BookingManagement bookingManagement = new BookingManagement(bookingRepository, driverManagement, null);
+    private final BookingManagement bookingManagement = new BookingManagement(bookingRepository, driverManagement, new CustomerNotificationStub());
     private final NavigationSystemStub navigationSystemStub = new NavigationSystemStub(new FakeSimulationProperties(), null);
 
     @Test
