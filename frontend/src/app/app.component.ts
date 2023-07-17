@@ -4,6 +4,7 @@ import {Block} from "./block";
 import {WebSocketService} from "./web-socket.service";
 import {Message} from "@stomp/stompjs";
 import {Driver} from "./driver";
+import {Customer} from "./customer";
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   squareSize = this.svgViewSize / this.gridCount;
   blocks: Block[] = [];
   drivers: Driver[] = []
+  customer: Customer[] = []
 
   constructor(private httpClient: HttpClient, private socket: WebSocketService) {
   }
@@ -35,6 +37,11 @@ export class AppComponent implements OnInit {
     this.httpClient.get<Driver[]>("/api/drivers").subscribe(driverResponse => {
       this.drivers = driverResponse;
     })
+
+    this.socket.watch('/topic/customers').subscribe((message: Message) => {
+      let customerMessage = JSON.parse(message.body) as Customer;
+      this.customer.push(customerMessage);
+    });
 
     this.socket.watch('/topic/drivers').subscribe((message: Message) => {
       let driverMessage = JSON.parse(message.body) as Driver;
