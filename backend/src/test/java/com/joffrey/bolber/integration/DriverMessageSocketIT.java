@@ -51,7 +51,7 @@ class DriverMessageSocketIT {
     @Test
     void should_receive_drivers_notification_at_each_driver_movement() throws ExecutionException, InterruptedException, TimeoutException {
         subscribingToDriverTopic(stompClient);
-        bookingManagement.handle(new Booking(new Coordinates(0, 2), null));
+        bookingManagement.handle(new Booking(UUID.randomUUID(), new Coordinates(0, 2), null));
 
         await()
                 .atMost(3, SECONDS)

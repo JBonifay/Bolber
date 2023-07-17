@@ -13,7 +13,7 @@ public class BookingManagementSpy extends BookingManagement {
     private int bookingIdx = 0;
 
     public BookingManagementSpy() {
-        super(null, null);
+        super(null, null, null);
     }
 
     public Booking previousBookingReceived() {

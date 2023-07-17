@@ -11,6 +11,10 @@ import java.util.UUID;
 
 public class NavigationSystemStub extends NavigationSystem {
 
+    public NavigationSystemStub() {
+        super(null, null, null, null);
+    }
+
     public NavigationSystemStub(SimulationProperties simulationProperties, DriverNotification driverNotification) {
         super(simulationProperties, driverNotification, null, null);
     }

@@ -4,13 +4,16 @@ import com.joffrey.bolber.business.domain.driver.Coordinates;
 import com.joffrey.bolber.business.domain.driver.Driver;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public final class Booking {
+    private final UUID customerId;
     private final Coordinates departure;
     private final Coordinates destination;
     private Driver driver;
 
-    public Booking(Coordinates departure, Coordinates destination) {
+    public Booking(UUID customerId, Coordinates departure, Coordinates destination) {
+        this.customerId = customerId;
         this.departure = departure;
         this.destination = destination;
     }
@@ -29,6 +32,10 @@ public final class Booking {
 
     public Driver driver() {
         return driver;
+    }
+
+    public UUID customerId() {
+        return customerId;
     }
 
     @Override

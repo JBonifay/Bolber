@@ -73,6 +73,7 @@ class ClockBookingSchedulerTest {
                 .atMost(3, SECONDS)
                 .untilAsserted(() -> {
                     Booking booking = new Booking(
+                            UUID.randomUUID(),
                             randomBookingProperties.previousDeparture(),
                             randomBookingProperties.previousDestination());
                     assertEquals(

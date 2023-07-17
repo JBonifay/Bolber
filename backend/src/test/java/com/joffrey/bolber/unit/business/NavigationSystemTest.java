@@ -32,7 +32,7 @@ public class NavigationSystemTest {
     @BeforeEach
     void setUp() {
         driverManagement = new DriverManagement();
-        bookingManagement = new BookingManagement(new InMemoryBookingRepository(), driverManagement);
+        bookingManagement = new BookingManagement(new InMemoryBookingRepository(), driverManagement, null);
     }
 
     @Test

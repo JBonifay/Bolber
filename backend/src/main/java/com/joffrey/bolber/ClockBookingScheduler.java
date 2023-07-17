@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Profile("prod")
@@ -27,7 +28,7 @@ public class ClockBookingScheduler {
     public void start() {
         if (driverManagement.anyDriverAvailable()) {
             new Thread(() -> {
-                bookingManagement.handle(new Booking(randomBookingProperties.nextDeparture(), randomBookingProperties.nextDestination()));
+                bookingManagement.handle(new Booking(UUID.randomUUID(), randomBookingProperties.nextDeparture(), randomBookingProperties.nextDestination()));
             }).start();
         }
     }

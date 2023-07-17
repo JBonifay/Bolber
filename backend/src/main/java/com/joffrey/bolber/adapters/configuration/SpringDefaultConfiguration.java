@@ -13,7 +13,7 @@ public class SpringDefaultConfiguration {
 
     @Bean
     public BookingManagement bookingManagement(DriverManagement driverManagement) {
-        return new BookingManagement(new InMemoryBookingRepository(), driverManagement);
+        return new BookingManagement(new InMemoryBookingRepository(), driverManagement, null);
     }
 
     @Bean

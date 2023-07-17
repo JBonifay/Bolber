@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DriverManagementTest {
     private final DriverManagement driverManagement = new DriverManagement();
     private final InMemoryBookingRepository bookingRepository = new InMemoryBookingRepository();
-    private final BookingManagement bookingManagement = new BookingManagement(bookingRepository, driverManagement);
+    private final BookingManagement bookingManagement = new BookingManagement(bookingRepository, driverManagement, null);
     private final NavigationSystemStub navigationSystemStub = new NavigationSystemStub(new FakeSimulationProperties(), null);
 
     @Test
@@ -89,7 +89,7 @@ class DriverManagementTest {
     private void aBookingIsReceived() {
         Coordinates departure = new Coordinates(0, 0);
         Coordinates destination = new Coordinates(2, 2);
-        bookingManagement.handle(new Booking(departure, destination));
+        bookingManagement.handle(new Booking(UUID.randomUUID(), departure, destination));
     }
 
     private Driver aDriverIsPresent(String driverName, Coordinates currentCoordinates) {
