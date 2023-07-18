@@ -20,7 +20,7 @@ public class NavigationSystemStub extends NavigationSystem {
     }
 
     @Override
-    public void driveToCustomer(UUID driverId, Coordinates actual, Coordinates customer) {
+    public void driveToCustomer(UUID driverId, UUID customerId, Coordinates actual, Coordinates customer) {
 
     }
 

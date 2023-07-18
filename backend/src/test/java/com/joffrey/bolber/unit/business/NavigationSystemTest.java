@@ -3,6 +3,7 @@ package com.joffrey.bolber.unit.business;
 import com.joffrey.bolber.adapters.InMemoryBookingRepository;
 import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.DriverManagement;
+import com.joffrey.bolber.business.domain.booking.Booking;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
 import com.joffrey.bolber.business.domain.driver.Driver;
 import com.joffrey.bolber.business.domain.driver.NavigationSystem;
@@ -32,7 +33,7 @@ public class NavigationSystemTest {
     @BeforeEach
     void setUp() {
         driverManagement = new DriverManagement();
-        bookingManagement = new BookingManagement(new InMemoryBookingRepository(), driverManagement, null);
+        bookingManagement = new BookingManagement(new InMemoryBookingRepository(), driverManagement, new CustomerNotificationStub());
     }
 
     @Test
@@ -187,7 +188,7 @@ public class NavigationSystemTest {
         NavigationSystem navigationSystem = new NavigationSystem(new FakeSimulationProperties(), driverNotification, new SimulationNotificationStub(), new BFS(), map());
         Driver driver = new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Albert", new Coordinates(0, 0), navigationSystem);
         driver.setDestinations(new Coordinates(2, 0), new Coordinates(4, 0));
-        driver.startRide();
+        driver.startRide(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"));
 
         assertEquals(List.of(
                 new DriverMessage(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), DRIVING_TO_CUSTOMER, new Coordinates(0, 0)),
@@ -204,9 +205,12 @@ public class NavigationSystemTest {
         SimulationNotificationSpy simulationNotification = new SimulationNotificationSpy();
         NavigationSystem navigationSystem = new NavigationSystem(new FakeSimulationProperties(), new DriverNotificationStub(), simulationNotification, new PathFindingAlgorithmStub(), map());
         navigationSystem.setNavigationListener(new NavigationListenerStub());
+        Driver driver = new Driver(UUID.randomUUID(), "DriverName", new Coordinates(0, 0), navigationSystem);
+        driverManagement.addDriver(driver);
 
-        navigationSystem.driveToCustomer(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"), new Coordinates(0, 0), new Coordinates(10, 10));
-
+        Booking booking = new Booking(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"), new Coordinates(0, 0), new Coordinates(10, 10));
+        bookingManagement.handle(booking);
+        
         assertEquals(
                 new CustomerEventMessage(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"), PICKUP),
                 simulationNotification.previousNotification()
@@ -223,7 +227,7 @@ public class NavigationSystemTest {
         DriverSpy currentDriver = new DriverSpy(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Eric", driver, navigationSystem);
 
         currentDriver.setDestinations(customer, destination);
-        currentDriver.startRide();
+        currentDriver.startRide(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"));
 
         assertEquals(List.of(DRIVING_TO_CUSTOMER, DRIVING_TO_DESTINATION, WAITING_FOR_RIDE), currentDriver.updatedStatus());
         assertEquals(expected, currentDriver.updatedPositions());

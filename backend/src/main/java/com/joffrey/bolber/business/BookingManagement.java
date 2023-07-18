@@ -8,6 +8,8 @@ import com.joffrey.bolber.business.ports.CustomerNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.UUID;
+
 /**
  * Handles the creation and management of bookings. It may have methods like createBooking(), cancelBooking(), etc.
  */
@@ -33,7 +35,7 @@ public class BookingManagement {
         logger.info("Assigned a driver to booking " + booking);
         Driver driver = booking.driver();
         driver.setDestinations(booking.departure(), booking.destination());
-        driver.startRide();
+        driver.startRide(booking.customerId());
     }
 
 }

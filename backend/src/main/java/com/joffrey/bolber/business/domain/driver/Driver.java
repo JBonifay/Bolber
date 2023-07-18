@@ -30,10 +30,10 @@ public class Driver implements NavigationListener {
         this.destination = destination;
     }
 
-    public void startRide() {
+    public void startRide(UUID customerId) {
         logger.info("Driver " + driverName + " is driving to customer.");
         updateStatus(DRIVING_TO_CUSTOMER);
-        navigationSystem.driveToCustomer(driverId, currentCoordinates, customer);
+        navigationSystem.driveToCustomer(driverId, customerId, currentCoordinates, customer);
     }
 
     public Coordinates currentCoordinates() {

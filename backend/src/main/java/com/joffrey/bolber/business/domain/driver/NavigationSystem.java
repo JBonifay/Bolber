@@ -39,10 +39,10 @@ public class NavigationSystem {
         this.navigationListener = navigationListener;
     }
 
-    public void driveToCustomer(UUID driverId, Coordinates actual, Coordinates customer) {
+    public void driveToCustomer(UUID driverId, UUID customerId, Coordinates actual, Coordinates customer) {
         drive(driverId, actual, customer, DRIVING_TO_CUSTOMER);
         navigationListener.onArrivedToCustomer();
-        simulationNotification.notify(new CustomerEventMessage(driverId, PICKUP));
+        simulationNotification.notify(new CustomerEventMessage(customerId, PICKUP));
     }
 
     public void driveToDestination(UUID driverId, Coordinates actual, Coordinates destination) {
