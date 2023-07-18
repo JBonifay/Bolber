@@ -1,5 +1,6 @@
 package com.joffrey.bolber.business.domain.driver;
 
+import com.joffrey.bolber.business.domain.booking.Booking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +12,12 @@ public class Driver implements NavigationListener {
     private final Logger logger = LoggerFactory.getLogger(getClass().getName());
     private final String driverName;
     private final NavigationSystem navigationSystem;
+    private final UUID driverId;
     private Coordinates currentCoordinates;
     private DriverStatus status = WAITING_FOR_RIDE;
-    private Coordinates customer;
+    private Coordinates pickupPoint;
     private Coordinates destination;
-    private final UUID driverId;
+    private UUID customerId;
 
     public Driver(UUID driverId, String driverName, Coordinates currentCoordinates, NavigationSystem navigationSystem) {
         this.driverId = driverId;
@@ -25,15 +27,16 @@ public class Driver implements NavigationListener {
         this.navigationSystem.setNavigationListener(this);
     }
 
-    public void setDestinations(Coordinates customer, Coordinates destination) {
-        this.customer = customer;
-        this.destination = destination;
+    public void setRideInfo(Booking booking) {
+        this.customerId = booking.customerId();
+        this.pickupPoint = booking.departure();
+        this.destination = booking.destination();
     }
 
-    public void startRide(UUID customerId) {
+    public void startRide() {
         logger.info("Driver " + driverName + " is driving to customer.");
         updateStatus(DRIVING_TO_CUSTOMER);
-        navigationSystem.driveToCustomer(driverId, customerId, currentCoordinates, customer);
+        navigationSystem.driveToCustomer(driverId, currentCoordinates, pickupPoint);
     }
 
     public Coordinates currentCoordinates() {
@@ -56,7 +59,7 @@ public class Driver implements NavigationListener {
     public void onArrivedToCustomer() {
         logger.info("Driver " + driverName + " is driving to destination.");
         updateStatus(DRIVING_TO_DESTINATION);
-        navigationSystem.driveToDestination(driverId, customer, destination);
+        navigationSystem.driveToDestination(driverId, customerId, currentCoordinates, destination);
     }
 
     @Override

@@ -26,6 +26,7 @@ public class DriverManagement {
     public void assignDriver(Booking booking) {
         Driver driver = nearestDriverLocator.findNearestDriverForBooking(drivers, booking.departure());
         booking.assignDriver(driver);
+        driver.setRideInfo(booking);
     }
 
     public boolean anyDriverAvailable() {

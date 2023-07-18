@@ -80,7 +80,7 @@ class DriverManagementTest {
     void should_assign_to_first_available_driver() {
         Driver heber = aDriverIsPresent("Heber", new Coordinates(10, 10));
         Driver albert = aDriverIsPresent("Albert", new Coordinates(100, 100));
-        heber.startRide(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"));
+        heber.startRide();
 
         aBookingIsReceived();
 
