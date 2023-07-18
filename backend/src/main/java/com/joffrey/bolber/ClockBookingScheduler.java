@@ -27,7 +27,9 @@ public class ClockBookingScheduler {
     @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.SECONDS)
     public void start() {
         if (driverManagement.anyDriverAvailable()) {
-            bookingManagement.handle(new Booking(UUID.randomUUID(), randomBookingProperties.nextDeparture(), randomBookingProperties.nextDestination()));
+            new Thread(() -> {
+                bookingManagement.handle(new Booking(UUID.randomUUID(), randomBookingProperties.nextDeparture(), randomBookingProperties.nextDestination()));
+            }).start();
         }
     }
 

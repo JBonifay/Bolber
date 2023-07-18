@@ -46,7 +46,9 @@ export class AppComponent implements OnInit {
 
     this.socket.watch('/topic/customer-event').subscribe((message: Message) => {
       let customerEventMessage = JSON.parse(message.body) as CustomerEvent;
-      this.customer = []
+      let idxToRemove = this.customer.findIndex(value => value.customerId == customerEventMessage.uuid);
+      console.log(idxToRemove);
+      this.customer.splice(idxToRemove, 1)
     });
 
     this.socket.watch('/topic/drivers').subscribe((message: Message) => {
