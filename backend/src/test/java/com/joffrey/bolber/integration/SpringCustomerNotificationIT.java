@@ -45,7 +45,7 @@ class SpringCustomerNotificationIT extends AbstractIntegrationTest {
 
     @Test
     void should_receive_customer_info_notification_at_each_new_booking() throws ExecutionException, InterruptedException, TimeoutException {
-        subscribingToCustomersTopic(stompClient);
+        subscribingToCustomerTopic(stompClient);
         bookingManagement.handle(new Booking(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), new Coordinates(0, 2), null));
 
         await()
@@ -59,9 +59,9 @@ class SpringCustomerNotificationIT extends AbstractIntegrationTest {
                 );
     }
 
-    private void subscribingToCustomersTopic(WebSocketStompClient stompClient) throws InterruptedException, ExecutionException, TimeoutException {
+    private void subscribingToCustomerTopic(WebSocketStompClient stompClient) throws InterruptedException, ExecutionException, TimeoutException {
         StompSession stompSession = stompClient.connectAsync("ws://localhost:" + port + "/socket", new StompSessionHandlerAdapter() {
-        }).get(1, SECONDS);
+        }).get(3, SECONDS);
 
         stompSession.subscribe("/topic/customers", new StompFrameHandler() {
             @Override
@@ -74,6 +74,7 @@ class SpringCustomerNotificationIT extends AbstractIntegrationTest {
                 receivedMessages.add((CustomerMessage) o);
             }
         });
+        Thread.sleep(10); // subscription isn't fast enough
     }
 
 }

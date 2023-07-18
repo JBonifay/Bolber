@@ -1,6 +1,7 @@
 package com.joffrey.bolber.business;
 
 import com.joffrey.bolber.business.domain.booking.Booking;
+import com.joffrey.bolber.business.domain.driver.Driver;
 import com.joffrey.bolber.business.domain.messaging.CustomerMessage;
 import com.joffrey.bolber.business.ports.BookingRepository;
 import com.joffrey.bolber.business.ports.CustomerNotification;
@@ -26,7 +27,13 @@ public class BookingManagement {
         logger.info("Booking received :" + booking);
         driverManagement.assignDriver(booking);
         bookingRepository.save(booking);
+
         customerNotification.notify(new CustomerMessage(booking.customerId(), booking.departure()));
+
+        logger.info("Assigned a driver to booking " + booking);
+        Driver driver = booking.driver();
+        driver.setDestinations(booking.departure(), booking.destination());
+        driver.startRide();
     }
 
 }
