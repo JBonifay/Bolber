@@ -28,17 +28,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NavigationSystemTest {
     private DriverManagement driverManagement;
-    private BookingManagement bookingManagement;
 
     @BeforeEach
     void setUp() {
         driverManagement = new DriverManagement();
-        bookingManagement = new BookingManagement(new InMemoryBookingRepository(), driverManagement, new CustomerNotificationStub());
     }
 
     @Test
     void driver_status_should_be_waiting_for_ride_when_idle() {
-        Driver driver = new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Albert", new Coordinates(10, 10), new NavigationSystemStub(new FakeSimulationProperties(), null));
+        Driver driver = new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Albert", new Coordinates(10, 10), new NavigationSystemStub());
         assertEquals(WAITING_FOR_RIDE, driver.status());
     }
 
@@ -187,6 +185,7 @@ public class NavigationSystemTest {
         DriverNotificationSpy driverNotification = new DriverNotificationSpy();
         NavigationSystem navigationSystem = new NavigationSystem(new FakeSimulationProperties(), driverNotification, new SimulationNotificationStub(), new BFS(), map());
         Driver driver = new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Albert", new Coordinates(0, 0), navigationSystem);
+        driver.setOnRideFinishedListener(new OnRideFinishedListenerStub());
         driver.setRideInfo(new Booking(UUID.randomUUID(), new Coordinates(2, 0), new Coordinates(4, 0)));
         driver.startRide();
 
@@ -206,6 +205,7 @@ public class NavigationSystemTest {
         NavigationSystem navigationSystem = new NavigationSystem(new FakeSimulationProperties(), new DriverNotificationStub(), simulationNotification, new PathFindingAlgorithmStub(), map());
         navigationSystem.setNavigationListener(new NavigationListenerStub());
         Driver driver = new Driver(UUID.randomUUID(), "DriverName", new Coordinates(0, 0), navigationSystem);
+        driver.setOnRideFinishedListener(new OnRideFinishedListenerStub());
         driver.setRideInfo(new Booking(UUID.fromString("1e9e229b-98a5-496f-b52e-1392d40c8a4d"), new Coordinates(10, 10), new Coordinates(40, 23)));
         driverManagement.addDriver(driver);
 
@@ -225,8 +225,9 @@ public class NavigationSystemTest {
                 new BFS(),
                 map);
         DriverSpy currentDriver = new DriverSpy(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Eric", driver, navigationSystem);
-
         currentDriver.setRideInfo(new Booking(UUID.randomUUID(), customer, destination));
+        currentDriver.setOnRideFinishedListener(new OnRideFinishedListenerStub());
+                
         currentDriver.startRide();
 
         assertEquals(List.of(DRIVING_TO_CUSTOMER, DRIVING_TO_DESTINATION, WAITING_FOR_RIDE), currentDriver.updatedStatus());

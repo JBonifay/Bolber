@@ -10,4 +10,13 @@ public class ProdSimulationProperties implements SimulationProperties {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void pickupWaitTime() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

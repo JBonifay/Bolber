@@ -4,11 +4,13 @@ import com.joffrey.bolber.adapters.InMemoryBookingRepository;
 import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.DriverManagement;
 import com.joffrey.bolber.business.domain.booking.Booking;
+import com.joffrey.bolber.business.domain.booking.OnRideFinishedListener;
 import com.joffrey.bolber.business.domain.driver.Coordinates;
 import com.joffrey.bolber.business.domain.driver.Driver;
 import com.joffrey.bolber.business.domain.simulation.FakeSimulationProperties;
 import com.joffrey.bolber.doubles.CustomerNotificationStub;
 import com.joffrey.bolber.doubles.NavigationSystemStub;
+import com.joffrey.bolber.doubles.OnRideFinishedListenerStub;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -19,7 +21,7 @@ class DriverManagementTest {
     private final DriverManagement driverManagement = new DriverManagement();
     private final InMemoryBookingRepository bookingRepository = new InMemoryBookingRepository();
     private final BookingManagement bookingManagement = new BookingManagement(bookingRepository, driverManagement, new CustomerNotificationStub());
-    private final NavigationSystemStub navigationSystemStub = new NavigationSystemStub(new FakeSimulationProperties(), null);
+    private final NavigationSystemStub navigationSystemStub = new NavigationSystemStub();
 
     @Test
     void should_assign_closest_driver_to_booking_one_driver() {
@@ -95,6 +97,7 @@ class DriverManagementTest {
 
     private Driver aDriverIsPresent(String driverName, Coordinates currentCoordinates) {
         Driver driver = new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), driverName, currentCoordinates, navigationSystemStub);
+        driver.setOnRideFinishedListener(new OnRideFinishedListenerStub());
         driverManagement.addDriver(driver);
         return driver;
     }

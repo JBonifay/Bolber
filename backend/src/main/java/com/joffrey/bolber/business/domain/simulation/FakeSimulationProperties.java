@@ -9,4 +9,13 @@ public class FakeSimulationProperties implements SimulationProperties {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void pickupWaitTime() {
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

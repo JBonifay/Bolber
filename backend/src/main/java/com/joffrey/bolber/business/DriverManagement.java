@@ -23,7 +23,7 @@ public class DriverManagement {
         return drivers;
     }
 
-    public void assignDriver(Booking booking) {
+    public void assignNearestDriver(Booking booking) {
         Driver driver = nearestDriverLocator.findNearestDriverForBooking(drivers, booking.departure());
         booking.assignDriver(driver);
         driver.setRideInfo(booking);

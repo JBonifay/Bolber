@@ -41,7 +41,7 @@ class ClockBookingSchedulerTest {
     @Test
     void should_send_random_booking_values() {
 
-        driverManagement.addDriver(new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Albert", new Coordinates(10, 10), new NavigationSystemStub(new FakeSimulationProperties(), null)));
+        driverManagement.addDriver(new Driver(UUID.fromString("bbd54a9b-e07c-4026-8199-bd2eee6b17de"), "Albert", new Coordinates(10, 10), new NavigationSystemStub()));
         startScheduler();
 
         expectBookingWasHandledWithRandomValues();

@@ -41,6 +41,7 @@ public class NavigationSystem {
 
     public void driveToCustomer(UUID driverId, Coordinates actual, Coordinates customer) {
         drive(driverId, actual, customer, DRIVING_TO_CUSTOMER);
+        simulationProperties.pickupWaitTime();
         navigationListener.onArrivedToCustomer();
     }
 

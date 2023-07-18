@@ -39,6 +39,10 @@ export class AppComponent implements OnInit {
       this.drivers = driverResponse;
     })
 
+    this.httpClient.get<Customer[]>("/api/customers").subscribe(customerResponse => {
+      this.customer = customerResponse;
+    })
+
     this.socket.watch('/topic/customers').subscribe((message: Message) => {
       let customerMessage = JSON.parse(message.body) as Customer;
       this.customer.push(customerMessage);
@@ -47,7 +51,6 @@ export class AppComponent implements OnInit {
     this.socket.watch('/topic/customer-event').subscribe((message: Message) => {
       let customerEventMessage = JSON.parse(message.body) as CustomerEvent;
       let idxToRemove = this.customer.findIndex(value => value.customerId == customerEventMessage.uuid);
-      console.log(idxToRemove);
       this.customer.splice(idxToRemove, 1)
     });
 

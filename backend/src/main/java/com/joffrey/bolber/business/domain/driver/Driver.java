@@ -1,6 +1,7 @@
 package com.joffrey.bolber.business.domain.driver;
 
 import com.joffrey.bolber.business.domain.booking.Booking;
+import com.joffrey.bolber.business.domain.booking.OnRideFinishedListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ public class Driver implements NavigationListener {
     private Coordinates pickupPoint;
     private Coordinates destination;
     private UUID customerId;
+    private OnRideFinishedListener onRideFinishedListener;
 
     public Driver(UUID driverId, String driverName, Coordinates currentCoordinates, NavigationSystem navigationSystem) {
         this.driverId = driverId;
@@ -65,12 +67,18 @@ public class Driver implements NavigationListener {
     @Override
     public void onArrivedToDestination() {
         logger.info("Driver " + driverName + " finished the ride.");
+        onRideFinishedListener.onRideFinished();
         updateStatus(WAITING_FOR_RIDE);
     }
 
     @Override
     public void onMove(Coordinates coordinates) {
         currentCoordinates = coordinates;
+    }
+
+    @Override
+    public void setOnRideFinishedListener(OnRideFinishedListener onRideFinishedListener) {
+        this.onRideFinishedListener = onRideFinishedListener;
     }
 
 

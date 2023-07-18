@@ -6,6 +6,7 @@ import com.joffrey.bolber.adapters.secondary.SpringCustomerNotification;
 import com.joffrey.bolber.business.BookingManagement;
 import com.joffrey.bolber.business.DriverManagement;
 import com.joffrey.bolber.business.MapManagement;
+import com.joffrey.bolber.business.ports.BookingRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,8 +14,13 @@ import org.springframework.context.annotation.Configuration;
 public class SpringDefaultConfiguration {
 
     @Bean
-    public BookingManagement bookingManagement(DriverManagement driverManagement, SpringCustomerNotification springCustomerNotification) {
-        return new BookingManagement(new InMemoryBookingRepository(), driverManagement, springCustomerNotification);
+    public BookingRepository bookingRepository() {
+        return new InMemoryBookingRepository();
+    }
+
+    @Bean
+    public BookingManagement bookingManagement(DriverManagement driverManagement, SpringCustomerNotification springCustomerNotification, BookingRepository bookingRepository) {
+        return new BookingManagement(bookingRepository, driverManagement, springCustomerNotification);
     }
 
     @Bean

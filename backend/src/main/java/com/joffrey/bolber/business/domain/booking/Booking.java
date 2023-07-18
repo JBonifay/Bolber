@@ -6,11 +6,16 @@ import com.joffrey.bolber.business.domain.driver.Driver;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.joffrey.bolber.business.domain.booking.BookingStatus.CONFIRMED;
+import static com.joffrey.bolber.business.domain.booking.BookingStatus.FINISHED;
+
 public final class Booking {
+    private final UUID bookingId = UUID.randomUUID();
     private final UUID customerId;
     private final Coordinates departure;
     private final Coordinates destination;
     private Driver driver;
+    private BookingStatus bookingStatus = CONFIRMED;
 
     public Booking(UUID customerId, Coordinates departure, Coordinates destination) {
         this.customerId = customerId;
@@ -36,6 +41,18 @@ public final class Booking {
 
     public UUID customerId() {
         return customerId;
+    }
+
+    public BookingStatus status() {
+        return bookingStatus;
+    }
+
+    public UUID bookingId() {
+        return bookingId;
+    }
+
+    public void finished() {
+        bookingStatus = FINISHED;
     }
 
     @Override
