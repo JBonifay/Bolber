@@ -1,5 +1,5 @@
 export class Coordinates {
-  horizontal: number
+  public horizontal: number
   public vertical: number
 
   constructor(horizontal: number, vertical: number) {

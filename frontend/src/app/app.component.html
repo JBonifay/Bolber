@@ -11,11 +11,11 @@
          [y]="d.coordinates.vertical * squareSize"
          *ngFor="let d of drivers"/>
 
-  <svg:rect [attr.x]="c.customerDepartureCoordinates.horizontal * squareSize"
-            [attr.y]="c.customerDepartureCoordinates.vertical * squareSize"
-            width="10"
-            height="10"
-            rx="10"
-            style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)"
-            *ngFor="let c of customer"/>
+  <svg:rect
+    [attr.x]="c.customerDepartureCoordinates.horizontal * squareSize"
+    [attr.y]="c.customerDepartureCoordinates.vertical * squareSize"
+    *ngFor="let c of customer"
+    height="10"
+    width="10"
+  />
 </svg>

@@ -31,8 +31,7 @@ public class BookingManagement {
         bookingRepository.save(booking);
 
         customerNotification.notify(new CustomerMessage(booking.customerId(), booking.departure()));
-
-        logger.info("Assigned a driver to booking " + booking);
+        
         Driver driver = booking.driver();
         driver.setDestinations(booking.departure(), booking.destination());
         driver.startRide(booking.customerId());

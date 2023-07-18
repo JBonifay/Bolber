@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   private gridCount = 50;
   squareSize = this.svgViewSize / this.gridCount;
   blocks: Block[] = [];
-  drivers: Array<Driver> = []
+  drivers: Driver[] = []
   customer: Customer[] = []
 
   constructor(private httpClient: HttpClient, private socket: WebSocketService) {
@@ -42,17 +42,11 @@ export class AppComponent implements OnInit {
     this.socket.watch('/topic/customers').subscribe((message: Message) => {
       let customerMessage = JSON.parse(message.body) as Customer;
       this.customer.push(customerMessage);
-      console.log("Adding customer " + customerMessage.customerId)
     });
 
     this.socket.watch('/topic/customer-event').subscribe((message: Message) => {
       let customerEventMessage = JSON.parse(message.body) as CustomerEvent;
-      let idx = this.customer.findIndex(value => {
-        console.log(value.customerId + "==" + customerEventMessage.uuid)
-        return value.customerId == customerEventMessage.uuid
-      })
-      delete this.customer[idx];
-      console.log("deleting " + idx)
+      this.customer = []
     });
 
     this.socket.watch('/topic/drivers').subscribe((message: Message) => {
